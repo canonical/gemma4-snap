@@ -15,6 +15,12 @@ modelctl set --package http.port="8336"
 modelctl set --package http.host="127.0.0.1"
 modelctl set --package verbose="false"
 
+# Webui server config
+modelctl set --package webui.http.port="8337"
+modelctl set --package webui.http.host="127.0.0.1"
+
+
+
 #
 # Auto select an engine
 #

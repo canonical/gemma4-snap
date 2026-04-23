@@ -22,6 +22,19 @@
     },
     {
       "customType": "regex",
+      "description": "Update inference-snaps-webui",
+      "fileMatch": [
+        "^snap/snapcraft\\.yaml$"
+      ],
+      "matchStrings": [
+        "https://github\\.com/canonical/inference-snaps-webui/releases/download/(?<currentValue>v[^/]+)/inference-snaps-webui"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "canonical/inference-snaps-webui",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
       "description": "Update llama.cpp builds",
       "fileMatch": [
         "^snap/snapcraft\\.yaml$"
