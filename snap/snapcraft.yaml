@@ -11,14 +11,29 @@ grade: stable
 confinement: strict
 compression: lzo
 
-environment:
-  SNAP_COMPONENTS: /snap/$SNAP_INSTANCE_NAME/components/$SNAP_REVISION
-  ARCH_TRIPLET: $CRAFT_ARCH_TRIPLET_BUILD_FOR
+slots:
+  status:
+    interface: content
+    source:
+      read:
+        - &status-share $SNAP_DATA/share/status
+  open-webui:
+    interface: content
+    content: open-webui-config
+    source:
+      read:
+        - &owui-share $SNAP_DATA/share/open-webui
 
 plugs:
   # To allow side-loading models into server (root daemon) from user home directory
   home:
     read: all
+
+environment:
+  SNAP_COMPONENTS: /snap/$SNAP_INSTANCE_NAME/components/$SNAP_REVISION
+  ARCH_TRIPLET: $CRAFT_ARCH_TRIPLET_BUILD_FOR
+  STATUS_SHARE: *status-share # Status directory shared via content interface
+  OWUI_SHARE: *owui-share # Open WebUI config directory shared via content interface
 
 hooks:
   install:
@@ -91,6 +106,7 @@ parts:
     organize:
       "server.sh": bin/
       "server-webui.sh": bin/
+      "export-shared-configs.sh": bin/
       "completion.bash": bin/
 
   model-e4b-q4-k-m-gguf:
