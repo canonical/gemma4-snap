@@ -104,6 +104,6 @@ The `dev/` submodule contains shared scripts and GitHub Actions workflows for bu
 - **Engine selection**: engines declare required devices with `anyof`/`allof` in `engine.yaml`; `modelctl use-engine --auto` matches these against detected hardware at install time.
 - **Component naming in `snapcraft.yaml`**: component parts use `organize: "*": (component/<name>)` syntax to stage files into the component prime directory.
 - **Model part lifecycle bypass**: model shards are copied directly in `override-prime` (skipping staging) to avoid duplicating large files on disk. Non-gguf files from shard 1's source directory (e.g., `component.yaml`, `README.md`) are also copied there; other shards get a placeholder `component.yaml`.
-- **Daemon default config**: port `8330`, host `127.0.0.1`, verbose `false` — set in `snap/hooks/install`.
+- **Daemon default config**: port `8336`, host `127.0.0.1`, verbose `false` — set in `snap/hooks/install`.
 - **Renovate** (`renovate.json`): auto-updates `inference-snaps-cli` and `llama.cpp-builds` release URLs in `snapcraft.yaml` via regex custom managers, and tracks the `dev` submodule.
 - **Issues and discussions** are managed in the upstream [`canonical/inference-snaps`](https://github.com/canonical/inference-snaps) repository, not this snap-specific repo.
