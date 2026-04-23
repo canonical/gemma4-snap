@@ -22,9 +22,12 @@ plugs:
 
 hooks:
   install:
-    plugs:
+    plugs: &install-plugs
+      # For hardware detection
       - hardware-observe
       - opengl
+  post-refresh:
+    plugs: *install-plugs
 
 parts:
   version:
