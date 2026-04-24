@@ -1,0 +1,19 @@
+#!/bin/bash -eu
+
+port="$(modelctl get http.port)"
+host="$(modelctl get http.host)"
+
+mmproj_args=()
+if [ -n "${MMPROJ_FILE:-}" ]; then
+  mmproj_args=(--mmproj "$MMPROJ_FILE")
+fi
+
+set -x
+# Adding --no-warmup to skip the model warmup phase during server startup in order to reduce resource usage if not needed.
+exec llama-server \
+  --model "$MODEL_FILE" \
+  "${mmproj_args[@]}" \
+  --port "$port" \
+  --host "$host" \
+  --no-warmup \
+  "$@"

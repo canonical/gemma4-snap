@@ -26,8 +26,8 @@ slots:
 
 plugs:
   # To allow side-loading models into server (root daemon) from user home directory
-  home:
-    read: all
+  # home:
+  #   read: all
 
 environment:
   SNAP_COMPONENTS: /snap/$SNAP_INSTANCE_NAME/components/$SNAP_REVISION
@@ -51,7 +51,7 @@ parts:
     build-packages:
       - git-lfs
     override-pull: |
-      craftctl set version="v4+$(git -C $SNAPCRAFT_PROJECT_DIR describe --always)"
+      craftctl set version="e4b+$(git -C $SNAPCRAFT_PROJECT_DIR describe --always)"
 
   cli:
     source:
@@ -109,91 +109,53 @@ parts:
       "export-shared-configs.sh": bin/
       "completion.bash": bin/
 
-  model-e4b-q4-k-m-gguf:
-    plugin: nil
-    override-prime: |
-      set +x # reduce noise
+  local-component-files:
+    plugin: dump
+    source: components
+    organize:
+      "llamacpp/*": (component/llamacpp)
+      "llamacpp-cuda/*": (component/llamacpp-cuda)
+      "llamacpp-rocm/*": (component/llamacpp-rocm)
+      "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
+      "mmproj-e4b-q8-0-gguf/*": (component/mmproj-e4b-q8-0-gguf)
+    prime:
+      # Exclude everything not explicitly organized
+      - -*
 
-      # Bypassing the usual part lifecycle saves disk space and time when dealing with large files
-      # Copy model files directly from the project into the component's prime directory
-      target="CRAFT_COMPONENT_MODEL_E4B_Q4_K_M_GGUF_PRIME"
-      source="$CRAFT_PROJECT_DIR/components/model-e4b-q4-k-m-gguf"
-
-      cp -v "$source/gemma-4-E4B-it-Q4_K_M.gguf" "${!target}/"
-
-      # Copy any other non-gguf files (component.yaml, README.md, etc.)
-      for f in "$source"/*; do
-        if [ -f "$f" ]; then
-          case "$f" in
-            *.gguf) ;;
-            *) cp -v "$f" "${!target}/" ;;
-          esac
-        fi
-      done
-
-  mmproj-e4b-q8-0-gguf:
-    plugin: nil
-    override-prime: |
-      set +x # reduce noise
-
-      target="CRAFT_COMPONENT_MMPROJ_E4B_Q8_0_GGUF_PRIME"
-      source="$CRAFT_PROJECT_DIR/components/mmproj-e4b-q8-0-gguf"
-
-      cp -v "$source/mmproj-gemma-4-E4B-it-Q8_0.gguf" "${!target}/"
-
-      # Copy any other non-gguf files (component.yaml, README.md, etc.)
-      for f in "$source"/*; do
-        if [ -f "$f" ]; then
-          case "$f" in
-            *.gguf) ;;
-            *) cp -v "$f" "${!target}/" ;;
-          esac
-        fi
-      done
-
-  llama-cpp:
+  llamacpp:
     plugin: dump
     source: 
       - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64.tar.gz
       - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-arm64.tar.gz
-    override-build: |
-      # Move license files to be included in the snap, not the component
-      mkdir -p $CRAFT_PRIME/usr/share/doc/
-      mv licenses $CRAFT_PRIME/usr/share/doc/llama.cpp
-
-      craftctl default
     stage-packages:
       - libgomp1
     organize:
-      "*": (component/llama-cpp)
-  
-  llama-cpp-local-files:
-    plugin: dump
-    source: components/llama-cpp
-    organize:
-      "*": (component/llama-cpp)
+      "licenses": usr/share/doc/llama.cpp # Add licenses to the snap
+      "*": (component/llamacpp)
     
-  llama-cpp-cuda:
+  llamacpp-cuda:
     plugin: dump
     source: 
       - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64+cuda12.tar.gz
       - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-arm64+cuda12.tar.gz
-    override-build: |
-      # Move license files to be included in the snap, not the component
-      mkdir -p $CRAFT_PRIME/usr/share/doc/
-      mv licenses $CRAFT_PRIME/usr/share/doc/llama.cpp-cuda
-
-      craftctl default
     stage-packages:
       - libgomp1
     organize:
-      "*": (component/llama-cpp-cuda)
-
-  llama-cpp-cuda-local-files:
+      "licenses": usr/share/doc/llama.cpp+cuda # Add licenses to the snap
+      "*": (component/llamacpp-cuda)
+  
+  llamacpp-rocm-amd64:
     plugin: dump
-    source: components/llama-cpp-cuda
+    override-pull: |
+      # Build this for amd64 only
+      [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ] && craftctl default
+    source: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64+rocm.tar.gz
+    stage-packages:
+      - libgomp1
+      - libatomic1
     organize:
-      "*": (component/llama-cpp-cuda)
+      "licenses": usr/share/doc/llama.cpp+rocm # Add licenses to the snap
+      "*": (component/llamacpp-rocm)
 
   notice:
     plugin: nil
@@ -217,14 +179,19 @@ components:
     summary: Google Gemma 4 E4B multimodal projector Q8_0 GGUF
     description: Multimodal projector weights for Google Gemma 4 E4B vision support in GGUF format
 
-  llama-cpp:
+  llamacpp:
     type: standard
     summary: llama.cpp using default CPU instruction sets
     description: LLM inference in C/C++
   
-  llama-cpp-cuda:
+  llamacpp-cuda:
     type: standard
     summary: llama.cpp with CUDA backend
+    description: LLM inference in C/C++
+
+  llamacpp-rocm:
+    type: standard
+    summary: llama.cpp with ROCm backend
     description: LLM inference in C/C++
 
 apps:
@@ -246,6 +213,7 @@ apps:
       - network-bind
       - hardware-observe
       - opengl
+      - process-control
       - home
 
   server-webui:

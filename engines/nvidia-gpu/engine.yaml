@@ -14,7 +14,7 @@ devices:
 memory: 8G
 disk-space: 8G
 components:
-  - llama-cpp-cuda
+  - llamacpp-cuda
   - model-e4b-q4-k-m-gguf
   - mmproj-e4b-q8-0-gguf
 configurations:
