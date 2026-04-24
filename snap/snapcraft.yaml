@@ -146,9 +146,6 @@ parts:
   
   llamacpp-rocm-amd64:
     plugin: dump
-    override-pull: |
-      # Build this for amd64 only
-      [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ] && craftctl default
     source: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64+rocm.tar.gz
     stage-packages:
       - libgomp1
@@ -156,6 +153,12 @@ parts:
     organize:
       "licenses": usr/share/doc/llama.cpp+rocm # Add licenses to the snap
       "*": (component/llamacpp-rocm)
+    # This part is only for amd64
+    override-pull: &amd64-only |
+      [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ] && craftctl default || exit 0
+    override-build: *amd64-only
+    override-stage: *amd64-only
+    override-prime: *amd64-only
 
   notice:
     plugin: nil
