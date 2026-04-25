@@ -35,6 +35,11 @@ environment:
   STATUS_SHARE: *status-share # Status directory shared via content interface
   OWUI_SHARE: *owui-share # Open WebUI config directory shared via content interface
 
+layout:
+  # Under wsl the libraries are expected in /usr/lib/wsl
+  /usr/lib/wsl:
+    bind: $SNAP_COMMON/usr/lib/wsl
+
 hooks:
   install:
     plugs: &install-plugs
