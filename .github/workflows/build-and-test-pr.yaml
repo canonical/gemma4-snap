@@ -41,7 +41,7 @@ jobs:
           - [ self-hosted, arm64, noble, xlarge ]
     with:
       runner: "${{ toJSON(matrix.runner) }}"
-      init-build-script: '.github/workflows/init-build.sh'
+      init-build-script: '.github/workflows/download-models.sh'
       publish-channel: latest/edge/pr-${{ github.event.pull_request.number }}
     secrets:
       store-credentials: ${{ secrets.STORE_LOGIN_PR }}
