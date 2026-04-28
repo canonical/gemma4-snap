@@ -23,7 +23,7 @@ jobs:
     steps:
       - id: build-pre-check
         name: Check for existing successful build
-        uses: canonical/inference-snaps-testing/.github/actions/build-pre-check@IENG-2278-testing-workflow
+        uses: canonical/inference-snaps-testing/.github/actions/build-pre-check@v1
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -41,7 +41,7 @@ jobs:
           - [ self-hosted, arm64, noble, xlarge ]
     with:
       runner: "${{ toJSON(matrix.runner) }}"
-      init-build-script: '.github/workflows/download-models.sh'
+      init-build-script: 'download-models.sh'
       publish-channel: latest/edge/pr-${{ github.event.pull_request.number }}
     secrets:
       store-credentials: ${{ secrets.STORE_LOGIN_PR }}
