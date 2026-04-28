@@ -23,7 +23,7 @@ jobs:
     steps:
       - id: build-pre-check
         name: Check for existing successful build
-        uses: canonical/inference-snaps-testing/.github/actions/build-pre-check@IENG-2278-testing-workflow
+        uses: canonical/inference-snaps-testing/.github/actions/build-pre-check@v1
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
