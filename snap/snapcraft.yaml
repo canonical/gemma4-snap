@@ -11,6 +11,13 @@ grade: stable
 confinement: strict
 compression: lzo
 
+assumes:
+  - snapd2.68 # for components support
+
+platforms:
+  amd64:
+  arm64:
+
 slots:
   status:
     interface: content
