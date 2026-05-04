@@ -1,7 +1,7 @@
 name: amd-gpu
 description: "Use ROCm for inference on AMD GPUs."
 vendor: Canonical Ltd
-grade: stable
+grade: devel
 devices:
   allof:
     - type: cpu
