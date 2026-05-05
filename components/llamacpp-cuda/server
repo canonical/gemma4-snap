@@ -12,6 +12,7 @@ set -x
 # Adding --no-warmup to skip the model warmup phase during server startup in order to reduce resource usage if not needed.
 exec llama-server \
   --model "$MODEL_FILE" \
+  --alias "$MODEL_NAME" \
   "${mmproj_args[@]}" \
   --port "$port" \
   --host "$host" \
