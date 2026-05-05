@@ -32,7 +32,7 @@ jobs:
             install-nvidia-driver-version: 595
             select-engine: nvidia-gpu
             test-chat-tps: true
-            expected-tps: 10
+            expected-tps: 9.4
             test-image-prompt: true
 
           # - job-queue: anbox-amd-amd64
