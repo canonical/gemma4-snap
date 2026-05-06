@@ -6,7 +6,7 @@ This snap installs a hardware-optimized engine for inference with
 multimodal instruction-tuned model with vision capabilities.
 
 > **Note**: By installing this snap you agree to the
-> [Gemma Terms of Use](https://ai.google.dev/gemma/terms).
+> [Gemma 4 Apache License, Version 2.0](https://ai.google.dev/gemma/apache_2).
 
 ## Resources
 

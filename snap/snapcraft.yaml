@@ -174,7 +174,7 @@ parts:
       mkdir -p $license_dir
       cp NOTICE $license_dir/
       cp $SNAPCRAFT_PROJECT_DIR/LICENSE $license_dir/
-      cp $SNAPCRAFT_PROJECT_DIR/LICENSE-gemma $license_dir/
+      cp $SNAPCRAFT_PROJECT_DIR/LICENSE-gemma4 $license_dir/
 
 components:
   model-e4b-q4-k-m-gguf:
