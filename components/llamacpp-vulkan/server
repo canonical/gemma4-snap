@@ -1,0 +1,25 @@
+#!/bin/bash -eu
+
+VK_ICD_FILENAMES="${VK_ICD_FILENAMES:-}"
+for icd_file in "$VULKAN_ICD_PATH/"*.json; do
+  export VK_ICD_FILENAMES="$VK_ICD_FILENAMES:$icd_file"
+done
+
+port="$(modelctl get http.port)"
+host="$(modelctl get http.host)"
+
+mmproj_args=()
+if [ -n "${MMPROJ_FILE:-}" ]; then
+  mmproj_args=(--mmproj "$MMPROJ_FILE")
+fi
+
+set -x
+# Adding --no-warmup to skip the model warmup phase during server startup in order to reduce resource usage if not needed.
+exec llama-server \
+  --model "$MODEL_FILE" \
+  --alias "$MODEL_NAME" \
+  "${mmproj_args[@]}" \
+  --port "$port" \
+  --host "$host" \
+  --no-warmup \
+  "$@"
