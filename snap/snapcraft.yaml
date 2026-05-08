@@ -153,8 +153,8 @@ parts:
   llamacpp-vulkan:
     plugin: dump
     source: 
-      - on amd64: ./llama-b9050-bin-ubuntu-vulkan-x64.tar.gz
-      - on arm64: ./llama-b9050-bin-ubuntu-vulkan-arm64.tar.gz
+      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b9050/llama-b9050-bin-ubuntu-vulkan-x64.tar.gz
+      - on arm64: ./llama-b9050-bin-ubuntu-vulkan-arm64.tar.gz # TODO: use link
     stage-packages:
       - libgomp1
       - libvulkan1
