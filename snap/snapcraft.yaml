@@ -1,9 +1,7 @@
 name: gemma4
 base: core24
-summary: Inference Snap for Gemma 4 E4B
-description: |
-  This is an inference snap that lets you run Gemma 4 E4B (Efficient 4B), a
-  multimodal instruction-tuned model from Google with vision capabilities.
+summary: Inference Snap for Gemma 4
+description: See snapcraft.io/gemma4
 
 adopt-info: version
 
