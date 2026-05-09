@@ -57,6 +57,6 @@ disk-space: 6G
 components:
   - llamacpp-rocm
   - model-e2b-q4-k-m-gguf
-  - mmproj-e2b-q8-0-gguf
+  - mmproj-e2b-bf16-gguf
 configurations:
   sleep-idle-seconds: 600
