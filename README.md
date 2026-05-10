@@ -5,9 +5,6 @@ This snap installs a hardware-optimized engine for inference with
 [Gemma 4 E4B](https://huggingface.co/google/gemma-4-E4B-it), Google's efficient
 multimodal instruction-tuned model with vision capabilities.
 
-> **Note**: By installing this snap you agree to the
-> [Gemma Terms of Use](https://ai.google.dev/gemma/terms).
-
 ## Resources
 
 📚 **[Documentation](https://documentation.ubuntu.com/inference-snaps/)**, learn how to use inference snaps
