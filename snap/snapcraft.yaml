@@ -121,6 +121,7 @@ parts:
       "llamacpp/*": (component/llamacpp)
       "llamacpp-cuda/*": (component/llamacpp-cuda)
       "llamacpp-rocm/*": (component/llamacpp-rocm)
+      "llamacpp-vulkan/*": (component/llamacpp-vulkan)
       "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
       "mmproj-e4b-q8-0-gguf/*": (component/mmproj-e4b-q8-0-gguf)
     prime:
@@ -148,6 +149,21 @@ parts:
     organize:
       "licenses": usr/share/doc/llama.cpp+cuda # Add licenses to the snap
       "*": (component/llamacpp-cuda)
+
+  llamacpp-vulkan:
+    plugin: dump
+    source: 
+      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b9050/llama-b9050-bin-ubuntu-vulkan-x64.tar.gz
+      - on arm64: ./llama-b9050-bin-ubuntu-vulkan-arm64.tar.gz # TODO: use link
+    stage-packages:
+      - libgomp1
+      - libvulkan1
+      - mesa-vulkan-drivers
+      - glslc
+      - spirv-headers
+    organize:
+      "licenses": usr/share/doc/llama.cpp+vulkan # Add licenses to the snap
+      "*": (component/llamacpp-vulkan)
   
   llamacpp-rocm-amd64:
     plugin: dump
@@ -200,6 +216,11 @@ components:
   llamacpp-rocm:
     type: standard
     summary: llama.cpp with ROCm backend
+    description: LLM inference in C/C++
+
+  llamacpp-vulkan:
+    type: standard
+    summary: llama.cpp with Vulkan backend
     description: LLM inference in C/C++
 
 apps:
