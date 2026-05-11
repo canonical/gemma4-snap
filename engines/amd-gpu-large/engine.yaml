@@ -1,5 +1,5 @@
-name: amd-gpu-big
-description: "Use 26B A4B model with ROCm for inference on AMD GPUs."
+name: amd-gpu-large
+description: Use 26B-A4B model on AMD GPU
 vendor: Canonical Ltd
 grade: devel
 devices:
