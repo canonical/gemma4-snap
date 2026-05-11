@@ -63,7 +63,7 @@ Install locally after building (connects required interfaces and optionally sets
 ```shell
 ./dev/install.sh [--engine=<engine>] [--clean]
 # Example:
-./dev/install.sh --engine=cpu --clean
+./dev/install.sh --engine=cpu-e4b --clean
 ```
 
 ## Upload
@@ -82,7 +82,7 @@ Run against an installed snap (requires root, `curl`, and `yq` v4.x):
 ```shell
 sudo ./dev/smoke-tests.sh <snap-name> <engine-name>
 # Example:
-sudo ./dev/smoke-tests.sh nemotron-3-nano cpu
+sudo ./dev/smoke-tests.sh nemotron-3-nano cpu-e4b
 ```
 
 Environment variable overrides: `CURL_TIMEOUT` (default 10s), `MAX_RETRIES` (default 60), `RETRY_DELAY` (default 60s).

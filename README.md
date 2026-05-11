@@ -20,7 +20,7 @@ Clone this repo with its submodules:
 git clone --recurse-submodules https://github.com/canonical/gemma4-snap
 ```
 
-Prepare the required models by following the instructions for each model, under the [components](./components) directory. 
+Prepare the required models by running `download-models.sh`.
 
 Build the snap and its component:
 ```shell

@@ -1,7 +1,7 @@
-name: nvidia-gpu
-description: Optimized for inference on Nvidia GPUs, using CUDA
+name: nvidia-gpu-e2b
+description: CUDA-optimized E2B model for NVIDIA GPUs
 vendor: Canonical Ltd
-grade: stable
+grade: devel
 devices:
   allof:
     - type: gpu
@@ -11,11 +11,11 @@ devices:
       architecture: amd64
     - type: cpu
       architecture: arm64
-memory: 8G
-disk-space: 8G
+memory: 6G
+disk-space: 6G
 components:
   - llamacpp-cuda
-  - model-e4b-q4-k-m-gguf
-  - mmproj-e4b-q8-0-gguf
+  - model-e2b-q4-k-m-gguf
+  - mmproj-e2b-bf16-gguf
 configurations:
   sleep-idle-seconds: 600

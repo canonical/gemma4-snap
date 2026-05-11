@@ -1,21 +1,18 @@
-name: nvidia-gpu-large
-description: Use 26B-A4B model on Nvidia GPU
+name: cpu-26b
+description: CPU-optimized 26B-A4B model for workstations
 vendor: Canonical Ltd
-grade: stable
+grade: devel
 devices:
-  allof:
-    - type: gpu
-      vendor-id: 0x10de # Nvidia Corporation
-  anyof: 
+  anyof:
     - type: cpu
       architecture: amd64
     - type: cpu
       architecture: arm64
-memory: 8G
+memory: 16G
 disk-space: 35G
 components:
-  - llamacpp-cuda
-  - mmproj-26b-a4b-it-bf16-gguf
+  - llamacpp
+  - mmproj-26b-bf16-gguf
   - model-26b-a4b-q4-k-m-1-of-4
   - model-26b-a4b-q4-k-m-2-of-4
   - model-26b-a4b-q4-k-m-3-of-4

@@ -1,2 +1,0 @@
-environment:
-  - MMPROJ_FILE=$COMPONENT/mmproj-gemma4-26b-a4b-it-BF16.gguf

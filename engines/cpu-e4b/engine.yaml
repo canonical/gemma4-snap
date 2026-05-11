@@ -1,18 +1,18 @@
-name: cpu-small
-description: Use E2B model on CPU
+name: cpu-e4b
+description: CPU-optimized E4B model
 vendor: Canonical Ltd
-grade: devel
+grade: stable
 devices:
   anyof:
     - type: cpu
       architecture: amd64
     - type: cpu
       architecture: arm64
-memory: 6G
-disk-space: 6G
+memory: 8G
+disk-space: 8G
 components:
   - llamacpp
-  - model-e2b-q4-k-m-gguf
-  - mmproj-e2b-bf16-gguf
+  - model-e4b-q4-k-m-gguf
+  - mmproj-e4b-q8-0-gguf
 configurations:
   sleep-idle-seconds: 600
