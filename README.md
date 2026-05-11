@@ -15,6 +15,12 @@ multimodal instruction-tuned model with vision capabilities.
 
 ## Build and install from source
 
+This repository uses GIT LFS to track sharded model files, make sure it is available in your system before cloning, e.g.
+
+```shell
+sudo apt install git-lfs
+```
+
 Clone this repo with its submodules:
 ```shell
 git clone --recurse-submodules https://github.com/canonical/gemma4-snap
