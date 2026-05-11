@@ -42,7 +42,7 @@ jobs:
           #   expected-tps: 10
           #   test-image-prompt: true
 
-    uses: canonical/inference-snaps-testing/.github/workflows/test-snap.yaml@increase-ssh-timeout
+    uses: canonical/inference-snaps-testing/.github/workflows/test-snap.yaml@v1
     secrets: inherit
     with:
       job-queue: ${{ matrix.jobs.job-queue }}
