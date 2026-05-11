@@ -1,0 +1,32 @@
+name: amd-gpu-q4
+description: "Use ROCm for inference on AMD GPUs. Model quantized to Q4_K_M for better performance on supported hardware."
+vendor: Canonical Ltd
+grade: devel
+devices:
+  allof:
+    - type: cpu
+      architecture: amd64
+  anyof:
+    - type: gpu
+      vendor-id: 0x1002
+      microarchitecture: gfx1100
+    - type: gpu
+      vendor-id: 0x1002
+      microarchitecture: gfx1031
+    - type: gpu
+      vendor-id: 0x1002
+      microarchitecture: gfx1151
+    - type: gpu
+      vendor-id: 0x1002
+      microarchitecture: gfx1200
+    - type: gpu
+      vendor-id: 0x1002
+      microarchitecture: gfx1201
+memory: 8G
+disk-space: 8G
+components:
+  - llamacpp-rocm
+  - model-e4b-q4-k-m-gguf
+  - mmproj-e4b-q8-0-gguf
+configurations:
+  sleep-idle-seconds: 600

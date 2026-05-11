@@ -122,6 +122,7 @@ parts:
       "llamacpp-cuda/*": (component/llamacpp-cuda)
       "llamacpp-rocm/*": (component/llamacpp-rocm)
       "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
+      "model-e4b-q3-k-s-gguf/*": (component/model-e4b-q3-k-s-gguf)
       "mmproj-e4b-q8-0-gguf/*": (component/mmproj-e4b-q8-0-gguf)
     prime:
       # Exclude everything not explicitly organized
@@ -180,6 +181,11 @@ components:
   model-e4b-q4-k-m-gguf:
     type: standard
     summary: Google Gemma 4 E4B Q4_K_M GGUF
+    description: Model weights for Google Gemma 4 E4B (Efficient 4B) in GGUF format
+  
+  model-e4b-q3-k-s-gguf:
+    type: standard
+    summary: Google Gemma 4 E4B Q3_K_S GGUF
     description: Model weights for Google Gemma 4 E4B (Efficient 4B) in GGUF format
 
   mmproj-e4b-q8-0-gguf:

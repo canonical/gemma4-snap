@@ -1,0 +1,3 @@
+environment:
+  - MODEL_FILE=$COMPONENT/gemma-4-E4B-it-Q3_K_S.gguf
+  - MODEL_NAME=gemma4-e4b-q3-k-s
