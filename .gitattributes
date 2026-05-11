@@ -1,4 +1,0 @@
-components/model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00001-of-00004.gguf filter=lfs diff=lfs merge=lfs -text
-components/model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00002-of-00004.gguf filter=lfs diff=lfs merge=lfs -text
-components/model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00003-of-00004.gguf filter=lfs diff=lfs merge=lfs -text
-components/model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00004-of-00004.gguf filter=lfs diff=lfs merge=lfs -text
