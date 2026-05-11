@@ -1,9 +1,7 @@
 name: gemma4
 base: core24
-summary: Inference Snap for Gemma 4 E4B
-description: |
-  This is an inference snap that lets you run Gemma 4 E4B (Efficient 4B), a
-  multimodal instruction-tuned model from Google with vision capabilities.
+summary: Inference Snap for Gemma 4
+description: See snapcraft.io/gemma4
 
 adopt-info: version
 
@@ -121,7 +119,9 @@ parts:
       "llamacpp/*": (component/llamacpp)
       "llamacpp-cuda/*": (component/llamacpp-cuda)
       "llamacpp-rocm/*": (component/llamacpp-rocm)
+      "model-e2b-q4-k-m-gguf/*": (component/model-e2b-q4-k-m-gguf)
       "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
+      "mmproj-e2b-bf16-gguf/*": (component/mmproj-e2b-bf16-gguf)
       "mmproj-e4b-q8-0-gguf/*": (component/mmproj-e4b-q8-0-gguf)
     prime:
       # Exclude everything not explicitly organized
@@ -177,6 +177,16 @@ parts:
       cp $SNAPCRAFT_PROJECT_DIR/LICENSE-gemma4 $license_dir/
 
 components:
+  model-e2b-q4-k-m-gguf:
+    type: standard
+    summary: Google Gemma 4 E2B Q4_K_M GGUF
+    description: Model weights for Google Gemma 4 E2B (Efficient 2B) in GGUF format
+
+  mmproj-e2b-bf16-gguf:
+    type: standard
+    summary: Google Gemma 4 E2B multimodal projector BF16 GGUF
+    description: Multimodal projector weights for Google Gemma 4 E2B vision support in GGUF format
+
   model-e4b-q4-k-m-gguf:
     type: standard
     summary: Google Gemma 4 E4B Q4_K_M GGUF

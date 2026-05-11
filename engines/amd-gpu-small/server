@@ -1,0 +1,5 @@
+#!/bin/bash -eu
+
+sleep_idle_seconds="$(modelctl get sleep-idle-seconds)"
+
+exec "$SNAP_COMPONENTS/llamacpp-rocm/server" --sleep-idle-seconds "$sleep_idle_seconds" "$@"
