@@ -89,7 +89,7 @@ Environment variable overrides: `CURL_TIMEOUT` (default 10s), `MAX_RETRIES` (def
 
 ## CI
 
-- **`build-main.yaml`**: triggers on push to `main`; builds for `amd64` and `arm64` on self-hosted Ubuntu Noble (`xlarge`) runners; publishes to `latest/edge`.
+- **`build-main.yaml`**: triggers on push to `main`; builds for `amd64` and `arm64` on self-hosted Ubuntu Noble large runners; publishes to `latest/edge`.
 - **`build-pr.yaml`**: triggered by adding the label defined in `vars.PR_BUILD_TRIGGER_LABEL`; publishes to `latest/edge/pr-<number>`.
 - **`validate-engines.yaml`**: runs on every PR; checks out `canonical/inference-snaps-cli` and validates all `engines/**/*.yaml` manifests with `go run . debug validate-engines`.
 - All build workflows delegate to the reusable `build-publish-snap.yaml` from the `dev` submodule (`canonical/inference-snaps-dev@v2`).
