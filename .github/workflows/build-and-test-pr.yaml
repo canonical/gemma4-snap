@@ -37,7 +37,7 @@ jobs:
       fail-fast: false
       matrix:
         runner:
-          - [ self-hosted, amd64, noble, xlarge-extra ]
+          - [ self-hosted, amd64, noble, 2xlarge-extra ]
           - [ self-hosted, arm64, noble, large-extra ]
     with:
       runner: "${{ toJSON(matrix.runner) }}"
