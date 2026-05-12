@@ -11,8 +11,8 @@ jobs:
       fail-fast: false
       matrix:
         runner:
-          - [ self-hosted, amd64, noble, xlarge ]
-          - [ self-hosted, arm64, noble, xlarge ]
+          - [ self-hosted, amd64, noble, xlarge-extra ]
+          - [ self-hosted, arm64, noble, large-extra ]
     with:
       runner: "${{ toJSON(matrix.runner) }}"
       init-build-script: 'download-models.sh'

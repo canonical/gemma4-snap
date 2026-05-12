@@ -128,8 +128,18 @@ parts:
       "llamacpp-rocm/*": (component/llamacpp-rocm)
       "model-e2b-q4-k-m-gguf/*": (component/model-e2b-q4-k-m-gguf)
       "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
+      "model-26b-a4b-q4-k-m-gguf/component.yaml": (component/model-26b-a4b-q4-k-m-1-of-4)
+      "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00001-of-00004.gguf": (component/model-26b-a4b-q4-k-m-1-of-4)
+      "model-26b-a4b-q4-k-m-gguf/component-2-of-4.yaml": (component/model-26b-a4b-q4-k-m-2-of-4)/component.yaml
+      "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00002-of-00004.gguf": (component/model-26b-a4b-q4-k-m-2-of-4)
+      "model-26b-a4b-q4-k-m-gguf/component-3-of-4.yaml": (component/model-26b-a4b-q4-k-m-3-of-4)/component.yaml
+      "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00003-of-00004.gguf": (component/model-26b-a4b-q4-k-m-3-of-4)
+      "model-26b-a4b-q4-k-m-gguf/component-4-of-4.yaml": (component/model-26b-a4b-q4-k-m-4-of-4)/component.yaml
+      "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00004-of-00004.gguf": (component/model-26b-a4b-q4-k-m-4-of-4)
       "mmproj-e2b-bf16-gguf/*": (component/mmproj-e2b-bf16-gguf)
       "mmproj-e4b-q8-0-gguf/*": (component/mmproj-e4b-q8-0-gguf)
+      "mmproj-26b-bf16-gguf/*": (component/mmproj-26b-bf16-gguf)
+      
     prime:
       # Exclude everything not explicitly organized
       - -*
@@ -203,6 +213,25 @@ components:
     type: standard
     summary: Google Gemma 4 E4B multimodal projector Q8_0 GGUF
     description: Multimodal projector weights for Google Gemma 4 E4B vision support in GGUF format
+
+  model-26b-a4b-q4-k-m-1-of-4: &model-26b-a4b-q4-k-m
+    type: standard
+    summary: Google Gemma 4 26B A4B multimodal projector Q4_K_M GGUF
+    description: Model weights for Google Gemma 4 26B A4B in GGUF format
+
+  model-26b-a4b-q4-k-m-2-of-4:
+    <<: *model-26b-a4b-q4-k-m
+
+  model-26b-a4b-q4-k-m-3-of-4:
+    <<: *model-26b-a4b-q4-k-m
+  
+  model-26b-a4b-q4-k-m-4-of-4:
+    <<: *model-26b-a4b-q4-k-m
+
+  mmproj-26b-bf16-gguf:
+    type: standard
+    summary: Google Gemma 4 26B A4B multimodal projector BF16 GGUF
+    description: Multimodal projector weights for Google Gemma 4 26B A4B vision support in GGUF format
 
   llamacpp:
     type: standard

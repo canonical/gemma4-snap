@@ -1,0 +1,21 @@
+name: nvidia-gpu-e4b
+description: CUDA-optimized E4B model for NVIDIA GPUs
+vendor: Canonical Ltd
+grade: stable
+devices:
+  allof:
+    - type: gpu
+      vendor-id: 0x10de # Nvidia Corporation
+  anyof: 
+    - type: cpu
+      architecture: amd64
+    - type: cpu
+      architecture: arm64
+memory: 8G
+disk-space: 8G
+components:
+  - llamacpp-cuda
+  - model-e4b-q4-k-m-gguf
+  - mmproj-e4b-q8-0-gguf
+configurations:
+  sleep-idle-seconds: 600

@@ -1,5 +1,5 @@
-name: amd-gpu
-description: "Use ROCm for inference on AMD GPUs."
+name: amd-gpu-e4b
+description: ROCm-optimized E4B model for AMD GPUs
 vendor: Canonical Ltd
 grade: devel
 devices:
