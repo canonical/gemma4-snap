@@ -14,8 +14,9 @@ wget -nv https://huggingface.co/ggml-org/gemma-4-E4B-it-GGUF/resolve/main/mmproj
     --directory-prefix=components/mmproj-e4b-q8-0-gguf/
 
 # 26B A4B mmproj
+# 26B A4B mmproj
 wget -nv https://huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF/blob/main/mmproj-BF16.gguf \
-    -o components/mmproj-26b-a4b-it-bf16-gguf/mmproj-gemma4-26b-a4b-it-BF16.gguf
+    -o components/mmproj-26b-bf16-gguf/gemma4-26b-mmproj-BF16.gguf
 
 
 # 26B A4B model
