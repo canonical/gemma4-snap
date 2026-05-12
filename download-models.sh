@@ -22,7 +22,7 @@ wget -nv https://huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF/blob/main/mmproj
 # 26B A4B model
 sudo apt-get install -y python3-venv
 
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 
 pip install --upgrade pip
