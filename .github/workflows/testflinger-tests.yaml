@@ -1,0 +1,65 @@
+name: Testflinger tests
+
+on:
+  workflow_call:
+    inputs:
+      snap-channel:
+        description: Snap channel to test
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      snap-channel:
+        description: Snap channel to test
+        required: true
+        type: string
+
+jobs:
+  test-snap:
+    name: ${{ matrix.jobs.select-engine }} engine
+    strategy:
+      fail-fast: false
+      matrix:
+        jobs:
+          - job-queue: maas-systemtests-amd64
+            provision-data: "distro: noble"
+            select-engine: cpu
+            test-chat-tps: true
+            test-image-prompt: true
+
+          - job-queue: anbox-nvidia-amd64
+            provision-data: "distro: noble"
+            install-nvidia-driver-version: 595
+            select-engine: nvidia-gpu
+            test-chat-tps: true
+            expected-tps: 9.4
+            test-image-prompt: true
+
+          # - job-queue: anbox-amd-amd64
+          #   provision-data: "distro: noble"
+          #   select-engine: amd-gpu
+          #   test-chat-tps: true
+          #   expected-tps: 10
+          #   test-image-prompt: true
+
+    uses: canonical/inference-snaps-testing/.github/workflows/test-snap.yaml@v1
+    secrets: inherit
+    with:
+      job-queue: ${{ matrix.jobs.job-queue }}
+      provision-data: ${{ matrix.jobs.provision-data }}
+
+      snap-name: gemma4
+      snap-channel: ${{ inputs.snap-channel }}
+
+      install-nvidia-driver-version: ${{ matrix.jobs.install-nvidia-driver-version }}
+      install-intel-npu-driver: ${{ matrix.jobs.install-intel-npu-driver == true }}
+      snap-connections: ${{ matrix.jobs.snap-connections }}
+
+      expected-engine: ${{ matrix.jobs.expected-engine }}
+      select-engine: ${{ matrix.jobs.select-engine }}
+
+      test-chat-tps: ${{ matrix.jobs.test-chat-tps == true }}
+      expected-tps: ${{ matrix.jobs.expected-tps }}
+
+      test-image-prompt: ${{ matrix.jobs.test-image-prompt == true }}
+      devmode: ${{ matrix.jobs.devmode == true }}

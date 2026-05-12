@@ -46,9 +46,9 @@ jobs:
     secrets:
       store-credentials: ${{ secrets.STORE_LOGIN_PR }}
   
-  # test:
-  #   needs: [build-and-publish]
-  #   if: ${{ always() && github.event.label.name == vars.PR_TEST_TRIGGER_LABEL && (needs.build-and-publish.result == 'success' || needs.build-and-publish.result == 'skipped') }}
-  #   uses: ./.github/workflows/testflinger-tests.yaml
-  #   with:
-  #     snap-channel: latest/edge/pr-${{ github.event.pull_request.number }}
+  test:
+    needs: [build-and-publish]
+    if: ${{ always() && github.event.label.name == vars.PR_TEST_TRIGGER_LABEL && (needs.build-and-publish.result == 'success' || needs.build-and-publish.result == 'skipped') }}
+    uses: ./.github/workflows/testflinger-tests.yaml
+    with:
+      snap-channel: latest/edge/pr-${{ github.event.pull_request.number }}
