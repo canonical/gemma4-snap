@@ -34,6 +34,13 @@ ln -s /var/lib/snapd/hostfs/usr/lib/wsl/drivers $SNAP_COMMON/usr/lib/wsl/drivers
 # Auto select an engine
 #
 
+if [ -d "$SNAP_COMPONENTS/model-e2b-q4-k-m-gguf" ]; then
+    echo "User has picked a specific model \"model-e2b-q4-k-m-gguf\". Pick an engine for it."
+    # modelctl use-engine --auto --assume-yes --verbose --model=model-e2b-q4-k-m-gguf
+    modelctl use-engine cpu-e2b --assume-yes --verbose
+    exit 0
+fi
+
 if snapctl is-connected hardware-observe; then
     modelctl use-engine --auto --assume-yes --verbose
 elif lscpu -V &> /dev/null; then
