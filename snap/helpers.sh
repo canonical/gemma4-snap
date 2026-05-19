@@ -1,3 +1,5 @@
+#!/bin/bash
+
 copy_if_changed() {
     local src_file="$1"
     local dst_file="$2"
