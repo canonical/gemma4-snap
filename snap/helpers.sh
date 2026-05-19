@@ -71,14 +71,22 @@ distribute_gguf_components() {
         fi
 
         # 4. Construct target directory name
-        local component_name=$(echo "$component_name_prefix" | tr '[:lower:]' '[:upper:]' | tr '-' '_')
+        local component_name="$component_name_prefix"
         if [ "$total_files" -gt 1 ]; then 
             echo "Multiple GGUF files found. Assuming sharded model with $total_files shards."
             echo "new component name will be ${component_name}_${shard_idx}_OF_${shard_total}"
-            local component_name="${component_name}_${shard_idx}_OF_${shard_total}"
+            local component_name="${component_name}-${shard_idx}-of-${shard_total}"
         fi
-        local target_env="CRAFT_COMPONENT_${component_name}_PRIME"
+        local component_name_env=$(echo "$component_name" | tr '[:lower:]' '[:upper:]' | tr '-' '_')
+        local target_env="CRAFT_COMPONENT_${component_name_env}_PRIME"
         local target_dir="${!target_env}"
+
+        # Ensure the target directory exists
+        if [[ ! -d "$target_dir" ]]; then
+            echo "Error: Target directory $target_dir does not exist."
+            echo "Make sure that you have a component named $component_name in snapcraft.yaml"
+            return 1
+        fi
         
         echo "Creating $target_dir..."
         mkdir -p "$target_dir"
