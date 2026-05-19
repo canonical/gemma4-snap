@@ -43,8 +43,9 @@ distribute_gguf_components() {
     # 1. Generate the base name (e.g., model-30b-a3b... -> MODEL_30B_A3B...)
     local dir_basename=$(basename "$src_dir")
     
-    # 2. Find all GGUF files and sort them
-    local gguf_files=($(\ls "$src_dir"/*.gguf | sort))
+    # 2. Find all GGUF files and sort them safely.
+    local -a gguf_files=()
+    mapfile -d '' -t gguf_files < <(find "$src_dir" -maxdepth 1 -type f -name '*.gguf' -print0 | sort -z)
     local total_files=${#gguf_files[@]}
 
     if [ "$total_files" -eq 0 ]; then
