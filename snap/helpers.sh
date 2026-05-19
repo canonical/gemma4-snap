@@ -2,6 +2,11 @@ copy_if_changed() {
     local src_file="$1"
     local dst_file="$2"
 
+    if [[ ! -f "$src_file" ]]; then
+        echo "Error: Source file $src_file does not exist or is not a file."
+        return 1
+    fi
+
     if [[ -f "$dst_file" ]] && cmp -s "$src_file" "$dst_file"; then
         echo "Skipping unchanged file: $dst_file"
         return 0
