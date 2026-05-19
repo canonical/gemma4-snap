@@ -12,8 +12,15 @@ copy_if_changed() {
         return 0
     fi
 
-    echo "Copying $src_file ---> $dst_file"
-    cp -v "$src_file" "$dst_file"
+    echo "Syncing $src_file ---> $dst_file"
+
+    # Prefer hardlinks to save space/time; fallback to copy (e.g., cross-filesystem).
+    if ln -f -v "$src_file" "$dst_file"; then
+        echo "Hardlinked: $dst_file"
+    else
+        echo "Hardlink failed, falling back to copy: $dst_file"
+        cp -v "$src_file" "$dst_file"
+    fi
 }
 
 distribute_gguf_components() {
