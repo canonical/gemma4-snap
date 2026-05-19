@@ -136,6 +136,7 @@ parts:
     # WARNING: "source" is commented out to improve disk use, as a side effect,
     # snapcraft will not detect changes to the source files to clear the cache and re-prime.
     override-prime: |
+      set +x # reduce noise
       source "$SNAPCRAFT_PROJECT_DIR/snap/helpers.sh"
       
       # Bypassing the usual part lifecycle saves disk space and time when dealing with large files
@@ -150,6 +151,8 @@ parts:
       # This one is sharded, the helper will take care of naming the components for each shard
       distribute_gguf_components "components/model-26b-a4b-q4-k-m-gguf" "model-26b-a4b-q4-k-m" 
       distribute_gguf_components "components/mmproj-26b-bf16-gguf" "mmproj-26b-bf16-gguf"
+
+      set -x # re-enable debug for the rest of the build
 
   llamacpp:
     plugin: dump

@@ -24,14 +24,6 @@ copy_if_changed() {
 }
 
 distribute_gguf_components() {
-    local had_xtrace=0
-    case "$-" in
-        *x*) had_xtrace=1 ;;
-    esac
-
-    set +x # reduce noise
-    trap 'if [[ "$had_xtrace" -eq 1 ]]; then set -x; fi; trap - RETURN' RETURN # restore xtrace state on function exit
-
     local src_dir="$SNAPCRAFT_PROJECT_DIR/$1"
     local component_name_prefix="$2"
     
