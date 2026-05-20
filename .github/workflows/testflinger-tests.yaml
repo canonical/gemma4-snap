@@ -23,21 +23,21 @@ jobs:
         jobs:
           - job-queue: maas-systemtests-amd64
             provision-data: "distro: noble"
-            select-engine: cpu
+            select-engine: cpu-e4b
             test-chat-tps: true
             test-image-prompt: true
 
           - job-queue: anbox-nvidia-amd64
             provision-data: "distro: noble"
             install-nvidia-driver-version: 595
-            select-engine: nvidia-gpu
+            select-engine: nvidia-gpu-e4b
             test-chat-tps: true
             expected-tps: 9.4
             test-image-prompt: true
 
           # - job-queue: anbox-amd-amd64
           #   provision-data: "distro: noble"
-          #   select-engine: amd-gpu
+          #   select-engine: amd-gpu-e4b
           #   test-chat-tps: true
           #   expected-tps: 10
           #   test-image-prompt: true
