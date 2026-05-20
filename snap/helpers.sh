@@ -85,9 +85,6 @@ distribute_gguf_components() {
             echo "Make sure that you have a component named $component_name in snapcraft.yaml"
             return 1
         fi
-        
-        echo "  Creating $target_dir..."
-        mkdir -p "$target_dir"
 
         # 4. Copy the GGUF file
         copy_if_changed "$current_file" "$target_dir/$filename"
