@@ -8,6 +8,7 @@ jobs:
   remove-trigger-labels:
     if: ${{ github.event.label.name == vars.PR_BUILD_TRIGGER_LABEL || github.event.label.name == vars.PR_TEST_TRIGGER_LABEL }}
     permissions:
+      contents: read
       pull-requests: write
     uses: canonical/inference-snaps-dev/.github/workflows/remove-label.yaml@v2
     with:
