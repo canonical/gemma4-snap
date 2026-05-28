@@ -63,11 +63,12 @@ parts:
       - jq
       - git
     override-pull: |
-      # Do nothing. This significantly reduces build time when source targets large files.
+      # Do nothing. This significantly reduces build time when sourcing large files.
     override-build: |
-      set -o pipefail
+      set -eo pipefail
       cli_version=$($CRAFT_STAGE/bin/gemma4 version --format=json | jq .cli --raw-output)
-      craftctl set version="${cli_version#v}+$(git -C $SNAPCRAFT_PROJECT_DIR describe --always)"
+      git_hash=$(git2 -C "$SNAPCRAFT_PROJECT_DIR" describe --always)
+      craftctl set version="${cli_version#v}+${git_hash}"
 
   cli:
     source:
