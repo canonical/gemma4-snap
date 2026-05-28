@@ -63,7 +63,7 @@ parts:
       - jq
       - git
     override-pull: |
-      # do nothing
+      # Do nothing. This significantly reduces build time when source targets large files.
     override-build: |
       set -o pipefail
       cli_version=$($CRAFT_STAGE/bin/gemma4 version --format=json | jq .cli --raw-output)
