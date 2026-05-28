@@ -58,7 +58,7 @@ parts:
   version:
     after: [cli]
     plugin: nil
-    source: . # To regenerate the version hash on every change
+    source: . # To regenerate the git hash on every change
     build-packages:
       - jq
       - git
@@ -67,7 +67,7 @@ parts:
     override-build: |
       set -eo pipefail
       cli_version=$($CRAFT_STAGE/bin/gemma4 version --format=json | jq .cli --raw-output)
-      git_hash=$(git2 -C "$SNAPCRAFT_PROJECT_DIR" describe --always)
+      git_hash=$(git -C "$SNAPCRAFT_PROJECT_DIR" describe --always)
       craftctl set version="${cli_version#v}+${git_hash}"
 
   cli:
