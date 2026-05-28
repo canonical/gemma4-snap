@@ -56,12 +56,18 @@ hooks:
 
 parts:
   version:
-    plugin: dump
-    source: .
+    after: [cli]
+    plugin: nil
+    source: . # To regenerate the version hash on every change
     build-packages:
-      - git-lfs
+      - jq
+      - git
     override-pull: |
-      craftctl set version="e4b+$(git -C $SNAPCRAFT_PROJECT_DIR describe --always)"
+      # do nothing
+    override-build: |
+      set -o pipefail
+      cli_version=$($CRAFT_STAGE/bin/gemma4 version --format=json | jq .cli --raw-output)
+      craftctl set version="${cli_version#v}+$(git -C $SNAPCRAFT_PROJECT_DIR describe --always)"
 
   cli:
     source:
