@@ -56,12 +56,19 @@ hooks:
 
 parts:
   version:
-    plugin: dump
-    source: .
+    after: [cli]
+    plugin: nil
+    source: . # To regenerate the git hash on every change
     build-packages:
-      - git-lfs
+      - jq
+      - git
     override-pull: |
-      craftctl set version="e4b+$(git -C $SNAPCRAFT_PROJECT_DIR describe --always)"
+      # Do nothing. This significantly reduces build time when sourcing large files.
+    override-build: |
+      set -eo pipefail
+      cli_version=$($CRAFT_STAGE/bin/gemma4 version --format=json | jq .cli --raw-output)
+      git_hash=$(git -C "$SNAPCRAFT_PROJECT_DIR" describe --always)
+      craftctl set version="${cli_version#v}+${git_hash}"
 
   cli:
     source:
