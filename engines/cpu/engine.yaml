@@ -1,0 +1,18 @@
+name: cpu
+description: CPU-optimized for workstations
+vendor: Canonical Ltd
+grade: stable
+devices:
+  anyof:
+    - type: cpu
+      architecture: amd64
+    - type: cpu
+      architecture: arm64
+
+runtime: llama-cpp-cpu
+
+model:
+  default: e4b-q4-k-m-gguf
+  options:
+    - e2b-q4-k-m-gguf
+    - 26b-a4b-q4-k-m-gguf
