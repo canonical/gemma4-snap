@@ -6,6 +6,7 @@ on:
 
 env:
   SNAP_NAME: gemma4
+  CHANNEL_TRACK: latest
 
 jobs:
   # build-and-publish:
@@ -19,7 +20,7 @@ jobs:
   #   with:
   #     runner: "${{ toJSON(matrix.runner) }}"
   #     init-build-script: 'download-models.sh'
-  #     publish-channel: 'latest/edge' # Add track if needed, e.g., 24/latest/edge
+  #     publish-channel: ${{ env.CHANNEL_TRACK }}/edge
   #   secrets:
   #     store-credentials: ${{ secrets.STORE_LOGIN_MAIN }}
 
@@ -31,7 +32,7 @@ jobs:
       matrix:
         runner:
           - ubuntu-24.04
-          # - ubuntu-24.04-arm
+          - ubuntu-24.04-arm
     runs-on: ${{ matrix.runner }}
     steps:
       - name: Refresh/Install snapd
@@ -41,12 +42,12 @@ jobs:
       - name: Install inference snap
         shell: bash
         run: |
-          sudo snap install ${{ env.SNAP_NAME }} --channel latest/edge
+          sudo snap install ${{ env.SNAP_NAME }} --channel ${{ env.CHANNEL_TRACK }}/edge
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        with:
-          detached: true
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
+      #   with:
+      #     detached: true
   
       - name: Run smoke tests
         uses: canonical/inference-snaps-dev/.github/actions/run-smoke-tests@0223b1a5d0d99221378d1cf8778169f0713203db # change to v2, once ready
@@ -58,6 +59,10 @@ jobs:
     needs: [smoke-test]
     runs-on: ubuntu-latest
     steps:
+      - name: Install snapcraft
+        shell: bash
+        run: |
+          sudo snap install snapcraft --classic
       - name: Promote to beta
         env:
           # SNAPCRAFT_HAS_TTY: "true"
