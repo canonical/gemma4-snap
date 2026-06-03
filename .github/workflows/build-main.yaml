@@ -32,7 +32,7 @@ jobs:
       matrix:
         runner:
           - ubuntu-24.04
-          - ubuntu-24.04-arm
+          # - ubuntu-24.04-arm
     runs-on: ${{ matrix.runner }}
     steps:
       - name: Refresh/Install snapd
@@ -50,7 +50,7 @@ jobs:
       #     detached: true
   
       - name: Run smoke tests
-        uses: canonical/inference-snaps-dev/.github/actions/run-smoke-tests@0223b1a5d0d99221378d1cf8778169f0713203db # change to v2, once ready
+        uses: canonical/inference-snaps-dev/.github/actions/run-smoke-tests@721d2b8f15415d33385bb940b7ff0ec3e0f7e4a9 # change to v2, once ready
         with:
           snap-name: ${{ env.SNAP_NAME }}
           engine: cpu-e4b
@@ -68,4 +68,4 @@ jobs:
           # SNAPCRAFT_HAS_TTY: "true"
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN_MAIN_BETA }} # temporary var, switch to STORE_LOGIN_MAIN after updating token
         run: |
-          snapcraft promote ${{ env.SNAP_NAME }} --yes --from-channel latest/edge --to-channel latest/beta/smoke-test # for testing
+          snapcraft promote ${{ env.SNAP_NAME }} --yes --from-channel latest/edge --to-channel ${{ env.CHANNEL_TRACK }}/beta/smoke-test # for testing
