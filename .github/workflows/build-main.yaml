@@ -2,20 +2,56 @@ name: Build main
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, smoke-test ] # temp branch for testing promotion to beta
+
+env:
+  SNAP_NAME: gemma4
 
 jobs:
-  build-and-publish:
-    uses: canonical/inference-snaps-dev/.github/workflows/build-publish-snap.yaml@v2
+  # build-and-publish:
+  #   uses: canonical/inference-snaps-dev/.github/workflows/build-publish-snap.yaml@v2
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       runner:
+  #         - [ self-hosted, amd64, noble, 2xlarge-extra ]
+  #         - [ self-hosted, arm64, noble, large-extra ]
+  #   with:
+  #     runner: "${{ toJSON(matrix.runner) }}"
+  #     init-build-script: 'download-models.sh'
+  #     publish-channel: 'latest/edge' # Add track if needed, e.g., 24/latest/edge
+  #   secrets:
+  #     store-credentials: ${{ secrets.STORE_LOGIN_MAIN }}
+
+
+  smoke-test:
+    # needs: [build-and-publish]
     strategy:
       fail-fast: false
       matrix:
         runner:
-          - [ self-hosted, amd64, noble, 2xlarge-extra ]
-          - [ self-hosted, arm64, noble, large-extra ]
-    with:
-      runner: "${{ toJSON(matrix.runner) }}"
-      init-build-script: 'download-models.sh'
-      publish-channel: 'latest/edge' # Add track if needed, e.g., 24/latest/edge
-    secrets:
-      store-credentials: ${{ secrets.STORE_LOGIN_MAIN }}
+          - [ self-hosted, amd64, noble ]
+          - [ self-hosted, arm64, noble ]
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Install snap
+        shell: bash
+        run: |
+          sudo snap install "$SNAP_NAME" --channel latest/edge
+
+      - name: Run smoke tests
+        uses: canonical/inference-snaps-dev/.github/actions/run-smoke-tests@smoke-test-action
+        with:
+          snap-name: ${{ env.SNAP_NAME }}
+          engine: cpu-e4b
+  
+  promote:
+    needs: [smoke-test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Promote to beta
+        env:
+          # SNAPCRAFT_HAS_TTY: "true"
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN_MAIN_BETA }} # temporary var, switch to STORE_LOGIN_MAIN after updating token
+        run: |
+          snapcraft promote "$SNAP_NAME" --yes --from-channel latest/edge --to-channel latest/beta/smoke-test # for testing
