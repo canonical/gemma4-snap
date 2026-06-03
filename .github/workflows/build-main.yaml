@@ -9,24 +9,24 @@ env:
   CHANNEL_TRACK: latest
 
 jobs:
-  # build-and-publish:
-  #   uses: canonical/inference-snaps-dev/.github/workflows/build-publish-snap.yaml@v2
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       runner:
-  #         - [ self-hosted, amd64, noble, 2xlarge-extra ]
-  #         - [ self-hosted, arm64, noble, large-extra ]
-  #   with:
-  #     runner: "${{ toJSON(matrix.runner) }}"
-  #     init-build-script: 'download-models.sh'
-  #     publish-channel: ${{ env.CHANNEL_TRACK }}/edge
-  #   secrets:
-  #     store-credentials: ${{ secrets.STORE_LOGIN_MAIN }}
+  build-and-publish:
+    uses: canonical/inference-snaps-dev/.github/workflows/build-publish-snap.yaml@v2
+    strategy:
+      fail-fast: false
+      matrix:
+        runner:
+          - [ self-hosted, amd64, noble, 2xlarge-extra ]
+          - [ self-hosted, arm64, noble, large-extra ]
+    with:
+      runner: "${{ toJSON(matrix.runner) }}"
+      init-build-script: 'download-models.sh'
+      publish-channel: ${{ env.CHANNEL_TRACK }}/edge
+    secrets:
+      store-credentials: ${{ secrets.STORE_LOGIN_MAIN }}
 
 
   smoke-test:
-    # needs: [build-and-publish]
+    needs: [build-and-publish]
     strategy:
       fail-fast: false
       matrix:
@@ -43,11 +43,6 @@ jobs:
         shell: bash
         run: |
           sudo snap install ${{ env.SNAP_NAME }} --channel ${{ env.CHANNEL_TRACK }}/edge
-
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
-      #   with:
-      #     detached: true
   
       - name: Run smoke tests
         uses: canonical/inference-snaps-dev/.github/actions/run-smoke-tests@0f2dba1c29ba70d9ee6b4dde00fa4e8c5d8ee99c # change to v2, once ready
@@ -65,7 +60,7 @@ jobs:
           sudo snap install snapcraft --classic
       - name: Promote to beta
         env:
-          # Workaround for https://github.com/snapcore/snapcraft/issues/4439
+          # Workaround for https://github.com/canonical/snapcraft/issues/4439
           SNAPCRAFT_HAS_TTY: "true"
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN_MAIN_BETA }} # temporary var, switch to STORE_LOGIN_MAIN after updating token
         run: |
