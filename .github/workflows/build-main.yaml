@@ -32,7 +32,7 @@ jobs:
       matrix:
         runner:
           - ubuntu-24.04
-          # - ubuntu-24.04-arm
+          - ubuntu-24.04-arm
     runs-on: ${{ matrix.runner }}
     steps:
       - name: Refresh/Install snapd
@@ -50,7 +50,7 @@ jobs:
       #     detached: true
   
       - name: Run smoke tests
-        uses: canonical/inference-snaps-dev/.github/actions/run-smoke-tests@51ad77f5f71af13825428e3e29bccebb6ea4e993 # change to v2, once ready
+        uses: canonical/inference-snaps-dev/.github/actions/run-smoke-tests@0f2dba1c29ba70d9ee6b4dde00fa4e8c5d8ee99c # change to v2, once ready
         with:
           snap-name: ${{ env.SNAP_NAME }}
           engine: cpu-e4b
