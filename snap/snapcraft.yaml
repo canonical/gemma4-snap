@@ -7,7 +7,7 @@ adopt-info: version
 
 grade: stable
 confinement: strict
-compression: xz # for wider kernel compatibility
+compression: lzo
 
 assumes:
   - snapd2.68 # for components support
