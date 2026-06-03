@@ -1,7 +1,7 @@
 name: cpu-e2b
 description: CPU-optimized E2B model
 vendor: Canonical Ltd
-grade: devel
+grade: stable
 devices:
   anyof:
     - type: cpu
