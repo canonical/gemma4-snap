@@ -30,10 +30,14 @@ jobs:
       fail-fast: false
       matrix:
         runner:
-          - [ self-hosted, amd64, noble ]
-          - [ self-hosted, arm64, noble ]
+          - ubuntu-24.04
+          # - ubuntu-24.04-arm
     runs-on: ${{ matrix.runner }}
     steps:
+      - name: Install snapd
+        run: |
+          sudo snap refresh snapd || sudo snap install snapd
+
       - name: Install snap
         shell: bash
         run: |
