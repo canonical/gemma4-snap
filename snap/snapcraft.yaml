@@ -7,7 +7,6 @@ adopt-info: version
 
 grade: stable
 confinement: strict
-compression: lzo
 
 assumes:
   - snapd2.68 # for components support
