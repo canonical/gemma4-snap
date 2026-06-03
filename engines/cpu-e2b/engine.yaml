@@ -8,7 +8,7 @@ devices:
       architecture: amd64
     - type: cpu
       architecture: arm64
-memory: 6G
+memory: 1G
 disk-space: 6G
 components:
   - llamacpp
