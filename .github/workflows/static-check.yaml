@@ -8,6 +8,9 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v6
+        with:
+          # Prevent usage of simulated merge commit of PR
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Checkout inference-snap-cli 
         uses: actions/checkout@v6
