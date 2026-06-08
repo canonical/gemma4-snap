@@ -91,7 +91,7 @@ parts:
 #
 #      craftctl default
     source: https://github.com/canonical/inference-snaps-cli.git
-    source-branch: IENG-2375-use-model
+    source-branch: main
     plugin: go
     build-snaps:
       - go/1.26/stable
