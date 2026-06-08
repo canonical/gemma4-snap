@@ -1,7 +1,7 @@
 name: amd-gpu
 description: ROCm-optimized for workstation GPUs
 vendor: Canonical Ltd
-grade: stable
+
 devices:
   allof:
     - type: cpu

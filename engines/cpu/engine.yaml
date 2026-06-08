@@ -1,7 +1,7 @@
 name: cpu
 description: CPU-optimized for workstations
 vendor: Canonical Ltd
-grade: stable
+
 devices:
   anyof:
     - type: cpu
