@@ -250,9 +250,11 @@ parts:
           - libcurl4
     override-build: |
       craftctl default
-      license_dir=$CRAFT_PART_INSTALL/usr/share/doc/openvino-model-server
-      mkdir -p $license_dir
-      cp $CRAFT_PART_SRC/LICENSE $license_dir/
+      if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
+        license_dir=$CRAFT_PART_INSTALL/usr/share/doc/openvino-model-server
+        mkdir -p $license_dir
+        cp $CRAFT_PART_SRC/LICENSE $license_dir/
+      fi
     organize:
       # move everything, including the staged packages
       "*": (component/openvino-model-server)

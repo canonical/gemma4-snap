@@ -1,4 +1,4 @@
-name: intel-cpu
+name: intel-gpu
 description: Optimized for Intel CPUs
 vendor: Canonical Ltd
 devices:

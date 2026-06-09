@@ -1,4 +1,4 @@
-name: intel-cpu
+name: intel-npu
 description: Optimized for Intel CPUs
 vendor: Canonical Ltd
 
