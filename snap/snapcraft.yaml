@@ -254,6 +254,7 @@ parts:
     stage-packages:
       - on amd64:
           - libxml2
+          - libcurl4
     override-build: |
       craftctl default
       license_dir=$CRAFT_PART_INSTALL/usr/share/doc/openvino-model-server
