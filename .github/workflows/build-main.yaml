@@ -2,7 +2,7 @@ name: CICD
 
 on:
   push:
-    branches: [ main, smoke-test ] # temp branch for testing promotion to beta
+    branches: [ main, smoke-test ] # temp branch for testing promotion to beta.
 
 concurrency:
   group: ${{ github.workflow }}
