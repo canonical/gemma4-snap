@@ -1,6 +1,7 @@
 name: intel-gpu
-description: Optimized for Intel CPUs
+description: Optimized for Intel GPUs
 vendor: Canonical Ltd
+
 devices:
   allof:
     - type: cpu

@@ -1,6 +1,8 @@
 name: intel-npu
-description: Optimized for Intel CPUs
+description: Optimized for Intel NPUs
 vendor: Canonical Ltd
+
+experimental: true
 
 devices:
   allof:
