@@ -1,0 +1,18 @@
+id: e4b-it-int4-ov
+name: e4b
+
+description: E4B model for OpenVINO
+model-card-url: https://example.com/model-card
+quantization: INT4
+
+disk-size: 6161M
+
+capabilities:
+  - text
+
+components:
+  - model-e4b-it-int4-ov
+
+environment:
+  - MODEL_PATH=$SNAP_COMPONENTS/model-e4b-it-int4-ov
+  - MODEL_NAME=gemma4-e4b-it-int4-ov

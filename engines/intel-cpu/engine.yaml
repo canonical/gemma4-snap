@@ -1,0 +1,16 @@
+name: intel-cpu
+description: Optimized for Intel CPUs
+vendor: Canonical Ltd
+
+devices:
+  allof:
+    - type: cpu
+      architecture: amd64
+      manufacturer-id: GenuineIntel
+
+runtime: openvino-model-server
+
+model:
+  default: e4b-it-int4-ov
+  options:
+    - e4b-it-int4-ov
