@@ -6,6 +6,7 @@ on:
       - main
       - smoke-test # temp branch for testing promotion to beta
 
+# Keep one CICD run active at a time so publish/test/promote happen in order
 concurrency:
   group: ${{ github.workflow }}
   queue: max
