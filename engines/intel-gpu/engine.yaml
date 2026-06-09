@@ -1,0 +1,362 @@
+name: intel-cpu
+description: Optimized for Intel CPUs
+vendor: Canonical Ltd
+devices:
+  allof:
+    - type: cpu
+      architecture: amd64
+  anyof:
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x4f80 # DG2 = Arc core [Intel Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x4f81 # DG2 [Intel Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x4f82 # DG2 [Intel Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x4f83 # DG2 [Intel Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x4f84 # DG2 [Intel Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x4f85 # DG2 [Intel Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x4f86 # DG2 [Intel Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x4f87 # DG2 [Intel Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x4f88 # DG2 [Intel Xe Graphics]
+    # Arc = 1st generation dGPU
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x5690 # DG2 [Arc A770M]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x5691 # DG2 [Arc A730M]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x5692 # DG2 [Arc A550M]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x5693 # DG2 [Arc A370M]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x5694 # DG2 [Arc A350M]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x5695 # DG2 [Iris Xe MAX A200M]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x5696 # DG2 [Arc A570M]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x5697 # DG2 [Arc A530M]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x5698 # DG2 [Arc Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56a0 # DG2 [Arc A770]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56a1 # DG2 [Arc A750]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56a2 # DG2 [Arc A580]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56a3 # DG2 [Arc Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56a4 # DG2 [Arc Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56a5 # DG2 [Arc A380]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56a6 # DG2 [Arc A310]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56a7 # DG2 [Arc Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56a8 # DG2 [Arc Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56a9 # DG2 [Arc Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56b0 # DG2 [Arc Pro A30M]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56b1 # DG2 [Arc Pro A40/A50]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56b2 # DG2 [Arc Pro A60M]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56b3 # DG2 [Arc Pro A60]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56ba # DG2 [Arc A380E]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56bb # DG2 [Arc A310E]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56bc # DG2 [Arc A370E]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56bd # DG2 [Arc A350E]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56be # DG2 [Arc A750E]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x56bf # DG2 [Arc A580E]
+    # Battlemage = 2nd generation dGPU
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xe202 # Battlemage G21 [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xe20b # Battlemage G21 [Arc B580]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xe20c # Battlemage G21 [Arc B570]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xe20d # Battlemage G21 [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xe210 # Battlemage G21 [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xe212 # Battlemage G21 [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xe215 # Battlemage G21 [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xe216 # Battlemage G21 [Intel Graphics]
+    # Raptor Lake = 13th and 14th generation CPUs
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa720 # Raptor Lake-P [UHD Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa721 # Raptor Lake-P [UHD Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa780 # Raptor Lake-S GT1 [UHD Graphics 770]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa781 # Raptor Lake-S UHD Graphics
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa782 # Raptor Lake-S UHD Graphics
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa783 # Raptor Lake-S UHD Graphics
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa788 # Raptor Lake-S UHD Graphics
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa789 # Raptor Lake-S UHD Graphics
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa78a # Raptor Lake-S UHD Graphics
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa78b # Raptor Lake-S UHD Graphics
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa7a0 # Raptor Lake-P [Iris Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa7a1 # Raptor Lake-P [Iris Xe Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa7a8 # Raptor Lake-P [UHD Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa7a9 # Raptor Lake-P [UHD Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa7aa # Raptor Lake-P [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa7ab # Raptor Lake-P [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa7ac # Raptor Lake-U [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xa7ad # Raptor Lake-U [Intel Graphics]
+    # Meteor Lake = Core Ultra Series 1 mobile processors
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x7dd5 # Meteor Lake-P [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x7d40 # Meteor Lake-M [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x7d55 # Meteor Lake-P [Intel Arc Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x7d60 # Meteor Lake-M [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x7d45 # Meteor Lake-P [Intel Graphics]
+    # Lunar Lake = Intel Core Ultra 2nd generation mobile processors / Core Ultra 200V Series mobile processors
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x6420 # Lunar Lake [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x64a0 # Lunar Lake [Intel Arc Graphics 130V / 140V]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x64b0 # Lunar Lake [Intel Graphics]
+    # Arrow Lake = Core Ultra Series 2 processors / Intel 200S Series CPUs
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xb640 # Arrow Lake-H [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x7d41 # Arrow Lake-U [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x7d51 # Arrow Lake-P [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x7d67 # Arrow Lake-S [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0x7dd1 # Arrow Lake-P [Intel Graphics]
+    # Panther Lake = Core Ultra Series 3
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xb080 # Panther Lake [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xb081 # Panther Lake [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xb082 # Panther Lake [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xb083 # Panther Lake [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xb08f # Panther Lake [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xb090 # Panther Lake [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xb0a0 # Panther Lake [Intel Graphics]
+    - type: gpu
+      vram: 7G
+      vendor-id: 0x8086 # Intel
+      device-id: 0xb0b0 # Panther Lake [Intel Graphics]
+
+runtime: openvino-model-server
+
+model:
+  default: e4b-it-int4-ov
+  options:
+    - e4b-it-int4-ov
