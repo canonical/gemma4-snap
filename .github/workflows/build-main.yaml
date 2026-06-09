@@ -4,6 +4,10 @@ on:
   push:
     branches: [ main, smoke-test ] # temp branch for testing promotion to beta
 
+concurrency:
+  group: ${{ github.workflow }}
+  queue: max
+
 env:
   SNAP_NAME: gemma4
 
