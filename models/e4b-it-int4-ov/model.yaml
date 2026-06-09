@@ -14,5 +14,5 @@ components:
   - model-e4b-it-int4-ov
 
 environment:
-  - MODEL_PATH=$SNAP_COMPONENTS/model-e4b-it-int4-ov
+  - MODEL_PATH=$SNAP_COMPONENTS/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
   - MODEL_NAME=gemma4-e4b-it-int4-ov
