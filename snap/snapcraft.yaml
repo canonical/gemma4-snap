@@ -187,7 +187,6 @@ parts:
     organize:
       "model-e2b-q4-k-m-gguf/*": (component/model-e2b-q4-k-m-gguf)
       "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
-      "model-e4b-it-int4-ov/*": (component/model-e4b-it-int4-ov)
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00001-of-00004.gguf": (component/model-26b-a4b-q4-k-m-1-of-4)
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00002-of-00004.gguf": (component/model-26b-a4b-q4-k-m-2-of-4)
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00003-of-00004.gguf": (component/model-26b-a4b-q4-k-m-3-of-4)
@@ -195,9 +194,36 @@ parts:
       "mmproj-e2b-bf16-gguf/*": (component/mmproj-e2b-bf16-gguf)
       "mmproj-e4b-q8-0-gguf/*": (component/mmproj-e4b-q8-0-gguf)
       "mmproj-26b-bf16-gguf/*": (component/mmproj-26b-bf16-gguf)
-      
+
     prime:
       # Exclude everything not explicitly organized
+      - -*
+
+  ov-model-1-of-2:
+    plugin: dump
+    source: components/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
+    organize:
+      "*": (component/model-e4b-it-int4-ov-1-of-2)/
+    prime:
+      - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings_model.bin"
+      - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings_model.xml"
+      - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings_per_layer_model.bin"
+      - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings_per_layer_model.xml"
+      - "*"
+
+  ov-model-2-of-2:
+    plugin: dump
+    source: components/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
+    organize:
+      "openvino_text_embeddings_model.bin": (component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_model.bin
+      "openvino_text_embeddings_model.xml": (component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_model.xml
+      "openvino_text_embeddings_per_layer_model.bin": (component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_per_layer_model.bin
+      "openvino_text_embeddings_per_layer_model.xml": (component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_per_layer_model.xml
+    prime:
+      - "(component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_model.bin"
+      - "(component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_model.xml"
+      - "(component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_per_layer_model.bin"
+      - "(component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_per_layer_model.xml"
       - -*
 
   llamacpp:
@@ -213,7 +239,7 @@ parts:
     
   llamacpp-cuda:
     plugin: dump
-    source: 
+    source:
       - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64+cuda12.tar.gz
       - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-arm64+cuda12.tar.gz
     stage-packages:
@@ -221,7 +247,7 @@ parts:
     organize:
       "licenses": usr/share/doc/llama.cpp+cuda # Add licenses to the snap
       "*": (component/llamacpp-cuda)
-  
+
   llamacpp-rocm-amd64:
     plugin: dump
     source: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64+rocm.tar.gz
@@ -328,10 +354,13 @@ components:
     summary: Google Gemma 4 E4B multimodal projector Q8_0 GGUF
     description: Multimodal projector weights for Google Gemma 4 E4B vision support in GGUF format
 
-  model-e4b-it-int4-ov:
+  model-e4b-it-int4-ov-1-of-2: &model-e4b-it-int4-ov
     type: standard
     summary: Google Gemma 4 E4B INT4 OpenVINO format
     description: Model weights for Google Gemma 4 E4B (Efficient 4B) in OpenVINO format, quantized to INT4
+
+  model-e4b-it-int4-ov-2-of-2:
+    <<: *model-e4b-it-int4-ov
 
   model-26b-a4b-q4-k-m-1-of-4: &model-26b-a4b-q4-k-m
     type: standard

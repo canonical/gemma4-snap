@@ -11,8 +11,56 @@ capabilities:
   - text
 
 components:
-  - model-e4b-it-int4-ov
+  - model-e4b-it-int4-ov-1-of-2
+  - model-e4b-it-int4-ov-2-of-2
 
 environment:
-  - MODEL_PATH=$SNAP_COMPONENTS/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
+  # The model is split across two components. The layout below flattens them
+  # into a single directory via symlinks so OpenVINO Model Server can find all files.
   - MODEL_NAME=gemma4-e4b-it-int4-ov
+  - MODEL_DIR=/tmp/gemma4-e4b-it-int4-ov
+  - MODEL_PATH=$MODEL_DIR
+
+layout:
+  $MODEL_DIR/README.md:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/README.md
+  $MODEL_DIR/chat_template.jinja:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/chat_template.jinja
+  $MODEL_DIR/config.json:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/config.json
+  $MODEL_DIR/generation_config.json:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/generation_config.json
+  $MODEL_DIR/openvino_config.json:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/openvino_config.json
+  $MODEL_DIR/openvino_detokenizer.bin:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/openvino_detokenizer.bin
+  $MODEL_DIR/openvino_detokenizer.xml:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/openvino_detokenizer.xml
+  $MODEL_DIR/openvino_language_model.bin:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/openvino_language_model.bin
+  $MODEL_DIR/openvino_language_model.xml:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/openvino_language_model.xml
+  $MODEL_DIR/openvino_tokenizer.bin:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/openvino_tokenizer.bin
+  $MODEL_DIR/openvino_tokenizer.xml:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/openvino_tokenizer.xml
+  $MODEL_DIR/openvino_vision_embeddings_model.bin:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/openvino_vision_embeddings_model.bin
+  $MODEL_DIR/openvino_vision_embeddings_model.xml:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/openvino_vision_embeddings_model.xml
+  $MODEL_DIR/preprocessor_config.json:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/preprocessor_config.json
+  $MODEL_DIR/processor_config.json:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/processor_config.json
+  $MODEL_DIR/tokenizer.json:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/tokenizer.json
+  $MODEL_DIR/tokenizer_config.json:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-1-of-2/tokenizer_config.json
+  $MODEL_DIR/openvino_text_embeddings_model.bin:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-2-of-2/openvino_text_embeddings_model.bin
+  $MODEL_DIR/openvino_text_embeddings_model.xml:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-2-of-2/openvino_text_embeddings_model.xml
+  $MODEL_DIR/openvino_text_embeddings_per_layer_model.bin:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-2-of-2/openvino_text_embeddings_per_layer_model.bin
+  $MODEL_DIR/openvino_text_embeddings_per_layer_model.xml:
+    symlink: $SNAP_COMPONENTS/model-e4b-it-int4-ov-2-of-2/openvino_text_embeddings_per_layer_model.xml
