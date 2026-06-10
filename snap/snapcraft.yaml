@@ -205,25 +205,16 @@ parts:
     organize:
       "*": (component/model-e4b-it-int4-ov-1-of-2)/
     prime:
-      - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings_model.bin"
-      - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings_model.xml"
-      - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings_per_layer_model.bin"
-      - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings_per_layer_model.xml"
+      - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings*"
       - "*"
 
   ov-model-2-of-2:
     plugin: dump
     source: components/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
     organize:
-      "openvino_text_embeddings_model.bin": (component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_model.bin
-      "openvino_text_embeddings_model.xml": (component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_model.xml
-      "openvino_text_embeddings_per_layer_model.bin": (component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_per_layer_model.bin
-      "openvino_text_embeddings_per_layer_model.xml": (component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_per_layer_model.xml
+      "openvino_text_embeddings*": (component/model-e4b-it-int4-ov-2-of-2)/
     prime:
-      - "(component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_model.bin"
-      - "(component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_model.xml"
-      - "(component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_per_layer_model.bin"
-      - "(component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings_per_layer_model.xml"
+      - "(component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings*"
       - -*
 
   llamacpp:
