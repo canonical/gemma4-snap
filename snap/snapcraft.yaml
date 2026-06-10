@@ -75,7 +75,7 @@ parts:
         cli_version="${base_ver}-${short_hash}"
       fi
       git_hash=$(git -C "$SNAPCRAFT_PROJECT_DIR" describe --always)
-      craftctl set version="${cli_version}+${git_hash}"
+      craftctl set version="${cli_version#v}+${git_hash}"
 
   cli:
     source:
