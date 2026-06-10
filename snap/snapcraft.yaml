@@ -199,7 +199,7 @@ parts:
       # Exclude everything not explicitly organized
       - -*
 
-  ov-model-1-of-2:
+  model-e4b-it-int4-ov-1-of-2:
     plugin: dump
     source: components/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
     organize:
@@ -208,7 +208,7 @@ parts:
       - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings*"
       - "*"
 
-  ov-model-2-of-2:
+  model-e4b-it-int4-ov-2-of-2:
     plugin: dump
     source: components/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
     organize:

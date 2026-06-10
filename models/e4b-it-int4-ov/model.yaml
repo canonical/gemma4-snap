@@ -2,7 +2,7 @@ id: e4b-it-int4-ov
 name: e4b
 
 description: E4B model for OpenVINO
-model-card-url: https://example.com/model-card
+model-card-url: https://huggingface.co/OpenVINO/gemma-4-E4B-it-int4-ov
 quantization: INT4
 
 disk-size: 6161M
