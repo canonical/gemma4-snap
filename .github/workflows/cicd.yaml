@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - smoke-test # temp branch for testing promotion to beta
 
 # Keep one CICD run active at a time so publish/test/promote happen in order
 concurrency:
@@ -51,7 +50,7 @@ jobs:
           sudo snap install ${{ env.SNAP_NAME }} --channel latest/edge
   
       - name: Run smoke tests
-        uses: canonical/inference-snaps-dev/.github/actions/smoke-test@5a44ba739e2ade50f2276b5e246b13b57367915a # change to v2, once ready
+        uses: canonical/inference-snaps-dev/.github/actions/smoke-test@v2
         with:
           snap-name: ${{ env.SNAP_NAME }}
           engine: cpu-e4b
@@ -68,6 +67,6 @@ jobs:
         env:
           # Workaround for https://github.com/canonical/snapcraft/issues/4439
           SNAPCRAFT_HAS_TTY: "true"
-          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN_MAIN_BETA }} # temporary var, switch to STORE_LOGIN_MAIN after updating token
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN_MAIN }}
         run: |
-          yes | snapcraft promote ${{ env.SNAP_NAME }} --from-channel latest/edge --to-channel latest/beta/smoke-test # using branch for testing purposes
+          yes | snapcraft promote ${{ env.SNAP_NAME }} --from-channel latest/edge --to-channel latest/beta
