@@ -66,14 +66,14 @@ parts:
       # Do nothing. This significantly reduces build time when sourcing large files.
     override-build: |
       set -eo pipefail
-      cli_version=$($CRAFT_STAGE/bin/gemma4 version --format=json | jq .cli --raw-output)
-      git_hash=$(git -C "$SNAPCRAFT_PROJECT_DIR" describe --always)
-      craftctl set version="${cli_version#v}+${git_hash}"
+      # cli_version=$($CRAFT_STAGE/bin/gemma4 version --format=json | jq .cli --raw-output)
+      # Hardcode the version while the version command is broken
+      craftctl set version="2.0.0-beta+${git_hash}"
 
   cli:
     source:
-      - on amd64: https://github.com/canonical/inference-snaps-cli/releases/download/v1.0.0/inference-snaps-cli-linux-amd64.tar.xz
-      - on arm64: https://github.com/canonical/inference-snaps-cli/releases/download/v1.0.0/inference-snaps-cli-linux-arm64.tar.xz
+      - on amd64: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta/inference-snaps-cli-linux-amd64.tar.xz
+      - on arm64: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta/inference-snaps-cli-linux-arm64.tar.xz
     plugin: dump
     override-build: |
       mkdir -p bin
@@ -114,6 +114,18 @@ parts:
     plugin: dump
     organize:
       "*": engines/
+
+  models:
+    source: models
+    plugin: dump
+    organize:
+      "*": models/
+
+  runtimes:
+    source: runtimes
+    plugin: dump
+    organize:
+      "*": runtimes/
   
   scripts:
     source: scripts
@@ -130,18 +142,11 @@ parts:
     plugin: dump
     source: components
     organize:
-      "llamacpp/*": (component/llamacpp)
-      "llamacpp-cuda/*": (component/llamacpp-cuda)
-      "llamacpp-rocm/*": (component/llamacpp-rocm)
       "model-e2b-q4-k-m-gguf/*": (component/model-e2b-q4-k-m-gguf)
       "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
-      "model-26b-a4b-q4-k-m-gguf/component.yaml": (component/model-26b-a4b-q4-k-m-1-of-4)
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00001-of-00004.gguf": (component/model-26b-a4b-q4-k-m-1-of-4)
-      "model-26b-a4b-q4-k-m-gguf/component-2-of-4.yaml": (component/model-26b-a4b-q4-k-m-2-of-4)/component.yaml
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00002-of-00004.gguf": (component/model-26b-a4b-q4-k-m-2-of-4)
-      "model-26b-a4b-q4-k-m-gguf/component-3-of-4.yaml": (component/model-26b-a4b-q4-k-m-3-of-4)/component.yaml
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00003-of-00004.gguf": (component/model-26b-a4b-q4-k-m-3-of-4)
-      "model-26b-a4b-q4-k-m-gguf/component-4-of-4.yaml": (component/model-26b-a4b-q4-k-m-4-of-4)/component.yaml
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00004-of-00004.gguf": (component/model-26b-a4b-q4-k-m-4-of-4)
       "mmproj-e2b-bf16-gguf/*": (component/mmproj-e2b-bf16-gguf)
       "mmproj-e4b-q8-0-gguf/*": (component/mmproj-e4b-q8-0-gguf)

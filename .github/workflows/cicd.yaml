@@ -24,7 +24,7 @@ jobs:
       build-init-script: 'download-models.sh'
       store-track: latest
       snap-name: gemma4
-      engine: "cpu-e4b"
+      engine: "cpu"
     secrets:
       # store-credentials: ${{ secrets.STORE_LOGIN_MAIN }}
       store-credentials: ${{ secrets.STORE_LOGIN_PR46 }} # temp, for testing cicd but not allowed to promote beta
