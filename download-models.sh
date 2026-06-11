@@ -26,5 +26,5 @@ source .venv/bin/activate
 pip install --upgrade pip
 pip install -U huggingface_hub
 
-hf download farshidtz/gemma-4-26B-A4B-it-UD-Q4_K_M-5G --local-dir components/model-26b-a4b-q4-k-m-gguf
+hf download inference-snaps/gemma-4-26B-A4B-it-UD-Q4_K_M-5GB --local-dir components/model-26b-a4b-q4-k-m-gguf
 ls components/model-26b-a4b-q4-k-m-gguf
