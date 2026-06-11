@@ -14,10 +14,8 @@ wget -nv https://huggingface.co/ggml-org/gemma-4-E4B-it-GGUF/resolve/main/mmproj
     --directory-prefix=components/mmproj-e4b-q8-0-gguf/
 
 # 26B A4B mmproj
-# 26B A4B mmproj
 wget -nv https://huggingface.co/unsloth/gemma-4-26B-A4B-it-GGUF/resolve/main/mmproj-BF16.gguf \
     --directory-prefix=components/mmproj-26b-bf16-gguf/
-
 
 # 26B A4B model
 sudo apt-get install -y python3-venv
