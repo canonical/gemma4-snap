@@ -52,7 +52,7 @@ jobs:
         uses: canonical/inference-snaps-dev/.github/actions/smoke-test@v2
         with:
           snap-name: ${{ env.SNAP_NAME }}
-          engine: cpu-e4b
+          engine: cpu
   
   promote:
     needs: [smoke-test]
