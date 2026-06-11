@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   cicd:
+    if: github.repository == 'canonical/gemma4-snap' # do not run on forks
     uses: canonical/inference-snaps-dev/.github/workflows/reuse-cicd.yaml@reusable-cicd # change to v2, once ready
     with:
       build-runner-amd64: "[ self-hosted, amd64, noble, 2xlarge-extra ]"
