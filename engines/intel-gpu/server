@@ -10,10 +10,8 @@ if [ "${verbose}" = "true" ]; then
   extra_args+=(--log_level DEBUG)
 fi
 
-# Set --pipeline_type VLM  to working around an issue with the default
+# Set --pipeline_type VLM to work around an issue with the default
 # continuous batching pipeline, VLM_CB
-
-# The engine must additionally set --target_device CPU|GPU|NPU|etc
 
 set -x
 ovms \

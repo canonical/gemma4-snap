@@ -17,7 +17,6 @@ environment:
   - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP_COMPONENTS/openvino-model-server/usr/lib/$ARCH_TRIPLET
   - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP_COMPONENTS/openvino-model-server/usr/local/lib
   - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP/usr/local/lib
-  - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP/npu-libs
 
 components:
   - openvino-model-server

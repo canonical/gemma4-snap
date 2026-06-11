@@ -30,13 +30,6 @@ slots:
         - &owui-share $SNAP_DATA/share/open-webui
 
 plugs:
-  intel-npu:
-    interface: custom-device
-    custom-device: intel-npu-device
-  npu-libs:
-    interface: content
-    content: npu-libs-2404
-    target: $SNAP/npu-libs
   # To allow side-loading models into server (root daemon) from user home directory
   home:
     read: all
@@ -257,24 +250,19 @@ parts:
 
   openvino-model-server:
     plugin: dump
-    source:
-      # Source OVMS binaries only on amd64
-      - on amd64: https://github.com/openvinotoolkit/model_server/releases/download/v2026.2/ovms_ubuntu24_2026.2.0_python_off.tar.gz
-      - on arm64: components/openvino-model-server
+    source: https://github.com/openvinotoolkit/model_server/releases/download/v2026.2/ovms_ubuntu24_2026.2.0_python_off.tar.gz
     stage-packages:
-      - on amd64:
-          - libxml2
-          - libcurl4
-    override-build: |
-      craftctl default
-      if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
-        license_dir=$CRAFT_PART_INSTALL/usr/share/doc/openvino-model-server
-        mkdir -p $license_dir
-        cp $CRAFT_PART_SRC/LICENSE $license_dir/
-      fi
+      - libxml2
+      - libcurl4
     organize:
       # move everything, including the staged packages
+      "LICENSE": usr/share/doc/openvino-model-server
       "*": (component/openvino-model-server)
+    # This part is only for amd64
+    override-pull: *amd64-only
+    override-build: *amd64-only
+    override-stage: *amd64-only
+    override-prime: *amd64-only
 
   # For Intel GPU usage, amd64 only
   intel-compute-runtime:
@@ -413,8 +401,6 @@ apps:
       - opengl
       - process-control
       - home
-      - intel-npu
-      - npu-libs
 
   server-webui:
     command: bin/server-webui.sh
