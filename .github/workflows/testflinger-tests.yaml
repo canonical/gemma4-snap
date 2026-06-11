@@ -23,7 +23,7 @@ jobs:
         jobs:
           - job-queue: maas-systemtests-amd64
             provision-data: "distro: noble"
-            select-engine: cpu
+            select-engine: cpu-e4b
             test-chat-tps: true
             test-image-prompt: true
 
