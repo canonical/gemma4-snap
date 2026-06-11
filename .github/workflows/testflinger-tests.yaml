@@ -27,6 +27,18 @@ jobs:
             test-chat-tps: true
             test-image-prompt: true
 
+          - job-queue: mir-intel-noble
+            provision-data: "distro: noble"
+            select-engine: intel-cpu
+            test-chat-tps: true
+            test-image-prompt: true
+
+          - job-queue: 202111-29603 # Alder Lake, GPU 8086:4680
+            provision-data: "distro: noble"
+            select-engine: intel-gpu
+            test-chat-tps: true
+            test-image-prompt: true
+
           - job-queue: anbox-nvidia-amd64
             provision-data: "distro: noble"
             install-nvidia-driver-version: 595
