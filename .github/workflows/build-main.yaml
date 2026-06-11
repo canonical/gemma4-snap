@@ -4,6 +4,14 @@ on:
   push:
     branches: [ main ]
 
+# Keep one CICD run active at a time so publish/test/promote happen in order
+concurrency:
+  group: ${{ github.workflow }}
+  queue: max
+
+env:
+  SNAP_NAME: gemma4
+
 jobs:
   build-and-publish:
     uses: canonical/inference-snaps-dev/.github/workflows/build-publish-snap.yaml@v2
@@ -16,6 +24,48 @@ jobs:
     with:
       runner: "${{ toJSON(matrix.runner) }}"
       init-build-script: 'download-models.sh'
-      publish-channel: 'latest/edge' # Add track if needed, e.g., 24/latest/edge
+      publish-channel: latest/edge
     secrets:
       store-credentials: ${{ secrets.STORE_LOGIN_MAIN }}
+
+
+  smoke-test:
+    needs: [build-and-publish]
+    strategy:
+      fail-fast: false
+      matrix:
+        runner:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Refresh/Install snapd
+        run: |
+          sudo snap refresh snapd || sudo snap install snapd
+
+      - name: Install inference snap
+        shell: bash
+        run: |
+          sudo snap install ${{ env.SNAP_NAME }} --channel latest/edge
+  
+      - name: Run smoke tests
+        uses: canonical/inference-snaps-dev/.github/actions/smoke-test@v2
+        with:
+          snap-name: ${{ env.SNAP_NAME }}
+          engine: cpu
+  
+  promote:
+    needs: [smoke-test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install snapcraft
+        shell: bash
+        run: |
+          sudo snap install snapcraft --classic
+      - name: Promote to beta
+        env:
+          # Workaround for https://github.com/canonical/snapcraft/issues/4439
+          SNAPCRAFT_HAS_TTY: "true"
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN_MAIN }}
+        run: |
+          yes | snapcraft promote ${{ env.SNAP_NAME }} --from-channel latest/edge --to-channel latest/beta

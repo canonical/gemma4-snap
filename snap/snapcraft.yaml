@@ -66,16 +66,9 @@ parts:
       # Do nothing. This significantly reduces build time when sourcing large files.
     override-build: |
       set -eo pipefail
-      cli_version=$($CRAFT_STAGE/bin/gemma4 version --format=json | jq .cli --raw-output)
-      # Detect Go pseudo-versions (dev builds): vX.Y.Z-[0.]yyyymmddhhmmss-<12hexchars>[+dirty]
-      # Shorten these to vX.Y.Z-<7char hash>, e.g. v1.0.1-b357c63
-      if echo "$cli_version" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+-([0-9]+\.)?[0-9]{14}-[0-9a-f]{12}'; then
-        base_ver=$(echo "$cli_version" | sed -E 's/-([0-9]+\.)?[0-9]{14}-.*//')
-        short_hash=$(echo "$cli_version" | sed 's/+.*//' | awk -F'-' '{print substr($NF,1,7)}')
-        cli_version="${base_ver}-${short_hash}"
-      fi
-      git_hash=$(git -C "$SNAPCRAFT_PROJECT_DIR" describe --always)
-      craftctl set version="${cli_version}+${git_hash}"
+      # cli_version=$($CRAFT_STAGE/bin/gemma4 version --format=json | jq .cli --raw-output)
+      # Hardcode the version while the version command is broken
+      craftctl set version="2.0.0-beta+${git_hash}"
 
   cli:
     source:
