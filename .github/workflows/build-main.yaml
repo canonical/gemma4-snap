@@ -1,9 +1,8 @@
-name: CICD
+name: Build main
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 # Keep one CICD run active at a time so publish/test/promote happen in order
 concurrency:
