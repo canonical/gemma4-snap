@@ -8,17 +8,17 @@
   },
   "packageRules": [
     {
-      "description": "Automerge inference-snaps-dev updates on the submodule branch",
+      "description": "Automerge inference-snaps-dev update PRs",
       "matchManagers": [
         "git-submodules"
       ],
       "matchDepNames": [
-        "canonical/inference-snaps-dev"
+        "dev"
       ],
-      "commitMessageSuffix": "[skip ci]",
+      "commitBody": "[skip ci]",
       "automerge": true,
       "automergeType": "pr",
-      "platformAutomerge": true
+      "ignoreTests": true
     }
   ],
   "customManagers": [
