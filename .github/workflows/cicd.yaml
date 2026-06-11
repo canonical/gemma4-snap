@@ -1,0 +1,28 @@
+name: CICD
+
+on:
+  push:
+    branches:
+      - main
+      - refact-cicd # temp branch for testing cicd workflow changes
+  
+  workflow_dispatch: # manual trigger 
+
+
+# Keep one CICD run active at a time so publish/test/promote happen in order
+concurrency:
+  group: ${{ github.workflow }}
+  queue: max
+
+jobs:
+  cicd:
+    uses: canonical/inference-snaps-dev/.github/workflows/reuse-cicd.yaml@reusable-cicd # change to v2, once ready
+    with:
+      build-runner-amd64: "[ self-hosted, amd64, noble, 2xlarge-extra ]"
+      build-runner-arm64: "[ self-hosted, arm64, noble, large-extra ]"
+      build-init-script: 'download-models.sh'
+      store-track: latest
+      snap-name: gemma4
+      engine: "cpu-e4b"
+    secrets:
+      store-credentials: ${{ secrets.STORE_LOGIN_MAIN }}
