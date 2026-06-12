@@ -1,7 +1,7 @@
 name: intel-cpu
 summary: Optimized for Intel CPUs
 description: |
-  This engine uses OpenVINO Model Server as runtime.
+  This engine uses OpenVINO Model Server.
   
   It is optimized for a range of Intel CPUs.
 vendor: Canonical Ltd

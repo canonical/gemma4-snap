@@ -4,8 +4,8 @@ description: |
   This engine uses OpenVINO Model Server.
   
   It is optimized for a range of Intel GPU families, including:
-  - Arc (DG2, 1st generation dGPU)
-  - Battlemage (2nd generation dGPU)
+  - Xe Graphics (Alchemist)
+  - Xe2 Graphics (Battlemage)
   - Raptor Lake
   - Meteor Lake
   - Lunar Lake
