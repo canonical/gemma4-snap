@@ -2,7 +2,7 @@ name: Build main
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, promote-assume-yes ]
 
 # Keep one CICD run active at a time so publish/test/promote happen in order
 concurrency:
@@ -64,8 +64,6 @@ jobs:
           sudo snap install snapcraft --classic
       - name: Promote to beta
         env:
-          # Workaround for https://github.com/canonical/snapcraft/issues/4439
-          SNAPCRAFT_HAS_TTY: "true"
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN_MAIN }}
         run: |
-          yes | snapcraft promote ${{ env.SNAP_NAME }} --from-channel latest/edge --to-channel latest/beta
+          snapcraft promote ${{ env.SNAP_NAME }} --from-channel latest/edge --to-channel latest/beta --yes
