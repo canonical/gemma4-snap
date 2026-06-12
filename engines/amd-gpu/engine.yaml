@@ -1,5 +1,24 @@
 name: amd-gpu
-description: ROCm-optimized for workstation GPUs
+summary: ROCm-optimized for workstation GPUs
+description: |
+  This engine uses llama.cpp with the ROCm backend.
+
+  It supports the following AMD GPU microarchitectures:
+  - gfx1010
+  - gfx1011
+  - gfx1012
+  - gfx1030
+  - gfx1031
+  - gfx1032
+  - gfx1100
+  - gfx1101
+  - gfx1102
+  - gfx1150
+  - gfx1151
+  - gfx1152
+  - gfx1153
+  - gfx1200
+  - gfx1201
 vendor: Canonical Ltd
 
 devices:
