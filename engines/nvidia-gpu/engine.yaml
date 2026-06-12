@@ -1,7 +1,7 @@
 name: nvidia-gpu
 summary: CUDA optimized for workstation GPUs
 description: |
-  This engine used llama.cpp with the CUDA backend.]
+  This engine uses llama.cpp with the CUDA backend.
   
   It is optimized for NVIDIA GPUs.
   
