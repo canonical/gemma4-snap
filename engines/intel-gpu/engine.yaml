@@ -1,7 +1,7 @@
 name: intel-gpu
 summary: Optimized for Intel GPUs
 description: |
-  This engine uses OpenVINO Model Server. 
+  This engine uses OpenVINO Model Server.
   
   It is optimized for a range of Intel GPU families, including:
   - Arc (DG2, 1st generation dGPU)
