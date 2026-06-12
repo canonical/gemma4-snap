@@ -1,5 +1,10 @@
 name: cpu
-description: CPU-optimized for workstations
+summary: CPU-optimized for workstations
+description: |
+  This engine uses llama.cpp as the runtime.
+  
+  It is optimized for both amd64 and arm64 CPU architectures, for a wide range
+  of architecture variants.
 vendor: Canonical Ltd
 
 devices:
