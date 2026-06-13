@@ -213,8 +213,8 @@ parts:
   llamacpp:
     plugin: dump
     source: 
-      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64.tar.gz
-      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-arm64.tar.gz
+      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b9305/llamacpp-amd64.tar.gz
+      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b9305/llamacpp-arm64.tar.gz
     stage-packages:
       - libgomp1
     organize:
@@ -224,8 +224,8 @@ parts:
   llamacpp-cuda:
     plugin: dump
     source:
-      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64+cuda12.tar.gz
-      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-arm64+cuda12.tar.gz
+      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b9305/llamacpp-amd64+cuda12.tar.gz
+      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b9305/llamacpp-arm64+cuda12.tar.gz
     stage-packages:
       - libgomp1
     organize:
@@ -234,7 +234,7 @@ parts:
 
   llamacpp-rocm-amd64:
     plugin: dump
-    source: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64+rocm.tar.gz
+    source: https://github.com/canonical/llama.cpp-builds/releases/download/b9305/llamacpp-amd64+rocm.tar.gz
     stage-packages:
       - libgomp1
       - libatomic1
