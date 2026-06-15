@@ -213,8 +213,8 @@ parts:
   llamacpp:
     plugin: dump
     source: 
-      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64.tar.gz
-      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-arm64.tar.gz
+      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-amd64.tar.gz
+      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-arm64.tar.gz
     stage-packages:
       - libgomp1
     organize:
@@ -224,17 +224,17 @@ parts:
   llamacpp-cuda:
     plugin: dump
     source:
-      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64+cuda12.tar.gz
-      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-arm64+cuda12.tar.gz
+      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-amd64+cuda12.9.tar.gz
+      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-arm64+cuda12.9.tar.gz
     stage-packages:
       - libgomp1
     organize:
       "licenses": usr/share/doc/llama.cpp+cuda # Add licenses to the snap
       "*": (component/llamacpp-cuda)
 
-  llamacpp-rocm-amd64:
+  llamacpp-rocm:
     plugin: dump
-    source: https://github.com/canonical/llama.cpp-builds/releases/download/b8893/llamacpp-amd64+rocm.tar.gz
+    source: https://github.com/canonical/llama.cpp-builds/releases/download/b9585/llamacpp-amd64+rocm.tar.gz
     stage-packages:
       - libgomp1
       - libatomic1
@@ -244,6 +244,21 @@ parts:
     # This part is only for amd64
     override-pull: &amd64-only |
       [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ] && craftctl default || exit 0
+    override-build: *amd64-only
+    override-stage: *amd64-only
+    override-prime: *amd64-only
+  
+  llamacpp-onemkl:
+    plugin: dump
+    source: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-amd64+onemkl.tar.gz
+    stage-packages:
+      - libgomp1
+      - libatomic1
+    organize:
+      "licenses": usr/share/doc/llama.cpp+onemkl # Add licenses to the snap
+      "*": (component/llamacpp-onemkl)
+    # This part is only for amd64
+    override-pull: *amd64-only
     override-build: *amd64-only
     override-stage: *amd64-only
     override-prime: *amd64-only
@@ -374,6 +389,11 @@ components:
     type: standard
     summary: llama.cpp with ROCm backend
     description: LLM inference in C/C++
+  
+  llamacpp-onemkl:
+    type: standard
+    summary: llama.cpp with oneMKL backend
+    description: LLM inference in C/C++ optimized for Intel CPUs with oneMKL
 
   openvino-model-server:
     type: standard
