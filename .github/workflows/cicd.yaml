@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - smoke-test
   
   workflow_dispatch: # manual trigger 
 
@@ -16,9 +17,13 @@ concurrency:
 jobs:
   cicd:
     if: github.repository == 'canonical/gemma4-snap' # do not run on forks
-    uses: canonical/inference-snaps-dev/.github/workflows/reuse-cicd.yaml@v2
+    uses: canonical/inference-snaps-dev/.github/workflows/reuse-cicd.yaml@extend-smoke-test-config # v2
     with:
-      build-runner: '[["amd64", "2xlarge-extra", "noble", "self-hosted"], ["arm64", "large-extra", "noble", "self-hosted"]]'
+      build-runner: |
+        [
+          ["amd64", "2xlarge-extra", "noble", "self-hosted"],
+          ["arm64", "large-extra", "noble", "self-hosted"]
+        ]
       build-init-script: 'download-models.sh'
       store-track: latest
       snap-name: gemma4
