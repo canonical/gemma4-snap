@@ -234,7 +234,7 @@ parts:
 
   llamacpp-rocm:
     plugin: dump
-    source: https://github.com/canonical/llama.cpp-builds/releases/download/b9585/llamacpp-amd64+rocm.tar.gz
+    source: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-amd64+rocm.tar.gz
     stage-packages:
       - libgomp1
       - libatomic1
