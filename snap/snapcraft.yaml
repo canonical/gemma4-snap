@@ -175,8 +175,10 @@ parts:
       "completion.bash": bin/
 
   local-component-files:
-    plugin: dump
+    plugin: cmake # We use an out-of-source plugin like cmake instead of "dump" to prevent unwanted copies, see https://github.com/canonical/craft-parts/issues/1609
     source: components
+    override-build:
+      cp -rf --archive --link --no-dereference ${CRAFT_PART_SRC}/* ${CRAFT_PART_INSTALL}
     organize:
       "model-e2b-q4-k-m-gguf/*": (component/model-e2b-q4-k-m-gguf)
       "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
