@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - smoke-test
   
   workflow_dispatch: # manual trigger 
 
@@ -17,7 +16,7 @@ concurrency:
 jobs:
   cicd:
     if: github.repository == 'canonical/gemma4-snap' # do not run on forks
-    uses: canonical/inference-snaps-dev/.github/workflows/reuse-cicd.yaml@extend-smoke-test-config # v2
+    uses: canonical/inference-snaps-dev/.github/workflows/reuse-cicd.yaml@v2
     with:
       build-runner: |
         [
