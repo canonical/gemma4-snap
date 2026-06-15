@@ -32,6 +32,12 @@ jobs:
             select-engine: intel-cpu
             test-chat-tps: true
             test-image-prompt: true
+          
+          - job-queue: mir-intel-noble
+            provision-data: "distro: noble"
+            select-engine: intel-onemkl
+            test-chat-tps: true
+            test-image-prompt: true
 
           - job-queue: 202111-29603 # Alder Lake, GPU 8086:4680
             provision-data: "distro: noble"
