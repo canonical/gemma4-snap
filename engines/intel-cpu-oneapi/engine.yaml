@@ -1,5 +1,5 @@
 name: intel-cpu-oneapi
-description: Intel CPU-optimized for workstations using oneAPI
+summary: Intel CPU-optimized for workstations using oneAPI
 vendor: Canonical Ltd
 
 devices:
