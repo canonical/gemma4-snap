@@ -1,7 +1,7 @@
 name: intel-onemkl
 summary: Intel CPU-optimized for workstations using oneMKL
 vendor: Canonical Ltd
-
+experimental: true
 devices:
   anyof:
     - type: cpu
