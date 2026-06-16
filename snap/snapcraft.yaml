@@ -175,7 +175,9 @@ parts:
       "completion.bash": bin/
 
   local-component-files:
-    plugin: cmake # We use an out-of-source plugin like cmake instead of "dump" to prevent unwanted copies, see https://github.com/canonical/craft-parts/issues/1609
+     # Use the cmake plugin instead of "dump" to prevent unwanted copies
+     # See https://github.com/canonical/craft-parts/issues/1609
+    plugin: cmake
     source: components
     override-build:
       cp -rf --archive --link --no-dereference ${CRAFT_PART_SRC}/* ${CRAFT_PART_INSTALL}
