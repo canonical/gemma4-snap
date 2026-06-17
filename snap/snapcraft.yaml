@@ -217,8 +217,8 @@ parts:
   llamacpp:
     plugin: dump
     source: 
-      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b9482/llamacpp-amd64.tar.gz
-      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b9482/llamacpp-arm64.tar.gz
+      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-amd64.tar.gz
+      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-arm64.tar.gz
     stage-packages:
       - libgomp1
     organize:
