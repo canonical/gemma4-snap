@@ -1,5 +1,5 @@
 {
   "extends": [
-    "github>canonical/inference-snaps-dev//renovate/default.jsonc#add-renovate-config" 
+    "github>canonical/inference-snaps-dev//renovate/default.jsonc#add-renovate-config"
   ]
 }
