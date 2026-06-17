@@ -1,5 +1,5 @@
 {
   "extends": [
-    "https://raw.githubusercontent.com/canonical/inference-snaps-dev/b185f7337bb87bde3899022ee4ab1a7a34cdbcb0/renovate/renovate.json5"
+    "github>canonical/inference-snaps-dev//renovate/default.jsonc#v2.test"
   ]
 }
