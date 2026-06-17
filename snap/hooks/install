@@ -33,4 +33,13 @@ ln -s /var/lib/snapd/hostfs/usr/lib/wsl/drivers $SNAP_COMMON/usr/lib/wsl/drivers
 #
 # Auto select an engine
 #
+
+# Temporary bypass for installing the snap and defaulting to the intel-onemkl engine.
+# $ snap install gemma4+llamacpp-onemkl
+if [ -d "$SNAP_COMPONENTS/llamacpp-onemkl" ]; then
+    echo "Found llamacpp-onemkl component, will use the intel-onemkl engine."
+    modelctl use-engine intel-onemkl --assume-yes --verbose
+    exit 0
+fi
+
 modelctl use-engine --auto --assume-yes --fallback=cpu
