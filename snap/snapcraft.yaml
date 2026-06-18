@@ -179,7 +179,12 @@ parts:
      # See https://github.com/canonical/craft-parts/issues/1609
     plugin: cmake
     source: components
-    override-build:
+    override-build: |
+      if [ "$CRAFT_ARCH_BUILD_FOR" != "amd64" ]; then
+        # OpenVino Model Server is only available for amd64, remove its model files for other architectures
+        rm ${CRAFT_PART_SRC}/gemma4-e4b-it-int4-ov/*
+      fi
+
       cp -rf --archive --link --no-dereference ${CRAFT_PART_SRC}/* ${CRAFT_PART_INSTALL}
     organize:
       "model-e2b-q4-k-m-gguf/*": (component/model-e2b-q4-k-m-gguf)
@@ -191,27 +196,12 @@ parts:
       "mmproj-e2b-bf16-gguf/*": (component/mmproj-e2b-bf16-gguf)
       "mmproj-e4b-q8-0-gguf/*": (component/mmproj-e4b-q8-0-gguf)
       "mmproj-26b-bf16-gguf/*": (component/mmproj-26b-bf16-gguf)
+      "model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov/openvino_text_embeddings*": (component/model-e4b-it-int4-ov-2-of-2)
+      "model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov/*": (component/model-e4b-it-int4-ov-1-of-2)
 
-    prime:
-      # Exclude everything not explicitly organized
-      - -*
-
-  model-e4b-it-int4-ov-1-of-2:
-    plugin: dump
-    source: components/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
-    organize:
-      "*": (component/model-e4b-it-int4-ov-1-of-2)/
     prime:
       - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings*"
-      - "*"
-
-  model-e4b-it-int4-ov-2-of-2:
-    plugin: dump
-    source: components/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
-    organize:
-      "openvino_text_embeddings*": (component/model-e4b-it-int4-ov-2-of-2)/
-    prime:
-      - "(component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings*"
+      # Exclude everything not explicitly organized
       - -*
 
   llamacpp:
