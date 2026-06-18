@@ -10,6 +10,8 @@ disk-size: 16163M
 capabilities:
   - text
   - vision
+  - thinking
+  - tool
 
 components:
   - mmproj-26b-bf16-gguf

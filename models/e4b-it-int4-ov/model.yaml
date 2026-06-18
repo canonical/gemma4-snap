@@ -10,6 +10,8 @@ disk-size: 6161M
 capabilities:
   - text
   - vision
+  - thinking
+  - tool
 
 components:
   - model-e4b-it-int4-ov-1-of-2

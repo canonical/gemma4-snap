@@ -10,6 +10,8 @@ disk-size: 2963M
 capabilities:
   - text
   - vision
+  - thinking
+  - tool
 
 components:
   - model-e2b-q4-k-m-gguf
