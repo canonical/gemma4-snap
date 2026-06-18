@@ -1,14 +1,15 @@
 id: e4b-q4-k-m-gguf
 name: e4b
 
-description: Test model description
-model-card-url: https://example.com/model-card
+description: Gemma 4 E4B, a multimodal (text + vision) instruction-tuned model
+model-card-url: https://huggingface.co/ggml-org/gemma-4-E4B-it-GGUF
 quantization: Q4_K_M
 
 disk-size: 5089M
 
 capabilities:
   - text
+  - vision
 
 components:
   - model-e4b-q4-k-m-gguf

@@ -1,7 +1,7 @@
 id: e4b-it-int4-ov
 name: e4b
 
-description: E4B model for OpenVINO
+description: Gemma 4 E4B, a multimodal (text + vision) instruction-tuned model
 model-card-url: https://huggingface.co/OpenVINO/gemma-4-E4B-it-int4-ov
 quantization: INT4
 
@@ -9,6 +9,7 @@ disk-size: 6161M
 
 capabilities:
   - text
+  - vision
 
 components:
   - model-e4b-it-int4-ov-1-of-2
