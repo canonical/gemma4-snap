@@ -11,7 +11,7 @@ capabilities:
   - text
   - vision
   - thinking
-  - tool
+  - tools
 
 components:
   - model-e2b-q4-k-m-gguf

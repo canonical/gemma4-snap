@@ -11,7 +11,7 @@ capabilities:
   - text
   - vision
   - thinking
-  - tool
+  - tools
 
 components:
   - model-e4b-it-int4-ov-1-of-2

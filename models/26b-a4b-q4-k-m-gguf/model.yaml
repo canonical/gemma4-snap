@@ -11,7 +11,7 @@ capabilities:
   - text
   - vision
   - thinking
-  - tool
+  - tools
 
 components:
   - mmproj-26b-bf16-gguf
