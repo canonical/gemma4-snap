@@ -81,12 +81,10 @@ parts:
 
   cli:
     source:
-      - on amd64: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta.2/inference-snaps-cli-linux-amd64.tar.xz
-      - on arm64: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta.2/inference-snaps-cli-linux-arm64.tar.xz
+      - on amd64: https://github.com/imatrisciano/inference-snaps-cli/releases/download/v2.0.0-beta.2c/inference-snaps-cli-linux-amd64.tar.xz # TODO: replace with upstream
+      - on arm64: https://github.com/imatrisciano/inference-snaps-cli/releases/download/v2.0.0-beta.2c/inference-snaps-cli-linux-arm64.tar.xz # TODO: replace with upstream
     plugin: dump
     override-build: |
-      mkdir -p bin
-      mv cli bin/modelctl
 
       # For tab completion
       ln --symbolic ./modelctl bin/gemma4
@@ -407,7 +405,7 @@ components:
 apps:
   gemma4:
     command: bin/gemma4
-    completer: bin/completion.bash
+    completer: bin/snap-completer.bash
     plugs:
       - hardware-observe
       - opengl
