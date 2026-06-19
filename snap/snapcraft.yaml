@@ -179,15 +179,21 @@ parts:
      # See https://github.com/canonical/craft-parts/issues/1609
     plugin: cmake
     source: components
-    override-pull: |
-      craftctl default
+    override-build: |
+
+      cp -rf --archive --link --no-dereference ${CRAFT_PART_SRC}/* ${CRAFT_PART_INSTALL}
+
+      mkdir -p ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov-1-of-2/
+      mkdir -p ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov-2-of-2/
 
       # OpenVINO model is only for amd64
       if [ "$CRAFT_ARCH_BUILD_FOR" != "amd64" ]; then
         rm -rf ./model-e4b-it-int4-ov/*
+      else
+        # Move files to simplify 'organize'
+        mv ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov/openvino_text_embeddings* ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov-2-of-2/
+        mv ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov/* ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov-1-of-2/
       fi
-    override-build: |
-      cp -rf --archive --link --no-dereference ${CRAFT_PART_SRC}/* ${CRAFT_PART_INSTALL}
     organize:
       "model-e2b-q4-k-m-gguf/*": (component/model-e2b-q4-k-m-gguf)
       "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
@@ -198,11 +204,10 @@ parts:
       "mmproj-e2b-bf16-gguf/*": (component/mmproj-e2b-bf16-gguf)
       "mmproj-e4b-q8-0-gguf/*": (component/mmproj-e4b-q8-0-gguf)
       "mmproj-26b-bf16-gguf/*": (component/mmproj-26b-bf16-gguf)
-      "model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov/openvino_text_embeddings*": (component/model-e4b-it-int4-ov-2-of-2)
-      "model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov/*": (component/model-e4b-it-int4-ov-1-of-2)
+      "model-e4b-it-int4-ov-1-of-2/*": (component/model-e4b-it-int4-ov-1-of-2)
+      "model-e4b-it-int4-ov-2-of-2/*": (component/model-e4b-it-int4-ov-2-of-2)
 
     prime:
-      - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings*"
       # Exclude everything not explicitly organized
       - -*
 
