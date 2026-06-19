@@ -182,7 +182,7 @@ parts:
     override-build: |
       if [ "$CRAFT_ARCH_BUILD_FOR" != "amd64" ]; then
         # OpenVino Model Server is only available for amd64, remove its model files for other architectures
-        rm ${CRAFT_PART_SRC}/gemma4-e4b-it-int4-ov/*
+        rm -rf ${CRAFT_PART_SRC}/gemma4-e4b-it-int4-ov/*
       fi
 
       cp -rf --archive --link --no-dereference ${CRAFT_PART_SRC}/* ${CRAFT_PART_INSTALL}
