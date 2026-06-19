@@ -1,14 +1,17 @@
 id: e2b-q4-k-m-gguf
 name: e2b
 
-description: Test model description
-model-card-url: https://example.com/model-card
+description: Gemma 4 E2B, a multimodal (text + vision) instruction-tuned model
+model-card-url: https://huggingface.co/unsloth/gemma-4-E2B-it-GGUF
 quantization: Q4_K_M
 
 disk-size: 2963M
 
 capabilities:
   - text
+  - vision
+  - thinking
+  - tools
 
 components:
   - model-e2b-q4-k-m-gguf
