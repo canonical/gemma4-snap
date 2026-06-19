@@ -1,14 +1,17 @@
 id: 26b-a4b-q4-k-m-gguf
 name: 26b
 
-description: Test model description
-model-card-url: https://example.com/model-card
+description: Gemma 4 26B-A4B, a multimodal (text + vision) Mixture-of-Experts instruction-tuned model
+model-card-url: https://huggingface.co/inference-snaps/gemma-4-26B-A4B-it-UD-Q4_K_M-5GB
 quantization: Q4_K_M
 
 disk-size: 16163M
 
 capabilities:
   - text
+  - vision
+  - thinking
+  - tools
 
 components:
   - mmproj-26b-bf16-gguf
