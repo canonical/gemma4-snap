@@ -179,12 +179,14 @@ parts:
      # See https://github.com/canonical/craft-parts/issues/1609
     plugin: cmake
     source: components
-    override-build: |
-      if [ "$CRAFT_ARCH_BUILD_FOR" != "amd64" ]; then
-        # OpenVino Model Server is only available for amd64, remove its model files for other architectures
-        rm -rf ${CRAFT_PART_SRC}/gemma4-e4b-it-int4-ov/*
-      fi
+    override-pull: |
+      craftctl default
 
+      # OpenVINO model is only for amd64
+      if [ "$CRAFT_ARCH_BUILD_FOR" != "amd64" ]; then
+        rm -rf ./gemma4-e4b-it-int4-ov/*
+      fi
+    override-build: |
       cp -rf --archive --link --no-dereference ${CRAFT_PART_SRC}/* ${CRAFT_PART_INSTALL}
     organize:
       "model-e2b-q4-k-m-gguf/*": (component/model-e2b-q4-k-m-gguf)
