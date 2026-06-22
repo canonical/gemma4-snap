@@ -42,4 +42,4 @@ if [ -d "$SNAP_COMPONENTS/llamacpp-onemkl" ]; then
     exit 0
 fi
 
-modelctl use-engine --auto --assume-yes --fallback=cpu
+modelctl use-engine --auto --components --assume-yes --fallback=cpu
