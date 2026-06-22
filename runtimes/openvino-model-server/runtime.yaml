@@ -1,3 +1,5 @@
+id: openvino-model-server
+
 servers:
   tensorflow-serving:
     protocol: http
