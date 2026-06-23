@@ -80,18 +80,16 @@ parts:
       craftctl set version="dev+${git_hash}"
 
   cli:
-    #    source:
-    #      - on amd64: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta.4/inference-snaps-cli-linux-amd64.tar.xz
-    #      - on arm64: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta.4/inference-snaps-cli-linux-arm64.tar.xz
-    #    plugin: dump
-    #    override-build: |
-    #      mkdir -p bin
-    #      mv cli bin/modelctl
-    #
-    #      # For tab completion
-    #      ln --symbolic ./modelctl bin/gemma4
-    #
-    #      craftctl default
+#    source:
+#      - on amd64: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta.4/inference-snaps-cli-linux-amd64.tar.xz
+#      - on arm64: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta.4/inference-snaps-cli-linux-arm64.tar.xz
+#    plugin: dump
+#    override-build: |
+#
+#      # For tab completion
+#      ln --symbolic ./modelctl bin/gemma4
+#
+#      craftctl default
     source: https://github.com/canonical/inference-snaps-cli.git
     source-branch: IENG-2452-comp-selection
     plugin: go
@@ -101,6 +99,7 @@ parts:
       craftctl default
 
       # For tab completion
+      cp completer/snap.bash $CRAFT_PART_INSTALL/bin/snap-completer.bash
       ln --symbolic ./modelctl $CRAFT_PART_INSTALL/bin/gemma4
     organize:
       bin/cli: bin/modelctl
