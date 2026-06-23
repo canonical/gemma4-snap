@@ -190,7 +190,8 @@ parts:
       if [ "$CRAFT_ARCH_BUILD_FOR" != "amd64" ]; then
         rm -rf ./model-e4b-it-int4-ov/*
       else
-        # Move files to simplify 'organize'
+        # The Store has a 5GB limit for individual components.
+        # Files are split into separate directories, each organized into its own component
         mv ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov/openvino_text_embeddings* ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov-2-of-2/
         mv ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov/* ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov-1-of-2/
       fi
