@@ -1,7 +1,31 @@
 name: gemma4
 base: core24
-summary: Inference Snap for Gemma 4
-description: See snapcraft.io/gemma4
+summary: Gemma 4 inference snap
+description: |
+  This is an inference snap that lets you run Gemma 4, a multimodal
+  instruction-tuned model from Google with vision capabilities.
+  
+  Before you start, make sure to have the necessary drivers installed on the host:
+  https://documentation.ubuntu.com/inference-snaps/how-to/install-drivers/
+  
+  **Install:**
+  
+  `sudo snap install gemma4`
+  
+  **Get help:**
+  
+  `gemma4 --help`
+  
+  **Licensing:**
+  
+  The Gemma 4 model is provided by Google under the Apache 2.0 license:
+  https://ai.google.dev/gemma/apache_2
+
+  The licenses of all bundled software can be found inside the snap at `/snap/gemma4/current/usr/share/doc`.
+
+website: https://documentation.ubuntu.com/inference-snaps
+source-code: https://github.com/canonical/gemma4-snap
+issues: https://github.com/canonical/inference-snaps/issues
 
 adopt-info: version
 
