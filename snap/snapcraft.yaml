@@ -184,114 +184,114 @@ parts:
       "server-webui.sh": bin/
       "export-shared-configs.sh": bin/
 
-  local-component-files:
-     # Use the cmake plugin instead of "dump" to prevent unwanted copies
-     # See https://github.com/canonical/craft-parts/issues/1609
-    plugin: cmake
-    source: components
-    override-build:
-      cp -rf --archive --link --no-dereference ${CRAFT_PART_SRC}/* ${CRAFT_PART_INSTALL}
-    organize:
-      "model-e2b-q4-k-m-gguf/*": (component/model-e2b-q4-k-m-gguf)
-      "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
-      "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00001-of-00004.gguf": (component/model-26b-a4b-q4-k-m-1-of-4)
-      "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00002-of-00004.gguf": (component/model-26b-a4b-q4-k-m-2-of-4)
-      "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00003-of-00004.gguf": (component/model-26b-a4b-q4-k-m-3-of-4)
-      "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00004-of-00004.gguf": (component/model-26b-a4b-q4-k-m-4-of-4)
-      "mmproj-e2b-bf16-gguf/*": (component/mmproj-e2b-bf16-gguf)
-      "mmproj-e4b-q8-0-gguf/*": (component/mmproj-e4b-q8-0-gguf)
-      "mmproj-26b-bf16-gguf/*": (component/mmproj-26b-bf16-gguf)
+#  local-component-files:
+#     # Use the cmake plugin instead of "dump" to prevent unwanted copies
+#     # See https://github.com/canonical/craft-parts/issues/1609
+#    plugin: cmake
+#    source: components
+#    override-build:
+#      cp -rf --archive --link --no-dereference ${CRAFT_PART_SRC}/* ${CRAFT_PART_INSTALL}
+#    organize:
+#      "model-e2b-q4-k-m-gguf/*": (component/model-e2b-q4-k-m-gguf)
+#      "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
+#      "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00001-of-00004.gguf": (component/model-26b-a4b-q4-k-m-1-of-4)
+#      "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00002-of-00004.gguf": (component/model-26b-a4b-q4-k-m-2-of-4)
+#      "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00003-of-00004.gguf": (component/model-26b-a4b-q4-k-m-3-of-4)
+#      "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00004-of-00004.gguf": (component/model-26b-a4b-q4-k-m-4-of-4)
+#      "mmproj-e2b-bf16-gguf/*": (component/mmproj-e2b-bf16-gguf)
+#      "mmproj-e4b-q8-0-gguf/*": (component/mmproj-e4b-q8-0-gguf)
+#      "mmproj-26b-bf16-gguf/*": (component/mmproj-26b-bf16-gguf)
+#
+#    prime:
+#      # Exclude everything not explicitly organized
+#      - -*
 
-    prime:
-      # Exclude everything not explicitly organized
-      - -*
+#  model-e4b-it-int4-ov-1-of-2:
+#    plugin: dump
+#    source: components/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
+#    organize:
+#      "*": (component/model-e4b-it-int4-ov-1-of-2)/
+#    prime:
+#      - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings*"
+#      - "*"
+#
+#  model-e4b-it-int4-ov-2-of-2:
+#    plugin: dump
+#    source: components/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
+#    organize:
+#      "openvino_text_embeddings*": (component/model-e4b-it-int4-ov-2-of-2)/
+#    prime:
+#      - "(component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings*"
+#      - -*
 
-  model-e4b-it-int4-ov-1-of-2:
-    plugin: dump
-    source: components/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
-    organize:
-      "*": (component/model-e4b-it-int4-ov-1-of-2)/
-    prime:
-      - "-(component/model-e4b-it-int4-ov-1-of-2)/openvino_text_embeddings*"
-      - "*"
-
-  model-e4b-it-int4-ov-2-of-2:
-    plugin: dump
-    source: components/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
-    organize:
-      "openvino_text_embeddings*": (component/model-e4b-it-int4-ov-2-of-2)/
-    prime:
-      - "(component/model-e4b-it-int4-ov-2-of-2)/openvino_text_embeddings*"
-      - -*
-
-  llamacpp:
-    plugin: dump
-    source: 
-      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-amd64.tar.gz
-      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-arm64.tar.gz
-    stage-packages:
-      - libgomp1
-    organize:
-      "licenses": usr/share/doc/llama.cpp # Add licenses to the snap
-      "*": (component/llamacpp)
-    
-  llamacpp-cuda:
-    plugin: dump
-    source:
-      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-amd64+cuda12.9.tar.gz
-      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-arm64+cuda12.9.tar.gz
-    stage-packages:
-      - libgomp1
-    organize:
-      "licenses": usr/share/doc/llama.cpp+cuda # Add licenses to the snap
-      "*": (component/llamacpp-cuda)
-
-  llamacpp-rocm:
-    plugin: dump
-    source: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-amd64+rocm.tar.gz
-    stage-packages:
-      - libgomp1
-      - libatomic1
-    organize:
-      "licenses": usr/share/doc/llama.cpp+rocm # Add licenses to the snap
-      "*": (component/llamacpp-rocm)
-    # This part is only for amd64
-    override-pull: &amd64-only |
-      [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ] && craftctl default || exit 0
-    override-build: *amd64-only
-    override-stage: *amd64-only
-    override-prime: *amd64-only
-  
-  llamacpp-onemkl:
-    plugin: dump
-    source: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-amd64+onemkl.tar.gz
-    stage-packages:
-      - libgomp1
-      - libatomic1
-    organize:
-      "licenses": usr/share/doc/llama.cpp+onemkl # Add licenses to the snap
-      "*": (component/llamacpp-onemkl)
-    # This part is only for amd64
-    override-pull: *amd64-only
-    override-build: *amd64-only
-    override-stage: *amd64-only
-    override-prime: *amd64-only
-
-  openvino-model-server:
-    plugin: dump
-    source: https://github.com/openvinotoolkit/model_server/releases/download/v2026.2/ovms_ubuntu24_2026.2.0_python_off.tar.gz
-    stage-packages:
-      - libxml2
-      - libcurl4
-    organize:
-      # move everything, including the staged packages
-      "LICENSE": usr/share/doc/openvino-model-server
-      "*": (component/openvino-model-server)
-    # This part is only for amd64
-    override-pull: *amd64-only
-    override-build: *amd64-only
-    override-stage: *amd64-only
-    override-prime: *amd64-only
+#  llamacpp:
+#    plugin: dump
+#    source:
+#      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-amd64.tar.gz
+#      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-arm64.tar.gz
+#    stage-packages:
+#      - libgomp1
+#    organize:
+#      "licenses": usr/share/doc/llama.cpp # Add licenses to the snap
+#      "*": (component/llamacpp)
+#
+#  llamacpp-cuda:
+#    plugin: dump
+#    source:
+#      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-amd64+cuda12.9.tar.gz
+#      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-arm64+cuda12.9.tar.gz
+#    stage-packages:
+#      - libgomp1
+#    organize:
+#      "licenses": usr/share/doc/llama.cpp+cuda # Add licenses to the snap
+#      "*": (component/llamacpp-cuda)
+#
+#  llamacpp-rocm:
+#    plugin: dump
+#    source: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-amd64+rocm.tar.gz
+#    stage-packages:
+#      - libgomp1
+#      - libatomic1
+#    organize:
+#      "licenses": usr/share/doc/llama.cpp+rocm # Add licenses to the snap
+#      "*": (component/llamacpp-rocm)
+#    # This part is only for amd64
+#    override-pull: &amd64-only |
+#      [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ] && craftctl default || exit 0
+#    override-build: *amd64-only
+#    override-stage: *amd64-only
+#    override-prime: *amd64-only
+#
+#  llamacpp-onemkl:
+#    plugin: dump
+#    source: https://github.com/canonical/llama.cpp-builds/releases/download/b9611/llamacpp-amd64+onemkl.tar.gz
+#    stage-packages:
+#      - libgomp1
+#      - libatomic1
+#    organize:
+#      "licenses": usr/share/doc/llama.cpp+onemkl # Add licenses to the snap
+#      "*": (component/llamacpp-onemkl)
+#    # This part is only for amd64
+#    override-pull: *amd64-only
+#    override-build: *amd64-only
+#    override-stage: *amd64-only
+#    override-prime: *amd64-only
+#
+#  openvino-model-server:
+#    plugin: dump
+#    source: https://github.com/openvinotoolkit/model_server/releases/download/v2026.2/ovms_ubuntu24_2026.2.0_python_off.tar.gz
+#    stage-packages:
+#      - libxml2
+#      - libcurl4
+#    organize:
+#      # move everything, including the staged packages
+#      "LICENSE": usr/share/doc/openvino-model-server
+#      "*": (component/openvino-model-server)
+#    # This part is only for amd64
+#    override-pull: *amd64-only
+#    override-build: *amd64-only
+#    override-stage: *amd64-only
+#    override-prime: *amd64-only
 
   # For Intel GPU usage, amd64 only
   intel-compute-runtime:
