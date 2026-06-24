@@ -147,8 +147,8 @@ parts:
         wget -nv https://github.com/intel/compute-runtime/releases/download/24.35.30872.36/libigdgmm12_22.5.0_amd64.deb
       
         # Latest
-        wget -nv https://github.com/intel/compute-runtime/releases/download/26.01.36711.4/intel-opencl-icd_26.01.36711.4-0_amd64.deb
-        wget -nv https://github.com/intel/compute-runtime/releases/download/26.01.36711.4/libigdgmm12_22.9.0_amd64.deb
+        wget -nv https://github.com/intel/compute-runtime/releases/download/26.18.38308.1/intel-opencl-icd_26.18.38308.1-0_amd64.deb
+        wget -nv https://github.com/intel/compute-runtime/releases/download/26.18.38308.1/libigdgmm12_22.10.0_amd64.deb
       
         dpkg --root=$CRAFT_PART_INSTALL --force-all -i *.deb
       
@@ -324,13 +324,13 @@ parts:
         wget -nv https://github.com/intel/compute-runtime/releases/download/24.35.30872.36/intel-level-zero-gpu-legacy1_1.5.30872.36_amd64.deb
         dpkg --root=$CRAFT_PART_INSTALL --force-all -i *.deb
       
-        # Latest: https://github.com/intel/compute-runtime/releases/tag/26.01.36711.4
+        # Latest: https://github.com/intel/compute-runtime/releases/tag/26.18.38308.1
         mkdir -p $CRAFT_PART_BUILD/opencl-intel
         cd $CRAFT_PART_BUILD/opencl-intel
-        wget -nv https://github.com/intel/intel-graphics-compiler/releases/download/v2.27.10/intel-igc-core-2_2.27.10+20617_amd64.deb
-        wget -nv https://github.com/intel/intel-graphics-compiler/releases/download/v2.27.10/intel-igc-opencl-2_2.27.10+20617_amd64.deb
-        wget -nv https://github.com/intel/compute-runtime/releases/download/26.01.36711.4/intel-ocloc_26.01.36711.4-0_amd64.deb
-        wget -nv https://github.com/intel/compute-runtime/releases/download/26.01.36711.4/libze-intel-gpu1_26.01.36711.4-0_amd64.deb
+        wget -nv https://github.com/intel/intel-graphics-compiler/releases/download/v2.34.4/intel-igc-core-2_2.34.4+21428_amd64.deb
+        wget -nv https://github.com/intel/intel-graphics-compiler/releases/download/v2.34.4/intel-igc-opencl-2_2.34.4+21428_amd64.deb
+        wget -nv https://github.com/intel/compute-runtime/releases/download/26.18.38308.1/intel-ocloc_26.18.38308.1-0_amd64.deb
+        wget -nv https://github.com/intel/compute-runtime/releases/download/26.18.38308.1/libze-intel-gpu1_26.18.38308.1-0_amd64.deb
         dpkg --root=$CRAFT_PART_INSTALL --force-all -i *.deb
       
         cd $CRAFT_PART_BUILD
