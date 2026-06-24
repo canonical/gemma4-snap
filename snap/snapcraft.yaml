@@ -185,7 +185,7 @@ parts:
 
       # OpenVINO model is only for amd64
       if [ "$CRAFT_ARCH_BUILD_FOR" != "amd64" ]; then
-        rm -rf ./model-e4b-it-int4-ov/*
+        rm -rf ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov/*
       else
         # The Store has a 5GB limit for individual components.
         # Files are split into separate directories, each organized into its own component
