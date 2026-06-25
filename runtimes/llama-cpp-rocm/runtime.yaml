@@ -1,3 +1,5 @@
+name: llama-cpp-rocm
+
 servers:
   openai:
     protocol: http

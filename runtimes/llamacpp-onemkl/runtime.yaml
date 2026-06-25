@@ -1,3 +1,5 @@
+name: llamacpp-onemkl
+
 servers:
   openai:
     protocol: http
