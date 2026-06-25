@@ -1,4 +1,4 @@
-id: openvino-model-server
+name: openvino-model-server
 
 servers:
   tensorflow-serving:

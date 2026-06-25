@@ -1,4 +1,4 @@
-id: llama-cpp-cpu
+name: llama-cpp-cpu
 
 servers:
   openai:

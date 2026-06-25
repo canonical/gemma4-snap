@@ -1,4 +1,4 @@
-id: llamacpp-onemkl
+name: llamacpp-onemkl
 
 servers:
   openai:
