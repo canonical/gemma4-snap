@@ -6,12 +6,11 @@ This package deploys a high-performance runtime for local inference across arm a
 
 Before starting. get the necessary [drivers](https://documentation.ubuntu.com/inference-snaps/how-to/setup/drivers/) for using an accelerator.
 
-**Install:**  
+#### Install
 ```
 sudo snap install gemma4
 ```
-
-**Use:**
+#### Use
 ```
 gemma4 --help
 ```
