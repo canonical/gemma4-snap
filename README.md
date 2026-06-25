@@ -1,9 +1,20 @@
 # Gemma 4 snap
 [![gemma4](https://snapcraft.io/gemma4/badge.svg)](https://snapcraft.io/gemma4)
 
-This snap installs a hardware-optimized engine for inference with
-[Gemma 4 E4B](https://huggingface.co/google/gemma-4-E4B-it), Google's efficient
-multimodal instruction-tuned model with vision capabilities.
+Install [Gemma 4](https://ai.google.dev/gemma/docs/core/model_card_4), optimized directly for your hardware.
+This package deploys a high-performance runtime for local inference across arm and x86 platforms. It runs efficiently on pure CPU or leverages hardware acceleration via NVIDIA, Intel, or AMD GPUs.
+
+Before starting. get the necessary [drivers](https://documentation.ubuntu.com/inference-snaps/how-to/setup/drivers/) for using an accelerator.
+
+**Install:**  
+```
+sudo snap install gemma4
+```
+
+**Use:**
+```
+gemma4 --help
+```
 
 ## Resources
 
