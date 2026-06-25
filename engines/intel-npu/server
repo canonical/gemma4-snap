@@ -1,0 +1,26 @@
+#!/bin/bash -eu
+
+port="$(modelctl get http.port)"
+host="$(modelctl get http.host)"
+
+extra_args=()
+
+verbose="$(modelctl get verbose)"
+if [ "${verbose}" = "true" ]; then
+  extra_args+=(--log_level DEBUG)
+fi
+
+# Set --pipeline_type VLM to work around an issue with the default
+# continuous batching pipeline, VLM_CB
+
+set -x
+ovms \
+    --rest_port "$port" \
+    --rest_bind_address "$host" \
+    --model_name "$MODEL_NAME" \
+    --model_path "$MODEL_PATH" \
+    --pipeline_type VLM \
+    --task text_generation \
+    --target_device NPU \
+    "${extra_args[@]}" \
+    "$@"
