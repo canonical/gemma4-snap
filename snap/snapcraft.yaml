@@ -77,7 +77,7 @@ parts:
       set -eo pipefail
       cli_version=$($CRAFT_STAGE/bin/gemma4 version --format=json | jq .cli --raw-output)
       git_hash=$(git -C "$SNAPCRAFT_PROJECT_DIR" describe --always)
-      craftctl set version="dev+${git_hash}"
+      craftctl set version="${cli_version#v}+${git_hash}"
 
   cli:
     source:
