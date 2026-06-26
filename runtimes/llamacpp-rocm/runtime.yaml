@@ -1,4 +1,4 @@
-name: llama-cpp-rocm
+name: llamacpp-rocm
 
 servers:
   openai:

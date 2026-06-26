@@ -72,7 +72,7 @@ devices:
       vendor-id: 0x1002
       microarchitecture: gfx1201
 
-runtime: llama-cpp-rocm
+runtime: llamacpp-rocm
 
 model:
   default: e4b-q4-k-m-gguf
