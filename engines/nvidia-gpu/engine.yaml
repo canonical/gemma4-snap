@@ -18,7 +18,7 @@ devices:
     - type: cpu
       architecture: arm64
 
-runtime: llama-cpp-cuda
+runtime: llamacpp-cuda
 
 model:
   default: e4b-q4-k-m-gguf
