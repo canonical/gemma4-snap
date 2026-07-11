@@ -1,3 +1,5 @@
+# This workflow is used to build and test pull requests when specific labels are applied.
+# Supported labels: trigger-build, trigger-tests
 name: PR Label
 
 on:

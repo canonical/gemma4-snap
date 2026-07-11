@@ -1,3 +1,4 @@
+# This workflow is used to build and publish the snap to the store on every push to main.
 name: CICD
 
 on:
