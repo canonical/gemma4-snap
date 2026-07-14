@@ -17,11 +17,11 @@ devices:
 runtime: llamacpp
 
 model:
-  default: e4b-q4-k-m-gguf
+  default: e4b
   options:
-    - e2b-q4-k-m-gguf
-    - e4b-q4-k-m-gguf
-    - 26b-a4b-q4-k-m-gguf
+    - e2b
+    - e4b
+    - 26b-a4b
 
 configurations:
   sleep-idle-seconds: 600

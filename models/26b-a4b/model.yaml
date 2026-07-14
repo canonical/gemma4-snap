@@ -1,5 +1,4 @@
-id: 26b-a4b-q4-k-m-gguf
-name: 26b
+name: 26b-a4b
 
 description: Gemma 4 26B-A4B, a multimodal (text + vision) Mixture-of-Experts instruction-tuned model
 model-card-url: https://huggingface.co/inference-snaps/gemma-4-26B-A4B-it-UD-Q4_K_M-5GB
