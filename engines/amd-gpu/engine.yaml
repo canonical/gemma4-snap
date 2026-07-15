@@ -75,11 +75,11 @@ devices:
 runtime: llamacpp-rocm
 
 model:
-  default: e4b
+  default: gemma4-e4b
   options:
-    - e2b
-    - e4b
-    - 26b-a4b
+    - gemma4-e2b
+    - gemma4-e4b
+    - gemma4-26b-a4b
 
 configurations:
   sleep-idle-seconds: 600
