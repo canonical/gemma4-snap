@@ -2,25 +2,15 @@ name: AI Snap Test via Workshop & OpenCode
 
 on:
   schedule:
-    - cron: "0 0 * * 1"
-  workflow_dispatch:
-    inputs:
-      snap_channel:
-        description: "Snap channel to test"
-        type: string
-        default: beta
-      create_issues:
-        description: "Automatically file GitHub issues for NEW findings in the tracker repo"
-        type: boolean
-        default: true
+    - cron: "20 20 * * 0" # Weekly on Sunday
 
 jobs:
   ai-test:
     uses: canonical/inference-snaps-dev/.github/workflows/reuse-agentic-test.yaml@agentic-test
     with:
       snap-name: gemma4
-      snap-channel: ${{ github.event_name == 'workflow_dispatch' ? inputs.snap_channel : 'beta' }}
-      create-issues: ${{ github.event_name == 'workflow_dispatch' ? inputs.create_issues : true }}
+      snap-channel: beta
+      create-issues: true
     secrets:
       openrouter-api-key: ${{ secrets.OPENROUTER_API_KEY }}
       issue-create-token: ${{ secrets.ISSUE_CREATE_TOKEN }}
