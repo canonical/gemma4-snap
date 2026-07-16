@@ -10,11 +10,11 @@ devices:
 runtime: llamacpp-onemkl
 
 model:
-  default: e4b-q4-k-m-gguf
+  default: gemma4-e4b
   options:
-    - e2b-q4-k-m-gguf
-    - e4b-q4-k-m-gguf
-    - 26b-a4b-q4-k-m-gguf
+    - gemma4-e2b
+    - gemma4-e4b
+    - gemma4-26b-a4b
 
 configurations:
   sleep-idle-seconds: 600

@@ -15,6 +15,6 @@ devices:
 runtime: openvino-model-server
 
 model:
-  default: e4b-it-int4-ov
+  default: gemma4-e4b-ov
   options:
-    - e4b-it-int4-ov
+    - gemma4-e4b-ov
