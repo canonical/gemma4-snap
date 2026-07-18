@@ -2,7 +2,7 @@ name: gemma4-e4b
 
 description: Gemma 4 E4B, a multimodal (text + vision) instruction-tuned model
 model-card-url: https://huggingface.co/ggml-org/gemma-4-E4B-it-GGUF
-quantization: Q4_K_M
+quantization: q4-k-m
 
 disk-size: 5089M
 
