@@ -19,7 +19,7 @@ hf download unsloth/gemma-4-E2B-it-GGUF mmproj-BF16.gguf \
 hf download unsloth/gemma-4-E4B-it-GGUF gemma-4-E4B-it-Q4_K_M.gguf \
     --local-dir components/model-e4b-q4-k-m-gguf/
 hf download unsloth/gemma-4-E4B-it-GGUF mmproj-BF16.gguf \
-    --local-dir components/mmproj-e4b-q8-0-gguf/
+    --local-dir components/mmproj-e4b-bf16-gguf/
 
 # 26B A4B model
 hf download inference-snaps/gemma-4-26B-A4B-it-UD-Q4_K_M-5GB \

@@ -224,7 +224,7 @@ parts:
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00003-of-00004.gguf": (component/model-26b-a4b-q4-k-m-3-of-4)
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00004-of-00004.gguf": (component/model-26b-a4b-q4-k-m-4-of-4)
       "mmproj-e2b-bf16-gguf/*": (component/mmproj-e2b-bf16-gguf)
-      "mmproj-e4b-q8-0-gguf/*": (component/mmproj-e4b-q8-0-gguf)
+      "mmproj-e4b-bf16-gguf/*": (component/mmproj-e4b-bf16-gguf)
       "mmproj-26b-bf16-gguf/*": (component/mmproj-26b-bf16-gguf)
       "model-e4b-it-int4-ov-1-of-2/*": (component/model-e4b-it-int4-ov-1-of-2)
       "model-e4b-it-int4-ov-2-of-2/*": (component/model-e4b-it-int4-ov-2-of-2)
@@ -366,7 +366,7 @@ components:
     summary: Google Gemma 4 E4B Q4_K_M GGUF
     description: Model weights for Google Gemma 4 E4B (Efficient 4B) in GGUF format
 
-  mmproj-e4b-q8-0-gguf:
+  mmproj-e4b-bf16-gguf:
     type: standard
     summary: Google Gemma 4 E4B multimodal projector Q8_0 GGUF
     description: Multimodal projector weights for Google Gemma 4 E4B vision support in GGUF format

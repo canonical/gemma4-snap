@@ -14,9 +14,9 @@ capabilities:
 
 components:
   - model-e4b-q4-k-m-gguf
-  - mmproj-e4b-q8-0-gguf
+  - mmproj-e4b-bf16-gguf
 
 environment:
-  - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-e4b-q8-0-gguf/mmproj-gemma-4-E4B-it-Q8_0.gguf
+  - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-e4b-bf16-gguf/mmproj-BF16.gguf
   - MODEL_FILE=$SNAP_COMPONENTS/model-e4b-q4-k-m-gguf/gemma-4-E4B-it-Q4_K_M.gguf
   - MODEL_NAME=gemma4-e4b-q4-k-m
