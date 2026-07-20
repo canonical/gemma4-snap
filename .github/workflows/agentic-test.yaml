@@ -6,11 +6,13 @@ on:
 
 jobs:
   ai-test:
-    uses: canonical/inference-snaps-dev/.github/workflows/reuse-agentic-test.yaml@agentic-test
-    with:
-      snap-name: gemma4
-      snap-channel: beta
-      create-issues: true
-    secrets:
-      openrouter-api-key: ${{ secrets.OPENROUTER_API_KEY }}
-      issue-create-token: ${{ secrets.ISSUE_CREATE_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run agentic snap test
+        uses: canonical/inference-snaps-dev/.github/actions/agentic-test@agentic-test
+        with:
+          snap-name: gemma4
+          snap-channel: beta
+          create-issues: true
+          openrouter-api-key: ${{ secrets.OPENROUTER_API_KEY }}
+          issue-create-token: ${{ secrets.ISSUE_CREATE_TOKEN }}
