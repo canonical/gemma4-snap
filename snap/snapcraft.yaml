@@ -368,7 +368,7 @@ components:
 
   mmproj-e4b-bf16-gguf:
     type: standard
-    summary: Google Gemma 4 E4B multimodal projector Q8_0 GGUF
+    summary: Google Gemma 4 E4B multimodal projector BF16 GGUF
     description: Multimodal projector weights for Google Gemma 4 E4B vision support in GGUF format
 
   model-e4b-it-int4-ov-1-of-2: &model-e4b-it-int4-ov
