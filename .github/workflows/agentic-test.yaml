@@ -1,4 +1,4 @@
-name: AI Snap Test via Workshop & OpenCode
+name: Agentic Snap Test
 
 on:
   schedule:
@@ -8,7 +8,7 @@ jobs:
   ai-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Run agentic snap test
+      - name: Run test
         uses: canonical/inference-snaps-dev/.github/actions/agentic-test@agentic-test
         with:
           snap-name: gemma4
