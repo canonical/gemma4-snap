@@ -1,10 +1,8 @@
 name: Agentic Snap Test
 
 on:
-  push:
-    branches:
-      - main
-      - IENG-2484-ai-test
+  schedule:
+    - cron: "20 20 * * 0" # Weekly on Sunday
 
 jobs:
   ai-test:
