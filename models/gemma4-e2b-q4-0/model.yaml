@@ -1,0 +1,22 @@
+name: gemma4-e2b-q4-0
+
+description: Gemma 4 E2B Q4_0, a multimodal instruction-tuned model compatible with the Hexagon HTP backend
+model-card-url: https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF
+quantization: Q4_0
+
+disk-size: 3600M
+
+capabilities:
+  - text
+  - vision
+  - thinking
+  - tools
+
+components:
+  - model-e2b-q4-0-gguf
+  - mmproj-e2b-q8-0-gguf
+
+environment:
+  - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-e2b-q8-0-gguf/mmproj-gemma-4-E2B-it-Q8_0.gguf
+  - MODEL_FILE=$SNAP_COMPONENTS/model-e2b-q4-0-gguf/gemma-4-E2B-it-Q4_0.gguf
+  - MODEL_NAME=gemma4-e2b-q4-0

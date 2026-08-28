@@ -1,0 +1,20 @@
+name: llamacpp-hexagon
+
+servers:
+  openai:
+    protocol: http
+    base-path: /v1
+
+environment:
+  # Add llama.cpp Hexagon binaries and HTP skel libraries.
+  - PATH=$PATH:$SNAP_COMPONENTS/llamacpp-hexagon/bin
+  - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP_COMPONENTS/llamacpp-hexagon/lib
+  - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP_COMPONENTS/llamacpp-hexagon/usr/lib/$ARCH_TRIPLET
+  # The platform provider supplies libcdsprpc.so and its dependencies through
+  # the versioned Qualcomm Hexagon runtime content contract.
+  - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP/inference-npu-runtime-qcom-htp/lib
+  - ADSP_LIBRARY_PATH=$SNAP_COMPONENTS/llamacpp-hexagon/lib
+  - GGML_HEXAGON_DEVICES=HTP0
+
+components:
+  - llamacpp-hexagon

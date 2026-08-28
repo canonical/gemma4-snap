@@ -7,8 +7,10 @@ SNAP_NAME ?= gemma4
 ENGINE ?= cpu
 
 .PHONY: all help init init-submodules install-deps download-models \
-	download-model-e2b download-model-e4b download-model-12b download-model-26b-a4b download-model-e4b-ov \
-	build install upload smoke-test
+	download-model-e2b download-model-e2b-htp \
+	download-model-e4b download-model-e4b-htp \
+	download-model-12b download-model-26b-a4b download-model-e4b-ov \
+	download-models-htp build install upload smoke-test
 
 all: help
 
@@ -25,7 +27,7 @@ help: ## Show this help message
 		sort | \
 		awk 'BEGIN {FS = ":.*## "}; {printf "  %-11s %s\n", $$1, $$2}'
 
-init: init-submodules install-deps download-models ## Initialize the build environment (dependencies, model weights, submodules, etc.)
+init: init-submodules install-deps download-models download-models-htp ## Initialize the build environment (dependencies, model weights, submodules, etc.)
 
 build: ## Build the snap
 	./dev/build.sh
@@ -59,6 +61,8 @@ init-submodules:
 
 download-models: download-model-e2b download-model-e4b download-model-12b download-model-26b-a4b download-model-e4b-ov
 
+download-models-htp: download-model-e2b-htp download-model-e4b-htp
+
 download-model-e2b:
 	@echo "Downloading Gemma 4 E2B model weights..."
 	$(hf) download unsloth/gemma-4-E2B-it-GGUF gemma-4-E2B-it-Q4_K_M.gguf \
@@ -66,12 +70,26 @@ download-model-e2b:
 	$(hf) download unsloth/gemma-4-E2B-it-GGUF mmproj-BF16.gguf \
 		--local-dir components/mmproj-e2b-bf16-gguf/
 
+download-model-e2b-htp:
+	@echo "Downloading Gemma 4 E2B HTP-compatible model weights..."
+	$(hf) download ggml-org/gemma-4-E2B-it-GGUF gemma-4-E2B-it-Q4_0.gguf \
+		--local-dir components/model-e2b-q4-0-gguf/
+	$(hf) download ggml-org/gemma-4-E2B-it-GGUF mmproj-gemma-4-E2B-it-Q8_0.gguf \
+		--local-dir components/mmproj-e2b-q8-0-gguf/
+
 download-model-e4b:
 	@echo "Downloading Gemma 4 E4B model weights..."
 	$(hf) download unsloth/gemma-4-E4B-it-GGUF gemma-4-E4B-it-Q4_K_M.gguf \
 		--local-dir components/model-e4b-q4-k-m-gguf/
 	$(hf) download unsloth/gemma-4-E4B-it-GGUF mmproj-BF16.gguf \
 		--local-dir components/mmproj-e4b-bf16-gguf/
+
+download-model-e4b-htp:
+	@echo "Downloading Gemma 4 E4B HTP-compatible model weights..."
+	$(hf) download ggml-org/gemma-4-E4B-it-GGUF gemma-4-E4B-it-Q4_0.gguf \
+		--local-dir components/model-e4b-q4-0-gguf/
+	$(hf) download ggml-org/gemma-4-E4B-it-GGUF mmproj-gemma-4-E4B-it-Q8_0.gguf \
+		--local-dir components/mmproj-e4b-q8-0-gguf/
 
 download-model-12b:
 	@echo "Downloading Gemma 4 12B model weights..."

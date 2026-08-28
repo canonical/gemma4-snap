@@ -1,0 +1,32 @@
+name: qualcomm-htp
+summary: Gemma 4 optimized for Qualcomm Hexagon HTP
+description: |
+  This engine uses the experimental llama.cpp Hexagon backend.
+
+  It requires an ARM64 platform gadget and runtime provider implementing the
+  inference-npu device contract and the versioned Qualcomm Hexagon runtime
+  content contract.
+vendor: Canonical Ltd
+experimental: true
+
+devices:
+  allof:
+    - type: cpu
+      architecture: arm64
+    - type: npu
+      bus: fastrpc
+      snap-connections:
+        - inference-npu
+        - inference-npu-runtime-qcom-htp
+
+runtime: llamacpp-hexagon
+
+model:
+  default: gemma4-e4b-q4-0
+  options:
+    - gemma4-e2b-q4-0
+    - gemma4-e4b-q4-0
+
+configurations:
+  sleep-idle-seconds: 600
+  min-context-size: 4096

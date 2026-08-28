@@ -57,6 +57,16 @@ plugs:
   # To allow side-loading models into server (root daemon) from user home directory
   home:
     read: all
+  # Stable application-facing contract. Platform gadgets provide the actual
+  # NPU device nodes through this custom-device slot.
+  inference-npu:
+    interface: custom-device
+    custom-device: inference-npu
+  # Versioned runtime ABI contract for the Qualcomm Hexagon backend.
+  inference-npu-runtime-qcom-htp:
+    interface: content
+    content: inference-npu-runtime-qcom-htp-v1
+    target: $SNAP/inference-npu-runtime-qcom-htp
 
 environment:
   SNAP_COMPONENTS: /snap/$SNAP_INSTANCE_NAME/components/$SNAP_REVISION
@@ -77,6 +87,9 @@ layout:
   # Under wsl the libraries are expected in /usr/lib/wsl
   /usr/lib/wsl:
     bind: $SNAP_COMMON/usr/lib/wsl
+  # FastRPC expects its machine configuration below this absolute path.
+  /usr/share/qcom:
+    bind: $SNAP/inference-npu-runtime-qcom-htp/usr/share/qcom
 
 hooks:
   install:
@@ -84,6 +97,8 @@ hooks:
       # For hardware detection
       - hardware-observe
       - opengl
+      - inference-npu
+      - inference-npu-runtime-qcom-htp
   post-refresh:
     plugs: *install-plugs
 
@@ -223,7 +238,9 @@ parts:
       fi
     organize:
       "model-e2b-q4-k-m-gguf/*": (component/model-e2b-q4-k-m-gguf)
+      "model-e2b-q4-0-gguf/*": (component/model-e2b-q4-0-gguf)
       "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
+      "model-e4b-q4-0-gguf/*": (component/model-e4b-q4-0-gguf)
       "model-12b-q4-k-m-gguf/gemma-4-12b-it-Q4_K_M-00001-of-00002.gguf": (component/model-12b-q4-k-m-1-of-2)
       "model-12b-q4-k-m-gguf/gemma-4-12b-it-Q4_K_M-00002-of-00002.gguf": (component/model-12b-q4-k-m-2-of-2)
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00001-of-00004.gguf": (component/model-26b-a4b-q4-k-m-1-of-4)
@@ -231,7 +248,9 @@ parts:
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00003-of-00004.gguf": (component/model-26b-a4b-q4-k-m-3-of-4)
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00004-of-00004.gguf": (component/model-26b-a4b-q4-k-m-4-of-4)
       "mmproj-e2b-bf16-gguf/*": (component/mmproj-e2b-bf16-gguf)
+      "mmproj-e2b-q8-0-gguf/*": (component/mmproj-e2b-q8-0-gguf)
       "mmproj-e4b-bf16-gguf/*": (component/mmproj-e4b-bf16-gguf)
+      "mmproj-e4b-q8-0-gguf/*": (component/mmproj-e4b-q8-0-gguf)
       "mmproj-12b-bf16-gguf/*": (component/mmproj-12b-bf16-gguf)
       "mmproj-26b-bf16-gguf/*": (component/mmproj-26b-bf16-gguf)
       "model-e4b-it-int4-ov-1-of-2/*": (component/model-e4b-it-int4-ov-1-of-2)
@@ -251,6 +270,23 @@ parts:
     organize:
       "licenses": usr/share/doc/llama.cpp # Add licenses to the snap
       "*": (component/llamacpp)
+
+  llamacpp-hexagon:
+    plugin: dump
+    source: https://github.com/Sinan-Karakaya/llama.cpp-builds/releases/download/b9611%2Bhexagon-test/llamacpp-arm64%2Bhexagon.tar.gz
+    source-checksum: sha256/32fe40227a1d0d8f103613cf9db375095e71decff8d7cc201071e02cb3d37b90
+    stage-packages:
+      - on arm64:
+          - libgomp1
+    organize:
+      "licenses": usr/share/doc/llama.cpp+hexagon # Add licenses to the snap
+      "*": (component/llamacpp-hexagon)
+    # Do not download or stage the ARM64-only artifact on other architectures.
+    override-pull: &arm64-only |
+      [ "$CRAFT_ARCH_BUILD_FOR" == "arm64" ] && craftctl default || exit 0
+    override-build: *arm64-only
+    override-stage: *arm64-only
+    override-prime: *arm64-only
 
   llamacpp-cuda:
     plugin: dump
@@ -364,6 +400,16 @@ components:
     summary: Google Gemma 4 E2B Q4_K_M GGUF
     description: Model weights for Google Gemma 4 E2B (Efficient 2B) in GGUF format
 
+  model-e2b-q4-0-gguf:
+    type: standard
+    summary: Google Gemma 4 E2B Q4_0 GGUF
+    description: HTP-compatible model weights for Google Gemma 4 E2B (Efficient 2B) in GGUF format
+
+  mmproj-e2b-q8-0-gguf:
+    type: standard
+    summary: Google Gemma 4 E2B multimodal projector Q8_0 GGUF
+    description: HTP-compatible multimodal projector weights for Google Gemma 4 E2B vision support in GGUF format
+
   mmproj-e2b-bf16-gguf:
     type: standard
     summary: Google Gemma 4 E2B multimodal projector BF16 GGUF
@@ -373,6 +419,16 @@ components:
     type: standard
     summary: Google Gemma 4 E4B Q4_K_M GGUF
     description: Model weights for Google Gemma 4 E4B (Efficient 4B) in GGUF format
+
+  model-e4b-q4-0-gguf:
+    type: standard
+    summary: Google Gemma 4 E4B Q4_0 GGUF
+    description: HTP-compatible model weights for Google Gemma 4 E4B (Efficient 4B) in GGUF format
+
+  mmproj-e4b-q8-0-gguf:
+    type: standard
+    summary: Google Gemma 4 E4B multimodal projector Q8_0 GGUF
+    description: HTP-compatible multimodal projector weights for Google Gemma 4 E4B vision support in GGUF format
 
   mmproj-e4b-bf16-gguf:
     type: standard
@@ -423,6 +479,11 @@ components:
     type: standard
     summary: llama.cpp using default CPU instruction sets
     description: LLM inference in C/C++
+
+  llamacpp-hexagon:
+    type: standard
+    summary: llama.cpp with the Qualcomm Hexagon HTP backend
+    description: ARM64 llama.cpp runtime with the experimental Qualcomm Hexagon HTP backend
   
   llamacpp-cuda:
     type: standard
@@ -465,6 +526,8 @@ apps:
       - opengl
       - process-control
       - home
+      - inference-npu
+      - inference-npu-runtime-qcom-htp
 
   server-webui:
     command: bin/server-webui.sh
