@@ -223,17 +223,28 @@ parts:
       fi
     organize:
       "model-e2b-q4-k-m-gguf/*": (component/model-e2b-q4-k-m-gguf)
+      "model-e2b-qat-q4-k-xl-gguf/*": (component/model-e2b-qat-q4-k-xl-gguf)
       "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
+      "model-e4b-qat-q4-k-xl-gguf/*": (component/model-e4b-qat-q4-k-xl-gguf)
       "model-12b-q4-k-m-gguf/gemma-4-12b-it-Q4_K_M-00001-of-00002.gguf": (component/model-12b-q4-k-m-1-of-2)
       "model-12b-q4-k-m-gguf/gemma-4-12b-it-Q4_K_M-00002-of-00002.gguf": (component/model-12b-q4-k-m-2-of-2)
+      "model-12b-qat-q4-k-xl-gguf/gemma-4-12B-it-qat-UD-Q4_K_XL-00001-of-00002.gguf": (component/model-12b-qat-q4-k-xl-1-of-2)
+      "model-12b-qat-q4-k-xl-gguf/gemma-4-12B-it-qat-UD-Q4_K_XL-00002-of-00002.gguf": (component/model-12b-qat-q4-k-xl-2-of-2)
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00001-of-00004.gguf": (component/model-26b-a4b-q4-k-m-1-of-4)
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00002-of-00004.gguf": (component/model-26b-a4b-q4-k-m-2-of-4)
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00003-of-00004.gguf": (component/model-26b-a4b-q4-k-m-3-of-4)
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00004-of-00004.gguf": (component/model-26b-a4b-q4-k-m-4-of-4)
+      "model-26b-a4b-qat-q4-k-xl-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL-00001-of-00003.gguf": (component/model-26b-a4b-qat-q4-k-xl-1-of-3)
+      "model-26b-a4b-qat-q4-k-xl-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL-00002-of-00003.gguf": (component/model-26b-a4b-qat-q4-k-xl-2-of-3)
+      "model-26b-a4b-qat-q4-k-xl-gguf/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL-00003-of-00003.gguf": (component/model-26b-a4b-qat-q4-k-xl-3-of-3)
       "mmproj-e2b-bf16-gguf/*": (component/mmproj-e2b-bf16-gguf)
+      "mmproj-e2b-qat-bf16-gguf/*": (component/mmproj-e2b-qat-bf16-gguf)
       "mmproj-e4b-bf16-gguf/*": (component/mmproj-e4b-bf16-gguf)
+      "mmproj-e4b-qat-bf16-gguf/*": (component/mmproj-e4b-qat-bf16-gguf)
       "mmproj-12b-bf16-gguf/*": (component/mmproj-12b-bf16-gguf)
+      "mmproj-12b-qat-bf16-gguf/*": (component/mmproj-12b-qat-bf16-gguf)
       "mmproj-26b-bf16-gguf/*": (component/mmproj-26b-bf16-gguf)
+      "mmproj-26b-qat-bf16-gguf/*": (component/mmproj-26b-qat-bf16-gguf)
       "model-e4b-it-int4-ov-1-of-2/*": (component/model-e4b-it-int4-ov-1-of-2)
       "model-e4b-it-int4-ov-2-of-2/*": (component/model-e4b-it-int4-ov-2-of-2)
 
@@ -369,6 +380,16 @@ components:
     summary: Google Gemma 4 E2B multimodal projector BF16 GGUF
     description: Multimodal projector weights for Google Gemma 4 E2B vision support in GGUF format
 
+  model-e2b-qat-q4-k-xl-gguf:
+    type: standard
+    summary: Google Gemma 4 E2B QAT Q4_K_XL GGUF
+    description: Model weights for Google Gemma 4 E2B (Efficient 2B, quantization-aware trained) in GGUF format
+
+  mmproj-e2b-qat-bf16-gguf:
+    type: standard
+    summary: Google Gemma 4 E2B QAT multimodal projector BF16 GGUF
+    description: Multimodal projector weights for Google Gemma 4 E2B QAT vision support in GGUF format
+
   model-e4b-q4-k-m-gguf:
     type: standard
     summary: Google Gemma 4 E4B Q4_K_M GGUF
@@ -378,6 +399,16 @@ components:
     type: standard
     summary: Google Gemma 4 E4B multimodal projector BF16 GGUF
     description: Multimodal projector weights for Google Gemma 4 E4B vision support in GGUF format
+
+  model-e4b-qat-q4-k-xl-gguf:
+    type: standard
+    summary: Google Gemma 4 E4B QAT Q4_K_XL GGUF
+    description: Model weights for Google Gemma 4 E4B (Efficient 4B, quantization-aware trained) in GGUF format
+
+  mmproj-e4b-qat-bf16-gguf:
+    type: standard
+    summary: Google Gemma 4 E4B QAT multimodal projector BF16 GGUF
+    description: Multimodal projector weights for Google Gemma 4 E4B QAT vision support in GGUF format
 
   model-e4b-it-int4-ov-1-of-2: &model-e4b-it-int4-ov
     type: standard
@@ -400,6 +431,19 @@ components:
     summary: Google Gemma 4 12B multimodal projector BF16 GGUF
     description: Multimodal projector weights for Google Gemma 4 12B vision support in GGUF format
 
+  model-12b-qat-q4-k-xl-1-of-2: &model-12b-qat-q4-k-xl
+    type: standard
+    summary: Google Gemma 4 12B QAT Q4_K_XL GGUF
+    description: Model weights for Google Gemma 4 12B (quantization-aware trained) in GGUF format
+
+  model-12b-qat-q4-k-xl-2-of-2:
+    <<: *model-12b-qat-q4-k-xl
+
+  mmproj-12b-qat-bf16-gguf:
+    type: standard
+    summary: Google Gemma 4 12B QAT multimodal projector BF16 GGUF
+    description: Multimodal projector weights for Google Gemma 4 12B QAT vision support in GGUF format
+
   model-26b-a4b-q4-k-m-1-of-4: &model-26b-a4b-q4-k-m
     type: standard
     summary: Google Gemma 4 26B A4B multimodal projector Q4_K_M GGUF
@@ -418,6 +462,22 @@ components:
     type: standard
     summary: Google Gemma 4 26B A4B multimodal projector BF16 GGUF
     description: Multimodal projector weights for Google Gemma 4 26B A4B vision support in GGUF format
+
+  model-26b-a4b-qat-q4-k-xl-1-of-3: &model-26b-a4b-qat-q4-k-xl
+    type: standard
+    summary: Google Gemma 4 26B A4B QAT Q4_K_XL GGUF
+    description: Model weights for Google Gemma 4 26B A4B (quantization-aware trained) in GGUF format
+
+  model-26b-a4b-qat-q4-k-xl-2-of-3:
+    <<: *model-26b-a4b-qat-q4-k-xl
+
+  model-26b-a4b-qat-q4-k-xl-3-of-3:
+    <<: *model-26b-a4b-qat-q4-k-xl
+
+  mmproj-26b-qat-bf16-gguf:
+    type: standard
+    summary: Google Gemma 4 26B A4B QAT multimodal projector BF16 GGUF
+    description: Multimodal projector weights for Google Gemma 4 26B A4B QAT vision support in GGUF format
 
   llamacpp:
     type: standard
