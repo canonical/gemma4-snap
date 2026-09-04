@@ -24,7 +24,6 @@ environment:
   # However, llama-server expects the shards to be located in the same directory.
   # The layout below flattens them into a single directory via symlinks.
   # The model file path is set to the first shard's symlink:
-  - MODEL_NAME=gemma4-26b-a4b-q4-k-m
   - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-26b-bf16-gguf/mmproj-BF16.gguf
   - SHARDS_DIR=/tmp/model-26b-a4b-it-q4-k-m-shards
   - MODEL_FILE=$SHARDS_DIR/gemma-4-26B-A4B-it-UD-Q4_K_M-00001-of-00004.gguf
