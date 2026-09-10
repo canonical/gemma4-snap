@@ -39,6 +39,7 @@ assumes:
 platforms:
   amd64:
   arm64:
+  s390x:
 
 slots:
   provider:
@@ -100,6 +101,7 @@ parts:
     source:
       - on amd64: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta.14/inference-snaps-cli-linux-amd64.tar.xz
       - on arm64: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta.14/inference-snaps-cli-linux-arm64.tar.xz
+      - on s390x: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta.14/inference-snaps-cli-linux-s390x.tar.xz
     plugin: dump
     override-build: |
 
@@ -119,8 +121,16 @@ parts:
   cli-nvidia-smi:
     plugin: nil
     build-packages:
-      - nvidia-utils-580
+      - on amd64:
+        - nvidia-utils-580
+      - on arm64:
+        - nvidia-utils-580
+    override-pull: &exclude-s390x | # these parts are incompatible with s390x
+      [ "$CRAFT_ARCH_BUILD_FOR" == "s390x" ] && exit 0 || craftctl default 
     override-build: |
+      if [ "$CRAFT_ARCH_BUILD_FOR" == "s390x" ]; then
+        exit 0
+      fi
       mkdir -p $CRAFT_PART_INSTALL/usr/bin
       cp /usr/bin/nvidia-smi $CRAFT_PART_INSTALL/usr/bin/
       
@@ -128,12 +138,21 @@ parts:
       mkdir -p $license_dir
       cp /usr/share/doc/nvidia-utils-580/copyright $license_dir/
 
+    override-stage: *exclude-s390x
+    override-prime: *exclude-s390x
+
   # OpenCL ICD and libigdgmm are required for Intel GPU vRAM lookup with clinfo
   cli-intel-opencl-icd:
     plugin: nil
     build-packages:
       - wget
+    override-pull: *exclude-s390x
     override-build: |
+      # Skip for s390x
+      if [ "$CRAFT_ARCH_BUILD_FOR" == "s390x" ]; then
+        exit 0
+      fi
+
       if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
         # First install the legacy support version. Then install the latest, so that latest can override any old libraries.
       
@@ -158,6 +177,8 @@ parts:
       fi
       
       craftctl default
+    override-stage: *exclude-s390x
+    override-prime: *exclude-s390x
 
   webui:
     plugin: dump
@@ -201,6 +222,21 @@ parts:
 
       cp -rf --archive --link --no-dereference ${CRAFT_PART_SRC}/* ${CRAFT_PART_INSTALL}
 
+      # Remove incompatible model and mmproj files when building for s390x
+      if [ "$CRAFT_ARCH_BUILD_FOR" = "s390x" ]; then
+        rm -rf \
+          "$CRAFT_PART_INSTALL/model-e2b-q4-k-m-gguf" \
+          "$CRAFT_PART_INSTALL/model-e4b-q4-k-m-gguf" \
+          "$CRAFT_PART_INSTALL/model-26b-a4b-q4-k-m-gguf" \
+          "$CRAFT_PART_INSTALL/mmproj-e2b-bf16-gguf" \
+          "$CRAFT_PART_INSTALL/mmproj-e4b-bf16-gguf" \
+          "$CRAFT_PART_INSTALL/mmproj-26b-bf16-gguf"
+      else
+        rm -rf \
+          "$CRAFT_PART_INSTALL/model-e2b-q8-0-be-gguf" \
+          "$CRAFT_PART_INSTALL/mmproj-e2b-bf16-be-gguf"
+      fi
+
       mkdir -p ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov-1-of-2/
       mkdir -p ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov-2-of-2/
 
@@ -215,6 +251,7 @@ parts:
       fi
     organize:
       "model-e2b-q4-k-m-gguf/*": (component/model-e2b-q4-k-m-gguf)
+      "model-e2b-q8-0-be-gguf/*": (component/model-e2b-q8-0-be-gguf)
       "model-e4b-q4-k-m-gguf/*": (component/model-e4b-q4-k-m-gguf)
       "model-12b-q4-k-m-gguf/gemma-4-12b-it-Q4_K_M-00001-of-00002.gguf": (component/model-12b-q4-k-m-1-of-2)
       "model-12b-q4-k-m-gguf/gemma-4-12b-it-Q4_K_M-00002-of-00002.gguf": (component/model-12b-q4-k-m-2-of-2)
@@ -223,6 +260,7 @@ parts:
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00003-of-00004.gguf": (component/model-26b-a4b-q4-k-m-3-of-4)
       "model-26b-a4b-q4-k-m-gguf/gemma-4-26B-A4B-it-UD-Q4_K_M-00004-of-00004.gguf": (component/model-26b-a4b-q4-k-m-4-of-4)
       "mmproj-e2b-bf16-gguf/*": (component/mmproj-e2b-bf16-gguf)
+      "mmproj-e2b-bf16-be-gguf/*": (component/mmproj-e2b-bf16-be-gguf)
       "mmproj-e4b-bf16-gguf/*": (component/mmproj-e4b-bf16-gguf)
       "mmproj-12b-bf16-gguf/*": (component/mmproj-12b-bf16-gguf)
       "mmproj-26b-bf16-gguf/*": (component/mmproj-26b-bf16-gguf)
@@ -238,6 +276,7 @@ parts:
     source:
       - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b10344/llamacpp-amd64.tar.gz
       - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b10344/llamacpp-arm64.tar.gz
+      - on s390x: https://github.com/canonical/llama.cpp-builds/releases/download/b10344/llamacpp-s390x.tar.gz
     stage-packages:
       - libgomp1
     organize:
@@ -249,11 +288,16 @@ parts:
     source:
       - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b10344/llamacpp-amd64+cuda12.9.tar.gz
       - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b10344/llamacpp-arm64+cuda12.9.tar.gz
+      - else: . # To prevent source resolving to None on s390x, which blocks dump
     stage-packages:
       - libgomp1
     organize:
       "licenses": usr/share/doc/llama.cpp+cuda # Add licenses to the snap
       "*": (component/llamacpp-cuda)
+    override-pull: *exclude-s390x
+    override-build: *exclude-s390x
+    override-stage: *exclude-s390x
+    override-prime: *exclude-s390x
 
   llamacpp-rocm:
     plugin: dump
@@ -356,10 +400,20 @@ components:
     summary: Google Gemma 4 E2B Q4_K_M GGUF
     description: Model weights for Google Gemma 4 E2B (Efficient 2B) in GGUF format
 
+  model-e2b-q8-0-be-gguf:
+    type: standard
+    summary: Google Gemma 4 E2B Q8_0 Big Endian GGUF
+    description: Model weights for Google Gemma 4 E2B (Efficient 2B) in Big Endian GGUF format
+
   mmproj-e2b-bf16-gguf:
     type: standard
     summary: Google Gemma 4 E2B multimodal projector BF16 GGUF
     description: Multimodal projector weights for Google Gemma 4 E2B vision support in GGUF format
+
+  mmproj-e2b-bf16-be-gguf:
+    type: standard
+    summary: Google Gemma 4 E2B multimodal projector BF16 GGUF in Big Endian
+    description: Multimodal projector weights for Google Gemma 4 E2B vision support in Big Endian GGUF format
 
   model-e4b-q4-k-m-gguf:
     type: standard
