@@ -296,7 +296,7 @@ parts:
 
   openvino-model-server:
     plugin: dump
-    source: https://github.com/openvinotoolkit/model_server/releases/download/v2026.2.1/ovms_ubuntu24_2026.2.1_python_off.tar.gz
+    source: https://github.com/openvinotoolkit/model_server/releases/download/v2026.3.1/ovms_ubuntu24_2026.2.1_python_off.tar.gz
     stage-packages:
       - libxml2
       - libcurl4
