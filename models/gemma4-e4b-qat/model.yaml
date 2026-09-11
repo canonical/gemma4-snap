@@ -1,0 +1,23 @@
+name: gemma4-e4b-qat
+
+description: Gemma 4 E4B QAT, a quantization-aware trained multimodal (text + vision) instruction-tuned model
+model-card-url: https://huggingface.co/unsloth/gemma-4-E4B-it-qat-GGUF
+quantization: Q4_K_XL
+
+disk-size: 4966M
+
+capabilities:
+  - text
+  - vision
+  - thinking
+  - tools
+
+components:
+  - model-e4b-qat-q4-k-xl-gguf
+  - mmproj-e4b-qat-bf16-gguf
+
+environment:
+  - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-e4b-qat-bf16-gguf/mmproj-BF16.gguf
+  - MODEL_FILE=$SNAP_COMPONENTS/model-e4b-qat-q4-k-xl-gguf/gemma-4-E4B-it-qat-UD-Q4_K_XL.gguf
+  - MODEL_NAME=gemma4-e4b-qat-q4-k-xl
+
