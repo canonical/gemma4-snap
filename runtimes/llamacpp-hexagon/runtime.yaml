@@ -15,7 +15,7 @@ environment:
   # ships the DSP skel binaries FastRPC loads by name via ADSP_LIBRARY_PATH
   # (e.g. libggml-htp-v73.so for QCS8275); both trees are required.
   - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP/inference-npu-runtime-qcom-htp/lib
-  - ADSP_LIBRARY_PATH=$SNAP_COMPONENTS/llamacpp-hexagon/lib:$SNAP/inference-npu-runtime-qcom-htp/usr/share/qcom
+  - ADSP_LIBRARY_PATH=$SNAP_COMPONENTS/llamacpp-hexagon/lib:$SNAP/inference-npu-runtime-qcom-htp/htp:$SNAP/inference-npu-runtime-qcom-htp/usr/share/qcom
   - GGML_HEXAGON_DEVICES=HTP0
 
 components:

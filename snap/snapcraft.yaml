@@ -37,10 +37,24 @@ assumes:
   - snapd2.68 # for components support
 
 platforms:
-  amd64:
   arm64:
+    build-on:
+    - amd64
+    - arm64
+    build-for:
+    - arm64
 
 slots:
+  inference-npu-device:
+    interface: custom-device
+    custom-device: inference-npu
+    devices:
+      - /dev/fastrpc-adsp-secure
+      - /dev/fastrpc-cdsp
+      - /dev/fastrpc-cdsp-secure
+      - /dev/fastrpc-gdsp0
+      - /dev/fastrpc-gdsp0-secure
+      - /dev/dma_heap/system
   status:
     interface: content
     source:
@@ -118,14 +132,12 @@ parts:
       # Do nothing. This significantly reduces build time when sourcing large files.
     override-build: |
       set -eo pipefail
-      cli_version=$($CRAFT_STAGE/bin/gemma4 version --format=json | jq .cli --raw-output)
+      cli_version=v2.0.0-beta.12
       git_hash=$(git -C "$SNAPCRAFT_PROJECT_DIR" describe --always)
       craftctl set version="${cli_version#v}+${git_hash}"
 
   cli:
-    source:
-      - on amd64: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta.12/inference-snaps-cli-linux-amd64.tar.xz
-      - on arm64: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta.12/inference-snaps-cli-linux-arm64.tar.xz
+    source: https://github.com/canonical/inference-snaps-cli/releases/download/v2.0.0-beta.12/inference-snaps-cli-linux-arm64.tar.xz
     plugin: dump
     override-build: |
 
@@ -212,8 +224,15 @@ parts:
   scripts:
     source: scripts
     plugin: dump
-    stage-packages:
-      - jq
+    override-build: |
+      set -eo pipefail
+      # dump plugin already copies source files; clean any stale copies from a
+      # previous run so the hard-link cp below cannot fail
+      rm -rf "$CRAFT_PART_INSTALL"
+      craftctl default
+      mkdir -p "$CRAFT_PART_INSTALL/usr/bin"
+      curl -fsSLo "$CRAFT_PART_INSTALL/usr/bin/jq" https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-arm64
+      chmod +x "$CRAFT_PART_INSTALL/usr/bin/jq"
     organize:
       "server.sh": bin/
       "server-webui.sh": bin/
@@ -234,6 +253,8 @@ parts:
       # OpenVINO model is only for amd64
       if [ "$CRAFT_ARCH_BUILD_FOR" != "amd64" ]; then
         rm -rf ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov/*
+        rm -rf ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov-1-of-2/*
+        rm -rf ${CRAFT_PART_INSTALL}/model-e4b-it-int4-ov-2-of-2/*
       else
         # The Store has a 5GB limit for individual components.
         # Files are split into separate directories, each organized into its own component
