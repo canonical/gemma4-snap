@@ -1,0 +1,31 @@
+name: gemma4-12b-qat
+
+description: Gemma 4 12B QAT, a quantization-aware trained multimodal (text + vision) instruction-tuned model
+model-card-url: https://huggingface.co/inference-snaps/gemma-4-12B-it-qat-UD-Q4_K_XL-5GB
+quantization: Q4_K_XL
+
+disk-size: 6573M
+
+capabilities:
+  - text
+  - vision
+  - thinking
+  - tools
+
+components:
+  - mmproj-12b-qat-bf16-gguf
+  - model-12b-qat-q4-k-xl-1-of-2
+  - model-12b-qat-q4-k-xl-2-of-2
+
+environment:
+  - MODEL_NAME=gemma4-12b-qat-q4-k-xl
+  - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-12b-qat-bf16-gguf/mmproj-BF16.gguf
+  - SHARDS_DIR=/tmp/model-12b-it-qat-q4-k-xl-shards
+  - MODEL_FILE=$SHARDS_DIR/gemma-4-12B-it-qat-UD-Q4_K_XL-00001-of-00002.gguf
+
+layout:
+  $SHARDS_DIR/gemma-4-12B-it-qat-UD-Q4_K_XL-00001-of-00002.gguf:
+    symlink: $SNAP_COMPONENTS/model-12b-qat-q4-k-xl-1-of-2/gemma-4-12B-it-qat-UD-Q4_K_XL-00001-of-00002.gguf
+  $SHARDS_DIR/gemma-4-12B-it-qat-UD-Q4_K_XL-00002-of-00002.gguf:
+    symlink: $SNAP_COMPONENTS/model-12b-qat-q4-k-xl-2-of-2/gemma-4-12B-it-qat-UD-Q4_K_XL-00002-of-00002.gguf
+
