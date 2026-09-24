@@ -301,6 +301,34 @@ parts:
     override-stage: *amd64-only
     override-prime: *amd64-only
 
+  llamacpp-vulkan:
+    plugin: cmake
+    source: https://github.com/ggml-org/llama.cpp.git
+    source-tag: v0.5.0
+    build-packages:
+      - libvulkan-dev
+      - glslc
+      - spirv-headers
+    stage-packages:
+      - libvulkan1
+      - libgomp1
+      # Installs /usr/share/vulkan/icd.d and the related Vulkan drivers shared objects for AMD and Intel GPUs.
+      # The library linter may mark those .so as unused, but they are loaded at runtime depending on hardware.
+      # This may be replaced by the "vulkan-driver-libs" interface once it's available on non-system snaps.
+      - mesa-vulkan-drivers # Required for Vulkan support on AMD and Intel GPUs
+    cmake-parameters:
+      - -DGGML_VULKAN=ON
+      - -DGGML_NATIVE=OFF
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DLLAMA_BUILD_TESTS=OFF
+      - -DLLAMA_BUILD_EXAMPLES=OFF
+      - -DLLAMA_BUILD_TOOLS=ON
+      - -DLLAMA_BUILD_SERVER=ON
+    organize:
+      "*": (component/llamacpp-vulkan)
+    prime:
+      - -usr/local/include
+
   openvino-model-server:
     plugin: dump
     source: https://github.com/openvinotoolkit/model_server/releases/download/v2026.2.1/ovms_ubuntu24_2026.2.1_python_off.tar.gz
@@ -451,6 +479,11 @@ components:
     summary: OpenVINO Model Server
     description: OpenVINO Model Server for serving models
 
+  llamacpp-vulkan:
+    type: standard
+    summary: llama.cpp with Vulkan backend
+    description: LLM inference in C/C++
+
 apps:
   gemma4:
     command: bin/gemma4
@@ -484,3 +517,5 @@ lint:
     - metadata:
       - license
       - contact
+    - library:
+      - usr/lib/**/*.so*

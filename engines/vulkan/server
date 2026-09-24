@@ -1,0 +1,39 @@
+#!/bin/bash -eu
+
+port="$(modelctl get http.port)"
+host="$(modelctl get http.host)"
+sleep_idle_seconds="$(modelctl get sleep-idle-seconds)"
+min_context_size="$(modelctl get min-context-size)"
+model_name=$("$SNAP_NAME" model --format=json | jq -r '.name')
+
+mmproj_args=()
+if [ -n "${MMPROJ_FILE:-}" ]; then
+  mmproj_args=(--mmproj "$MMPROJ_FILE")
+fi
+
+# Snap confinement blocks access to the vulkan icd files on the host.
+# For this reason we install them on through "mesa-vulkan-drivers" in the snap.
+# We then have to point to those files by overriding VK_ICD_FILENAMES.
+
+for icd_file in "$VULKAN_ICD_PATH"/*.json; do
+    if [ -z "${VK_ICD_FILENAMES:-}" ]; then
+        VK_ICD_FILENAMES="$icd_file"
+    else
+        VK_ICD_FILENAMES="$VK_ICD_FILENAMES:$icd_file"
+    fi
+done
+
+export VK_ICD_FILENAMES
+
+set -x
+# Adding --no-warmup to skip the model warmup phase during server startup in order to reduce resource usage if not needed.
+exec llama-server \
+  --model "$MODEL_FILE" \
+  --alias "$model_name" \
+  "${mmproj_args[@]}" \
+  --port "$port" \
+  --host "$host" \
+  --no-warmup \
+  --sleep-idle-seconds "$sleep_idle_seconds" \
+  --fit-ctx "$min_context_size" \
+  "$@"
