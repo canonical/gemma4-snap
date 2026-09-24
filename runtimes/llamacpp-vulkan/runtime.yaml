@@ -1,0 +1,18 @@
+name: llamacpp-vulkan
+
+servers:
+  openai:
+    protocol: http
+    base-path: /v1
+
+environment:
+  - PATH=$PATH:$SNAP_COMPONENTS/llamacpp-vulkan/bin
+  - PATH=$PATH:$SNAP_COMPONENTS/llamacpp-vulkan/usr/local/bin
+  - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP_COMPONENTS/llamacpp-vulkan/lib
+  - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP_COMPONENTS/llamacpp-vulkan/usr/local/lib
+  - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SNAP_COMPONENTS/llamacpp-vulkan/usr/lib/$ARCH_TRIPLET
+  - VULKAN_ICD_PATH=$SNAP_COMPONENTS/llamacpp-vulkan/usr/share/vulkan/icd.d
+
+components:
+  - llamacpp-vulkan
+  # Intel GPUs might require intel compute runtime (currently in the openvino-model-server component)
