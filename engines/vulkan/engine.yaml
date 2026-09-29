@@ -8,9 +8,6 @@ experimental: true
 vendor: Canonical Ltd
 
 devices:
-  allof:
-    - type: cpu
-      architecture: amd64
   anyof:
     # AMD GPUs
     - type: gpu
