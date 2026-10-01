@@ -9,10 +9,8 @@ vendor: Canonical Ltd
 
 devices:
   anyof:
-    # AMD GPUs
     - type: gpu
       vendor-id: 0x1002 # AMD
-    # Intel GPUs
     - type: gpu
       vendor-id: 0x8086 # Intel
 
