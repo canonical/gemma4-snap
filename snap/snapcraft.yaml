@@ -314,7 +314,6 @@ parts:
       - libvulkan1
       - libgomp1
       # Installs /usr/share/vulkan/icd.d and the related Vulkan drivers shared objects for AMD and Intel GPUs.
-      # The library linter may mark those .so as unused, but they are loaded at runtime depending on hardware.
       # This may be replaced by the "vulkan-driver-libs" interface once it's available on non-system snaps.
       - mesa-vulkan-drivers # Required for Vulkan support on AMD and Intel GPUs
     cmake-parameters:
@@ -522,5 +521,3 @@ lint:
     - metadata:
       - license
       - contact
-    - library:
-      - usr/lib/**/*.so*
