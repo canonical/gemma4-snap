@@ -17,4 +17,9 @@ ln -sfn /var/lib/snapd/hostfs/usr/lib/wsl/drivers $SNAP_COMMON/usr/lib/wsl/drive
 #
 # Refresh the active engine
 #
-modelctl use-engine --fix --assume-yes --fallback=cpu
+fallback=cpu
+if [ "$(uname -m)" = "s390x" ]; then
+	fallback=cpu-s390x
+fi
+
+modelctl use-engine --fix --assume-yes --fallback="$fallback"
