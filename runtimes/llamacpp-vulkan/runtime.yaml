@@ -15,4 +15,3 @@ environment:
 
 components:
   - llamacpp-vulkan
-  # Intel GPUs might require intel compute runtime (currently in the openvino-model-server component)
