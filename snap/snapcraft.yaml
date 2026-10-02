@@ -68,6 +68,10 @@ plugs:
   # To allow side-loading models into server (root daemon) from user home directory
   home:
     read: all
+  gpu-2404:
+    interface: content
+    target: $SNAP/gpu-2404
+    default-provider: mesa-2404
 
 environment:
   SNAP_COMPONENTS: /snap/$SNAP_INSTANCE_NAME/components/$SNAP_REVISION
@@ -313,9 +317,6 @@ parts:
     stage-packages:
       - libvulkan1
       - libgomp1
-      # Installs /usr/share/vulkan/icd.d and the related Vulkan drivers shared objects for AMD and Intel GPUs.
-      # This may be replaced by the "vulkan-driver-libs" interface once it's available on non-system snaps.
-      - mesa-vulkan-drivers # Required for Vulkan support on AMD and Intel GPUs
     cmake-parameters:
       - -DGGML_VULKAN=ON
       - -DGGML_NATIVE=OFF
@@ -385,6 +386,17 @@ parts:
     organize:
       # move everything, including the staged packages
       "*": (component/openvino-model-server)
+
+  # For Vulkan support
+  gpu-2404:
+    after: [cli, cli-dependencies, cli-intel-opencl-icd, cli-nvidia-smi]
+    source: https://github.com/canonical/gpu-snap.git
+    plugin: dump
+    override-prime: |
+      craftctl default
+      ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404
+    prime:
+    - bin/gpu-2404-wrapper
 
   notice:
     plugin: nil
