@@ -11,8 +11,10 @@ devices:
   anyof:
     - type: gpu
       vendor-id: 0x1002 # AMD
+      snap-connections: [gpu-2404]
     - type: gpu
       vendor-id: 0x8086 # Intel
+      snap-connections: [gpu-2404]
 
 runtime: llamacpp-vulkan
 
