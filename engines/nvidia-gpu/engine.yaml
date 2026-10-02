@@ -24,9 +24,13 @@ model:
   default: gemma4-e4b
   options:
     - gemma4-e2b
+    - gemma4-e2b-qat
     - gemma4-e4b
+    - gemma4-e4b-qat
     - gemma4-12b
+    - gemma4-12b-qat
     - gemma4-26b-a4b
+    - gemma4-26b-a4b-qat
 
 configurations:
   sleep-idle-seconds: 600
