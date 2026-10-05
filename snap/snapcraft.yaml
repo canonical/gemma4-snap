@@ -320,6 +320,8 @@ parts:
     cmake-parameters:
       - -DGGML_VULKAN=ON
       - -DGGML_NATIVE=OFF
+      - -DGGML_BACKEND_DL=ON
+      - -DGGML_CPU_ALL_VARIANTS=ON
       - -DCMAKE_BUILD_TYPE=Release
       - -DLLAMA_BUILD_TESTS=OFF
       - -DLLAMA_BUILD_EXAMPLES=OFF
