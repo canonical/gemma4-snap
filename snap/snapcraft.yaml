@@ -314,6 +314,8 @@ parts:
       - libvulkan-dev
       - glslc
       - spirv-headers
+      - gcc-14
+      - g++-14
     stage-packages:
       - libvulkan1
       - libgomp1
