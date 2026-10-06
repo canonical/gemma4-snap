@@ -6,6 +6,12 @@ sleep_idle_seconds="$(modelctl get sleep-idle-seconds)"
 min_context_size="$(modelctl get min-context-size)"
 model_name=$("$SNAP_NAME" model --format=json | jq -r '.name')
 
+extra_args=()
+verbose="$(modelctl get verbose)"
+if [ "${verbose}" = "true" ]; then
+  extra_args+=(--verbose)
+fi
+
 mmproj_args=()
 if [ -n "${MMPROJ_FILE:-}" ]; then
   mmproj_args=(--mmproj "$MMPROJ_FILE")
@@ -22,4 +28,5 @@ exec llama-server \
   --no-warmup \
   --sleep-idle-seconds "$sleep_idle_seconds" \
   --fit-ctx "$min_context_size" \
+  "${extra_args[@]}" \
   "$@"
