@@ -396,7 +396,7 @@ parts:
     source: https://github.com/canonical/gpu-snap.git
     plugin: dump
     organize:
-      "bin/gpu-2404-wrapper": (component/llamacpp-vulkan)/bin
+      "bin/gpu-2404-wrapper": (component/llamacpp-vulkan)/bin/gpu-2404-wrapper
     prime:
       # Exclude everything not explicitly organized
       - -*
