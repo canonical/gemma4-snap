@@ -68,10 +68,10 @@ plugs:
   # To allow side-loading models into server (root daemon) from user home directory
   home:
     read: all
+  # Needed when using the vulkan engine
   gpu-2404:
     interface: content
     target: $SNAP/gpu-2404
-    # default-provider: mesa-2404 # disabled to prevent auto-install
 
 environment:
   SNAP_COMPONENTS: /snap/$SNAP_INSTANCE_NAME/components/$SNAP_REVISION
