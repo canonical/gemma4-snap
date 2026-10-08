@@ -336,7 +336,7 @@ parts:
     organize:
       "*": (component/llamacpp-vulkan)
     prime:
-      - -usr/local/include
+      - -(component/llamacpp-vulkan)/usr/local/include
 
   openvino-model-server:
     plugin: dump
