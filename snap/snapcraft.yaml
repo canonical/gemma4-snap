@@ -316,6 +316,8 @@ parts:
       - spirv-headers
       - gcc-14
       - g++-14
+    build-snaps:
+      - cmake
     stage-packages:
       - libvulkan1
       - libgomp1
