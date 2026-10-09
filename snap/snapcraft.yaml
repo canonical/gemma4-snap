@@ -331,6 +331,8 @@ parts:
       - -DLLAMA_BUILD_EXAMPLES=OFF
       - -DLLAMA_BUILD_TOOLS=ON
       - -DLLAMA_BUILD_SERVER=ON
+      - -DCMAKE_C_COMPILER=gcc-14 
+      - -DCMAKE_CXX_COMPILER=g++-14
     override-build: |
       apt remove cmake -y # use the snap instead
       craftctl default
