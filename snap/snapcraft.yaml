@@ -332,6 +332,7 @@ parts:
       - -DLLAMA_BUILD_TOOLS=ON
       - -DLLAMA_BUILD_SERVER=ON
     override-build: |
+      apt remove cmake -y # use the snap instead
       craftctl default
       mkdir -p "$CRAFT_PART_INSTALL/usr/share/doc/llama.cpp+vulkan"
       cp -laf "$CRAFT_PART_SRC/LICENSE" "$CRAFT_PART_INSTALL/usr/share/doc/llama.cpp+vulkan/LICENSE"
