@@ -1,0 +1,34 @@
+name: vulkan
+summary: Vulkan engine for generic AMD and Intel GPUs
+description: |
+  This engine uses llama.cpp with the Vulkan backend for
+  generic GPU acceleration, supporting AMD and Intel devices.
+
+experimental: true
+vendor: Canonical Ltd
+
+devices:
+  anyof:
+    - type: gpu
+      vendor-id: 0x1002 # AMD
+      snap-connections: [gpu-2404]
+    - type: gpu
+      vendor-id: 0x8086 # Intel
+      snap-connections: [gpu-2404]
+    - type: gpu
+      vendor-id: 0x10de # Nvidia Corporation
+      snap-connections: [gpu-2404]
+
+runtime: llamacpp-vulkan
+
+model:
+  default: gemma4-e4b
+  options:
+    - gemma4-e2b
+    - gemma4-e4b
+    - gemma4-12b
+    - gemma4-26b-a4b
+
+configurations:
+  sleep-idle-seconds: 600
+  min-context-size: 4096

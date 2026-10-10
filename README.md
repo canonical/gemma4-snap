@@ -13,6 +13,7 @@ The snap includes the following hardware-optimized inference engines:
 * intel-cpu: Optimized for Intel CPUs using OpenVINO Model Server
 * intel-gpu: Optimized for Intel GPUs using OpenVINO Model Server
 * intel-onemkl: Intel CPU-optimized for workstations using oneMKL (experimental)
+* vulkan: Optimized for generic AMD and Intel GPUs (experimental)
 
 The most suitable engine is automatically selected based on the available hardware.
 

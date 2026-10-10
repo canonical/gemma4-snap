@@ -15,6 +15,7 @@ description: |
   * intel-cpu: Optimized for Intel CPUs using OpenVINO Model Server
   * intel-gpu: Optimized for Intel GPUs using OpenVINO Model Server
   * intel-onemkl: Intel CPU-optimized for workstations using oneMKL (experimental)
+  * vulkan: Optimized for generic AMD and Intel GPUs (experimental)
 
   The most suitable engine is automatically selected based on the available hardware.
 
@@ -67,6 +68,10 @@ plugs:
   # To allow side-loading models into server (root daemon) from user home directory
   home:
     read: all
+  # Needed when using the vulkan engine
+  gpu-2404:
+    interface: content
+    target: $SNAP/gpu-2404
 
 environment:
   SNAP_COMPONENTS: /snap/$SNAP_INSTANCE_NAME/components/$SNAP_REVISION
@@ -301,6 +306,40 @@ parts:
     override-stage: *amd64-only
     override-prime: *amd64-only
 
+  llamacpp-vulkan:
+    plugin: cmake
+    source: https://github.com/ggml-org/llama.cpp.git
+    source-tag: v0.5.0
+    build-packages:
+      - libvulkan-dev
+      - glslc
+      - spirv-headers
+      - gcc-14
+      - g++-14
+    stage-packages:
+      - libvulkan1
+      - libgomp1
+    cmake-parameters:
+      - -DGGML_VULKAN=ON
+      - -DGGML_NATIVE=OFF
+      - -DGGML_BACKEND_DL=ON
+      - -DGGML_CPU_ALL_VARIANTS=ON
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DLLAMA_BUILD_TESTS=OFF
+      - -DLLAMA_BUILD_EXAMPLES=OFF
+      - -DLLAMA_BUILD_TOOLS=ON
+      - -DLLAMA_BUILD_SERVER=ON
+      - -DCMAKE_C_COMPILER=gcc-14 
+      - -DCMAKE_CXX_COMPILER=g++-14
+    override-build: |
+      craftctl default
+      mkdir -p "$CRAFT_PART_INSTALL/usr/share/doc/llama.cpp+vulkan"
+      cp -laf "$CRAFT_PART_SRC/LICENSE" "$CRAFT_PART_INSTALL/usr/share/doc/llama.cpp+vulkan/LICENSE"
+    organize:
+      "*": (component/llamacpp-vulkan)
+    prime:
+      - -(component/llamacpp-vulkan)/usr/local/include
+
   openvino-model-server:
     plugin: dump
     source: https://github.com/openvinotoolkit/model_server/releases/download/v2026.2.1/ovms_ubuntu24_2026.2.1_python_off.tar.gz
@@ -353,6 +392,16 @@ parts:
     organize:
       # move everything, including the staged packages
       "*": (component/openvino-model-server)
+
+  # For Vulkan support
+  gpu-2404:
+    source: https://github.com/canonical/gpu-snap.git
+    plugin: dump
+    organize:
+      "bin/gpu-2404-wrapper": (component/llamacpp-vulkan)/bin/gpu-2404-wrapper
+    prime:
+      # Exclude everything not explicitly organized
+      - -*
 
   notice:
     plugin: nil
@@ -450,6 +499,11 @@ components:
     type: standard
     summary: OpenVINO Model Server
     description: OpenVINO Model Server for serving models
+
+  llamacpp-vulkan:
+    type: standard
+    summary: llama.cpp with Vulkan backend
+    description: LLM inference in C/C++
 
 apps:
   gemma4:
