@@ -5,9 +5,7 @@ on:
   workflow_run:
     workflows:
       - CICD
-      - PR Checks
       - PR Label
-      - Agentic Snap Test
     types: [completed]
 
 permissions:
