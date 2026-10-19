@@ -3,11 +3,15 @@ SHELL := /bin/bash
 # Always run `hf` via pipx to avoid relying on local `hf` installations.
 hf := pipx run --spec "huggingface_hub[cli]" hf
 
+gguf_script_url := https://raw.githubusercontent.com/ggml-org/llama.cpp/refs/heads/master/gguf-py/gguf/scripts/gguf_convert_endian.py
+gguf_convert_endian := uv run --with numpy --with gguf gguf_convert_endian.py
+
 SNAP_NAME ?= gemma4
 ENGINE ?= cpu
+ARCH ?= $(shell dpkg --print-architecture)
 
 .PHONY: all help init init-submodules install-deps download-models \
-	download-model-e2b download-model-e4b download-model-12b download-model-26b-a4b download-model-e4b-ov \
+	download-model-e2b download-model-e2b-be download-model-e4b download-model-12b download-model-26b-a4b download-model-e4b-ov \
 	build install upload smoke-test
 
 all: help
@@ -57,7 +61,12 @@ init-submodules:
 		git submodule update --init; \
 	fi
 
+ifeq ($(ARCH),s390x)
+download-models: download-model-e2b-be
+else
+download-models: download-model-e2b download-model-e4b download-model-26b-a4b download-model-e4b-ov
 download-models: download-model-e2b download-model-e4b download-model-12b download-model-26b-a4b download-model-e4b-ov
+endif
 
 download-model-e2b:
 	@echo "Downloading Gemma 4 E2B model weights..."
@@ -65,6 +74,16 @@ download-model-e2b:
 		--local-dir components/model-e2b-q4-k-m-gguf/
 	$(hf) download unsloth/gemma-4-E2B-it-GGUF mmproj-BF16.gguf \
 		--local-dir components/mmproj-e2b-bf16-gguf/
+
+download-model-e2b-be:
+	@echo "Converting Gemma 4 E2B model to big endian..."
+	$(hf) download ggml-org/gemma-4-E2B-it-GGUF gemma-4-E2B-it-Q8_0.gguf \
+		--local-dir components/model-e2b-q8-0-be-gguf/
+	$(hf) download unsloth/gemma-4-E2B-it-GGUF mmproj-BF16.gguf \
+		--local-dir components/mmproj-e2b-bf16-be-gguf/
+	wget -O gguf_convert_endian.py $(gguf_script_url)
+	printf "YES\n" | $(gguf_convert_endian) components/model-e2b-q8-0-be-gguf/gemma-4-E2B-it-Q8_0.gguf big
+	printf "YES\n" | $(gguf_convert_endian) components/mmproj-e2b-bf16-be-gguf/mmproj-BF16.gguf big
 
 download-model-e4b:
 	@echo "Downloading Gemma 4 E4B model weights..."
