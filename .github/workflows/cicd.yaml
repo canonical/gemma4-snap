@@ -27,5 +27,6 @@ jobs:
       store-track: latest
       snap-name: gemma4
       smoke-test-engine: cpu
+      smoke-test-features: openai_models, openai_chat_text
     secrets:
       store-credentials: ${{ secrets.STORE_LOGIN_MAIN }}

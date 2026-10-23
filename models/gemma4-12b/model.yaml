@@ -18,7 +18,6 @@ components:
   - model-12b-q4-k-m-2-of-2
 
 environment:
-  - MODEL_NAME=gemma4-12b-q4-k-m
   - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-12b-bf16-gguf/mmproj-BF16.gguf
   - SHARDS_DIR=/tmp/model-12b-it-q4-k-m-shards
   - MODEL_FILE=$SHARDS_DIR/gemma-4-12b-it-Q4_K_M-00001-of-00002.gguf

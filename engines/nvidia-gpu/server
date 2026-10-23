@@ -4,6 +4,13 @@ port="$(modelctl get http.port)"
 host="$(modelctl get http.host)"
 sleep_idle_seconds="$(modelctl get sleep-idle-seconds)"
 min_context_size="$(modelctl get min-context-size)"
+model_name=$("$SNAP_NAME" model --format=json | jq -r '.name')
+
+extra_args=()
+verbose="$(modelctl get verbose)"
+if [ "${verbose}" = "true" ]; then
+  extra_args+=(--verbose)
+fi
 
 mmproj_args=()
 if [ -n "${MMPROJ_FILE:-}" ]; then
@@ -14,11 +21,12 @@ set -x
 # Adding --no-warmup to skip the model warmup phase during server startup in order to reduce resource usage if not needed.
 exec llama-server \
   --model "$MODEL_FILE" \
-  --alias "$MODEL_NAME" \
+  --alias "$model_name" \
   "${mmproj_args[@]}" \
   --port "$port" \
   --host "$host" \
   --no-warmup \
   --sleep-idle-seconds "$sleep_idle_seconds" \
   --fit-ctx "$min_context_size" \
+  "${extra_args[@]}" \
   "$@"

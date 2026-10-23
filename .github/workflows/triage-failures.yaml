@@ -3,7 +3,9 @@ name: Triage Failures
 
 on:
   workflow_run:
-    workflows: ['**']
+    workflows:
+      - CICD
+      - PR Label
     types: [completed]
 
 permissions:

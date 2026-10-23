@@ -20,7 +20,6 @@ components:
 environment:
   # The model is split across two components. The layout below flattens them
   # into a single directory via symlinks so OpenVINO Model Server can find all files.
-  - MODEL_NAME=gemma4-e4b-it-int4-ov
   - MODEL_DIR=/tmp/gemma4-e4b-it-int4-ov
   - MODEL_PATH=$MODEL_DIR
 
