@@ -17,6 +17,16 @@ if [ -n "${MMPROJ_FILE:-}" ]; then
   mmproj_args=(--mmproj "$MMPROJ_FILE")
 fi
 
+mtp_args=()
+mtp_enabled="$(modelctl get mtp-enabled)"
+if [ "${mtp_enabled}" = "true" ]; then
+  if [ ! -f "${MTP_FILE:-}" ]; then
+    echo "MTP is enabled but $MTP_FILE is missing. Install the MTP component for this model, or disable MTP with 'snap set $SNAP_NAME server.mtp-enabled=false'." >&2
+    exit 1
+  fi
+  mtp_args=(-md "$MTP_FILE" --spec-type draft-mtp --spec-draft-n-max "$(modelctl get spec-draft-n-max)")
+fi
+
 set -x
 # Adding --no-warmup to skip the model warmup phase during server startup in order to reduce resource usage if not needed.
 exec llama-server \
@@ -29,4 +39,5 @@ exec llama-server \
   --sleep-idle-seconds "$sleep_idle_seconds" \
   --fit-ctx "$min_context_size" \
   "${extra_args[@]}" \
+  "${mtp_args[@]}" \
   "$@"
