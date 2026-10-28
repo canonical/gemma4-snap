@@ -21,6 +21,16 @@ if [ "${mtp_enabled}" = "true" ]; then
   mtp_args=(-md "$MTP_FILE" --spec-type draft-mtp --spec-draft-n-max "$(modelctl get spec-draft-n-max)")
 fi
 
+moe_args=()
+moe_cache_enabled="$(modelctl get moe-cache-enabled)"
+if [ "${moe_cache_enabled}" = "true" ]; then
+  if [ "${model_name}" = "gemma4-26b-a4b" ]; then
+    moe_args=(-cmoe --moe-cache-mib "$(modelctl get moe-cache-mib)")
+  else
+    echo "MoE cache is enabled but $model_name is not a MoE model. Option ignored." >&2
+  fi
+fi
+
 set -x
 # Adding --no-warmup to skip the model warmup phase during server startup in order to reduce resource usage if not needed.
 exec gpu-2404-wrapper llama-server \
@@ -33,4 +43,5 @@ exec gpu-2404-wrapper llama-server \
   --sleep-idle-seconds "$sleep_idle_seconds" \
   --fit-ctx "$min_context_size" \
   "${mtp_args[@]}" \
+  "${moe_args[@]}" \
   "$@"

@@ -313,7 +313,7 @@ parts:
   llamacpp-vulkan:
     plugin: cmake
     source: https://github.com/ggml-org/llama.cpp.git
-    source-tag: v0.5.0
+    source-tag: v0.7.0
     build-packages:
       - libvulkan-dev
       - glslc
