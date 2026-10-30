@@ -27,6 +27,8 @@ environment:
   - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-26b-bf16-gguf/mmproj-BF16.gguf
   - SHARDS_DIR=/tmp/model-26b-a4b-it-q4-k-m-shards
   - MODEL_FILE=$SHARDS_DIR/gemma-4-26B-A4B-it-UD-Q4_K_M-00001-of-00004.gguf
+  # Optional MTP draft model, provided by the optional mtp-26b-a4b-gguf component
+  - MTP_FILE=$SNAP_COMPONENTS/mtp-26b-a4b-gguf/mtp-gemma-4-26B-A4B-it.gguf
 
 layout:
   $SHARDS_DIR/gemma-4-26B-A4B-it-UD-Q4_K_M-00001-of-00004.gguf:

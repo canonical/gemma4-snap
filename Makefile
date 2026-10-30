@@ -8,6 +8,7 @@ ENGINE ?= cpu
 
 .PHONY: all help init init-submodules install-deps download-models \
 	download-model-e2b download-model-e4b download-model-12b download-model-26b-a4b download-model-e4b-ov \
+	download-mtp-e2b download-mtp-e4b download-mtp-12b download-mtp-26b-a4b \
 	build install upload smoke-test
 
 all: help
@@ -57,7 +58,29 @@ init-submodules:
 		git submodule update --init; \
 	fi
 
-download-models: download-model-e2b download-model-e4b download-model-12b download-model-26b-a4b download-model-e4b-ov
+download-models: download-model-e2b download-model-e4b download-model-12b download-model-26b-a4b download-model-e4b-ov download-mtp
+
+download-mtp: download-mtp-e2b download-mtp-e4b download-mtp-12b download-mtp-26b-a4b
+
+download-mtp-e2b:
+	@echo "Downloading Gemma 4 E2B MTP draft model weights..."
+	$(hf) download unsloth/gemma-4-E2B-it-qat-GGUF mtp-gemma-4-E2B-it.gguf \
+		--local-dir components/mtp-e2b-gguf/
+
+download-mtp-e4b:
+	@echo "Downloading Gemma 4 E4B MTP draft model weights..."
+	$(hf) download unsloth/gemma-4-E4B-it-qat-GGUF mtp-gemma-4-E4B-it.gguf \
+		--local-dir components/mtp-e4b-gguf/
+
+download-mtp-12b:
+	@echo "Downloading Gemma 4 12B MTP draft model weights..."
+	$(hf) download unsloth/gemma-4-12B-it-qat-GGUF mtp-gemma-4-12B-it.gguf \
+		--local-dir components/mtp-12b-gguf/
+
+download-mtp-26b-a4b:
+	@echo "Downloading Gemma 4 26B A4B MTP draft model weights..."
+	$(hf) download unsloth/gemma-4-26B-A4B-it-qat-GGUF mtp-gemma-4-26B-A4B-it.gguf \
+		--local-dir components/mtp-26b-a4b-gguf/
 
 download-model-e2b:
 	@echo "Downloading Gemma 4 E2B model weights..."
