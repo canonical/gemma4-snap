@@ -6,6 +6,17 @@ sleep_idle_seconds="$(modelctl get sleep-idle-seconds)"
 min_context_size="$(modelctl get min-context-size)"
 model_name=$("$SNAP_NAME" model --format=json | jq -r '.name')
 
+# Ensure an NVIDIA GPU is present before starting the CUDA-backed server.
+if command -v nvidia-smi >/dev/null 2>&1; then
+  if [ -z "$(nvidia-smi --query-gpu=uuid --format=csv,noheader 2>/dev/null)" ]; then
+    echo "Error: nvidia-smi reported no NVIDIA GPUs. Make sure the drivers are correctly installed." >&2
+    exit 1
+  fi
+else
+  echo "Error: nvidia-smi not found in the package." >&2
+  exit 1
+fi
+
 extra_args=()
 verbose="$(modelctl get verbose)"
 if [ "${verbose}" = "true" ]; then
