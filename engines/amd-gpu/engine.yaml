@@ -85,3 +85,7 @@ model:
 configurations:
   sleep-idle-seconds: 600
   min-context-size: 4096
+  mtp-enabled: false
+  spec-draft-n-max: 2
+  moe-cache-enabled: false
+  moe-cache-mib: 4096
