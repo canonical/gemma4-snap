@@ -260,8 +260,12 @@ parts:
       - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b10344/llamacpp-arm64.tar.gz
     stage-packages:
       - libgomp1
+    override-build: |
+      # Move license files to be included in the snap, not the component
+      mkdir -p $CRAFT_PRIME/usr/share/doc/
+      mv licenses $CRAFT_PRIME/usr/share/doc/llama.cpp
+      craftctl default
     organize:
-      "licenses": usr/share/doc/llama.cpp # Add licenses to the snap
       "*": (component/llamacpp)
 
   llamacpp-cuda:
@@ -271,8 +275,12 @@ parts:
       - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b10344/llamacpp-arm64+cuda12.9.tar.gz
     stage-packages:
       - libgomp1
+    override-build: |
+      # Move license files to be included in the snap, not the component
+      mkdir -p $CRAFT_PRIME/usr/share/doc/
+      mv licenses $CRAFT_PRIME/usr/share/doc/llama.cpp+cuda
+      craftctl default
     organize:
-      "licenses": usr/share/doc/llama.cpp+cuda # Add licenses to the snap
       "*": (component/llamacpp-cuda)
 
   llamacpp-rocm:
@@ -282,12 +290,17 @@ parts:
       - libgomp1
       - libatomic1
     organize:
-      "licenses": usr/share/doc/llama.cpp+rocm # Add licenses to the snap
       "*": (component/llamacpp-rocm)
     # This part is only for amd64
     override-pull: &amd64-only |
       [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ] && craftctl default || exit 0
-    override-build: *amd64-only
+    override-build: |
+      if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
+        # Move license files to be included in the snap, not the component
+        mkdir -p $CRAFT_PRIME/usr/share/doc/
+        mv licenses $CRAFT_PRIME/usr/share/doc/llama.cpp+rocm
+        craftctl default
+      fi
     override-stage: *amd64-only
     override-prime: *amd64-only
 
@@ -298,11 +311,16 @@ parts:
       - libgomp1
       - libatomic1
     organize:
-      "licenses": usr/share/doc/llama.cpp+onemkl # Add licenses to the snap
       "*": (component/llamacpp-onemkl)
     # This part is only for amd64
     override-pull: *amd64-only
-    override-build: *amd64-only
+    override-build: |
+      if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
+        # Move license files to be included in the snap, not the component
+        mkdir -p $CRAFT_PRIME/usr/share/doc/
+        mv licenses $CRAFT_PRIME/usr/share/doc/llama.cpp+onemkl
+        craftctl default
+      fi
     override-stage: *amd64-only
     override-prime: *amd64-only
 
@@ -333,8 +351,8 @@ parts:
       - -DCMAKE_CXX_COMPILER=g++-14
     override-build: |
       craftctl default
-      mkdir -p "$CRAFT_PART_INSTALL/usr/share/doc/llama.cpp+vulkan"
-      cp -laf "$CRAFT_PART_SRC/LICENSE" "$CRAFT_PART_INSTALL/usr/share/doc/llama.cpp+vulkan/LICENSE"
+      mkdir -p "$CRAFT_PRIME/usr/share/doc/llama.cpp+vulkan"
+      cp -laf "$CRAFT_PART_SRC/LICENSE" "$CRAFT_PRIME/usr/share/doc/llama.cpp+vulkan/LICENSE"
     organize:
       "*": (component/llamacpp-vulkan)
     prime:
@@ -348,11 +366,18 @@ parts:
       - libcurl4
     organize:
       # move everything, including the staged packages
-      "LICENSE": usr/share/doc/openvino-model-server
       "*": (component/openvino-model-server)
     # This part is only for amd64
     override-pull: *amd64-only
-    override-build: *amd64-only
+    override-build: |
+      if [ "$CRAFT_ARCH_BUILD_FOR" == "amd64" ]; then
+        # Move license files to be included in the snap, not the component
+        license_dir=$CRAFT_PRIME/usr/share/doc/openvino-model-server
+        mkdir -p $license_dir
+        mv LICENSE $license_dir/
+        mv thirdparty-licenses $license_dir/
+        craftctl default
+      fi
     override-stage: *amd64-only
     override-prime: *amd64-only
 
