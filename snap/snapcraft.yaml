@@ -248,6 +248,10 @@ parts:
       "mmproj-26b-bf16-gguf/*": (component/mmproj-26b-bf16-gguf)
       "model-e4b-it-int4-ov-1-of-2/*": (component/model-e4b-it-int4-ov-1-of-2)
       "model-e4b-it-int4-ov-2-of-2/*": (component/model-e4b-it-int4-ov-2-of-2)
+      "mtp-e2b-gguf/*": (component/mtp-e2b-gguf)
+      "mtp-e4b-gguf/*": (component/mtp-e4b-gguf)
+      "mtp-12b-gguf/*": (component/mtp-12b-gguf)
+      "mtp-26b-a4b-gguf/*": (component/mtp-26b-a4b-gguf)
 
     prime:
       # Exclude everything not explicitly organized
@@ -256,8 +260,8 @@ parts:
   llamacpp:
     plugin: dump
     source:
-      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b10344/llamacpp-amd64.tar.gz
-      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b10344/llamacpp-arm64.tar.gz
+      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/v0.7.0/llamacpp-amd64.tar.gz
+      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/v0.7.0/llamacpp-arm64.tar.gz
     stage-packages:
       - libgomp1
     organize:
@@ -267,8 +271,8 @@ parts:
   llamacpp-cuda:
     plugin: dump
     source:
-      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/b10344/llamacpp-amd64+cuda12.9.tar.gz
-      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/b10344/llamacpp-arm64+cuda12.9.tar.gz
+      - on amd64: https://github.com/canonical/llama.cpp-builds/releases/download/v0.7.0/llamacpp-amd64+cuda12.9.tar.gz
+      - on arm64: https://github.com/canonical/llama.cpp-builds/releases/download/v0.7.0/llamacpp-arm64+cuda12.9.tar.gz
     stage-packages:
       - libgomp1
     organize:
@@ -277,7 +281,7 @@ parts:
 
   llamacpp-rocm:
     plugin: dump
-    source: https://github.com/canonical/llama.cpp-builds/releases/download/b10344/llamacpp-amd64+rocm.tar.gz
+    source: https://github.com/canonical/llama.cpp-builds/releases/download/v0.7.0/llamacpp-amd64+rocm.tar.gz
     stage-packages:
       - libgomp1
       - libatomic1
@@ -293,7 +297,7 @@ parts:
 
   llamacpp-onemkl:
     plugin: dump
-    source: https://github.com/canonical/llama.cpp-builds/releases/download/b10344/llamacpp-amd64+onemkl.tar.gz
+    source: https://github.com/canonical/llama.cpp-builds/releases/download/v0.7.0/llamacpp-amd64+onemkl.tar.gz
     stage-packages:
       - libgomp1
       - libatomic1
@@ -309,7 +313,7 @@ parts:
   llamacpp-vulkan:
     plugin: cmake
     source: https://github.com/ggml-org/llama.cpp.git
-    source-tag: v0.5.0
+    source-tag: v0.7.0
     build-packages:
       - libvulkan-dev
       - glslc
@@ -474,6 +478,26 @@ components:
     type: standard
     summary: Google Gemma 4 26B A4B multimodal projector BF16 GGUF
     description: Multimodal projector weights for Google Gemma 4 26B A4B vision support in GGUF format
+
+  mtp-e2b-gguf:
+    type: standard
+    summary: Google Gemma 4 E2B MTP draft model GGUF
+    description: Multi-Token Prediction draft model weights for speculative decoding with Google Gemma 4 E2B in GGUF format
+
+  mtp-e4b-gguf:
+    type: standard
+    summary: Google Gemma 4 E4B MTP draft model GGUF
+    description: Multi-Token Prediction draft model weights for speculative decoding with Google Gemma 4 E4B in GGUF format
+
+  mtp-12b-gguf:
+    type: standard
+    summary: Google Gemma 4 12B MTP draft model GGUF
+    description: Multi-Token Prediction draft model weights for speculative decoding with Google Gemma 4 12B in GGUF format
+
+  mtp-26b-a4b-gguf:
+    type: standard
+    summary: Google Gemma 4 26B A4B MTP draft model GGUF
+    description: Multi-Token Prediction draft model weights for speculative decoding with Google Gemma 4 26B A4B in GGUF format
 
   llamacpp:
     type: standard
