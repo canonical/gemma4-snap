@@ -19,5 +19,3 @@ components:
 environment:
   - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-e4b-qat-bf16-gguf/mmproj-BF16.gguf
   - MODEL_FILE=$SNAP_COMPONENTS/model-e4b-qat-q4-k-xl-gguf/gemma-4-E4B-it-qat-UD-Q4_K_XL.gguf
-  - MODEL_NAME=gemma4-e4b-qat-q4-k-xl
-
