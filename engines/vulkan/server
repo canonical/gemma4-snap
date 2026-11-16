@@ -22,12 +22,12 @@ if [ "${mtp_enabled}" = "true" ]; then
 fi
 
 moe_args=()
-moe_cache_enabled="$(modelctl get moe-cache-enabled)"
-if [ "${moe_cache_enabled}" = "true" ]; then
+moe_cache_mib="$(modelctl get moe-cache-mib)"
+if [[ "${moe_cache_mib}" =~ ^[0-9]+$ ]] && [ "${moe_cache_mib}" -gt 0 ]; then
   if [ "${model_name}" = "gemma4-26b-a4b" ]; then
-    moe_args=(-cmoe --moe-cache-mib "$(modelctl get moe-cache-mib)")
+    moe_args=(-cmoe --moe-cache-mib "${moe_cache_mib}")
   else
-    echo "MoE cache is enabled but $model_name is not a MoE model. Option ignored." >&2
+    echo "MoE cache requested but $model_name is not a MoE model. Option ignored." >&2
   fi
 fi
 
