@@ -350,9 +350,12 @@ parts:
       - -DCMAKE_C_COMPILER=gcc-14 
       - -DCMAKE_CXX_COMPILER=g++-14
     override-build: |
+      # Move license files to be included in the snap, not the component
+      mkdir -p $CRAFT_PRIME/usr/share/doc/llama.cpp+vulkan
+      mv $CRAFT_PART_SRC/LICENSE $CRAFT_PRIME/usr/share/doc/llama.cpp+vulkan/
+      mv $CRAFT_PART_SRC/licenses/* $CRAFT_PRIME/usr/share/doc/llama.cpp+vulkan/
+
       craftctl default
-      mkdir -p "$CRAFT_PRIME/usr/share/doc/llama.cpp+vulkan"
-      cp -laf "$CRAFT_PART_SRC/LICENSE" "$CRAFT_PRIME/usr/share/doc/llama.cpp+vulkan/LICENSE"
     organize:
       "*": (component/llamacpp-vulkan)
     prime:
