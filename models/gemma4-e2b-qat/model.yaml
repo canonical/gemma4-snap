@@ -19,3 +19,5 @@ components:
 environment:
   - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-e2b-qat-bf16-gguf/mmproj-BF16.gguf
   - MODEL_FILE=$SNAP_COMPONENTS/model-e2b-qat-q4-k-xl-gguf/gemma-4-E2B-it-qat-UD-Q4_K_XL.gguf
+  # Optional MTP draft model, provided by the optional mtp-e2b-gguf component
+  - MTP_FILE=$SNAP_COMPONENTS/mtp-e2b-gguf/mtp-gemma-4-E2B-it.gguf
