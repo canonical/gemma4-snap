@@ -30,8 +30,14 @@ fi
 moe_args=()
 moe_cache_mib="$(modelctl get moe-cache-mib)"
 if [[ "${moe_cache_mib}" =~ ^[0-9]+$ ]] && [ "${moe_cache_mib}" -gt 0 ]; then
-  if [ "${model_name}" = "gemma4-26b-a4b" ]; then
+  if [ "${model_name}" = "gemma4-26b-a4b" ] || [ "${model_name}" = "gemma4-26b-a4b-qat" ]; then
     moe_args=(-cmoe --moe-cache-mib "${moe_cache_mib}")
+    moe_cache_cpu_share="$(modelctl get moe-cache-cpu-share)"
+    if [[ "${moe_cache_cpu_share}" =~ ^(0|1|0?\.[0-9]+|1\.0+)$ ]]; then
+      moe_args+=(--moe-cache-cpu-share "${moe_cache_cpu_share}")
+    else
+      echo "Invalid moe-cache-cpu-share value '${moe_cache_cpu_share}' (expected float in [0,1]). Option ignored." >&2
+    fi
   else
     echo "MoE cache requested but $model_name is not a MoE model. Option ignored." >&2
   fi

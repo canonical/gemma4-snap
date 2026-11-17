@@ -38,3 +38,4 @@ configurations:
   mtp-enabled: true
   spec-draft-n-max: 2
   moe-cache-mib: 0
+  moe-cache-cpu-share: 0.95
