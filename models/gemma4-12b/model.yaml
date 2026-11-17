@@ -4,7 +4,7 @@ description: Gemma 4 12B, a multimodal (text + vision) instruction-tuned model
 model-card-url: https://huggingface.co/unsloth/gemma-4-12b-it-GGUF
 quantization: Q4_K_M
 
-disk-size: 6959M
+disk-size: 7201M
 
 capabilities:
   - text
@@ -16,12 +16,13 @@ components:
   - mmproj-12b-bf16-gguf
   - model-12b-q4-k-m-1-of-2
   - model-12b-q4-k-m-2-of-2
+  - mtp-12b-gguf
 
 environment:
   - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-12b-bf16-gguf/mmproj-BF16.gguf
   - SHARDS_DIR=/tmp/model-12b-it-q4-k-m-shards
   - MODEL_FILE=$SHARDS_DIR/gemma-4-12b-it-Q4_K_M-00001-of-00002.gguf
-  # Optional MTP draft model, provided by the optional mtp-12b-gguf component
+  # MTP draft model, installed automatically as the mtp-12b-gguf component dependency
   - MTP_FILE=$SNAP_COMPONENTS/mtp-12b-gguf/mtp-gemma-4-12B-it.gguf
 
 layout:

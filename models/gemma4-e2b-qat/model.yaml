@@ -4,7 +4,7 @@ description: Gemma 4 E2B QAT, a quantization-aware trained multimodal (text + vi
 model-card-url: https://huggingface.co/unsloth/gemma-4-E2B-it-qat-GGUF
 quantization: Q4_K_XL
 
-disk-size: 3440M
+disk-size: 3497M
 
 capabilities:
   - text
@@ -15,9 +15,10 @@ capabilities:
 components:
   - model-e2b-qat-q4-k-xl-gguf
   - mmproj-e2b-qat-bf16-gguf
+  - mtp-e2b-gguf
 
 environment:
   - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-e2b-qat-bf16-gguf/mmproj-BF16.gguf
   - MODEL_FILE=$SNAP_COMPONENTS/model-e2b-qat-q4-k-xl-gguf/gemma-4-E2B-it-qat-UD-Q4_K_XL.gguf
-  # Optional MTP draft model, provided by the optional mtp-e2b-gguf component
+  # MTP draft model, installed automatically as the mtp-e2b-gguf component dependency
   - MTP_FILE=$SNAP_COMPONENTS/mtp-e2b-gguf/mtp-gemma-4-E2B-it.gguf
