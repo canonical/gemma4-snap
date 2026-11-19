@@ -15,7 +15,7 @@ mtp_args=()
 mtp_enabled="$(modelctl get mtp-enabled)"
 if [ "${mtp_enabled}" = "true" ]; then
   if [ ! -f "${MTP_FILE:-}" ]; then
-    echo "MTP is enabled but $MTP_FILE is missing. Starting without MTP. Install the MTP component for this model to enable it." >&2
+    echo "MTP is enabled but ${MTP_FILE:-<unset>} is missing. Starting without MTP. Install the MTP component for this model to enable it." >&2
   else
     mtp_args=(-md "$MTP_FILE" --spec-type draft-mtp --spec-draft-n-max "$(modelctl get spec-draft-n-max)")
   fi
