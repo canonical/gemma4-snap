@@ -89,3 +89,7 @@ model:
 configurations:
   sleep-idle-seconds: 600
   min-context-size: 4096
+  mtp-enabled: true
+  spec-draft-n-max: 2
+  moe-cache-mib: 0
+  moe-cache-cpu-share: 0.95
