@@ -12,6 +12,8 @@ ENGINE ?= cpu
 	download-model-12b download-model-12b-qat \
 	download-model-26b-a4b download-model-26b-a4b-qat \
 	download-model-e4b-ov \
+	download-model-e2b-mtp-draft download-model-e4b-mtp-draft \
+	download-model-12b-mtp-draft download-model-26b-a4b-mtp-draft \
 	build install upload smoke-test
 
 all: help
@@ -61,7 +63,11 @@ init-submodules:
 		git submodule update --init; \
 	fi
 
-download-models: download-model-e2b download-model-e2b-qat download-model-e4b download-model-e4b-qat download-model-12b download-model-12b-qat download-model-26b-a4b download-model-26b-a4b-qat download-model-e4b-ov
+download-models: download-model-e2b download-model-e2b-qat download-model-e2b-mtp-draft \
+    download-model-e4b download-model-e4b-qat download-model-e4b-mtp-draft \
+    download-model-12b download-model-12b-qat download-model-12b-mtp-draft \
+    download-model-26b-a4b download-model-26b-a4b-qat download-model-26b-a4b-mtp-draft \
+    download-model-e4b-ov
 
 download-model-e2b:
 	@echo "Downloading Gemma 4 E2B model weights..."
@@ -126,3 +132,23 @@ download-model-e4b-ov:
 		--local-dir components/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov
 	@echo "OVMS writes graph.pbtxt at runtime; pointing it to /tmp because component files are read-only..."
 	ln -sf /tmp/graph.pbtxt ./components/model-e4b-it-int4-ov/gemma4-e4b-it-int4-ov/graph.pbtxt
+
+download-model-e2b-mtp-draft:
+	@echo "Downloading Gemma 4 E2B MTP draft model weights..."
+	$(hf) download unsloth/gemma-4-E2B-it-qat-GGUF mtp-gemma-4-E2B-it.gguf \
+		--local-dir components/mtp-e2b-gguf/
+
+download-model-e4b-mtp-draft:
+	@echo "Downloading Gemma 4 E4B MTP draft model weights..."
+	$(hf) download unsloth/gemma-4-E4B-it-qat-GGUF mtp-gemma-4-E4B-it.gguf \
+		--local-dir components/mtp-e4b-gguf/
+
+download-model-12b-mtp-draft:
+	@echo "Downloading Gemma 4 12B MTP draft model weights..."
+	$(hf) download unsloth/gemma-4-12B-it-qat-GGUF mtp-gemma-4-12B-it.gguf \
+		--local-dir components/mtp-12b-gguf/
+
+download-model-26b-a4b-mtp-draft:
+	@echo "Downloading Gemma 4 26B A4B MTP draft model weights..."
+	$(hf) download unsloth/gemma-4-26B-A4B-it-qat-GGUF mtp-gemma-4-26B-A4B-it.gguf \
+		--local-dir components/mtp-26b-a4b-gguf/
