@@ -4,7 +4,7 @@ description: Gemma 4 E4B, a multimodal (text + vision) instruction-tuned model
 model-card-url: https://huggingface.co/unsloth/gemma-4-E4B-it-GGUF
 quantization: Q4_K_M
 
-disk-size: 5089M
+disk-size: 5146M
 
 capabilities:
   - text
@@ -15,7 +15,10 @@ capabilities:
 components:
   - model-e4b-q4-k-m-gguf
   - mmproj-e4b-bf16-gguf
+  - mtp-e4b-gguf
 
 environment:
   - MMPROJ_FILE=$SNAP_COMPONENTS/mmproj-e4b-bf16-gguf/mmproj-BF16.gguf
   - MODEL_FILE=$SNAP_COMPONENTS/model-e4b-q4-k-m-gguf/gemma-4-E4B-it-Q4_K_M.gguf
+  # MTP draft model, installed automatically as the mtp-e4b-gguf component dependency
+  - MTP_FILE=$SNAP_COMPONENTS/mtp-e4b-gguf/mtp-gemma-4-E4B-it.gguf
