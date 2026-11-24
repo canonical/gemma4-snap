@@ -43,6 +43,17 @@ if [[ "${moe_cache_mib}" =~ ^[0-9]+$ ]] && [ "${moe_cache_mib}" -gt 0 ]; then
   fi
 fi
 
+if ! devices="$(llama-server --list-devices 2>&1)"; then
+  printf '%s\n' "$devices" >&2
+  echo "Failed to query CUDA devices." >&2
+  exit 1
+fi
+if ! grep -qE '^[[:space:]]*CUDA[0-9]+:' <<< "$devices"; then
+  printf '%s\n' "$devices" >&2
+  echo "No CUDA device found." >&2
+  exit 1
+fi
+
 set -x
 # Adding --no-warmup to skip the model warmup phase during server startup in order to reduce resource usage if not needed.
 exec llama-server \
