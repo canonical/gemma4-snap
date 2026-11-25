@@ -71,6 +71,7 @@ jobs:
             "provision-data": "distro: noble",
             "select-engine": "amd-gpu",
             "test-chat-tps": true,
+            "expected-tps": 10,
             "test-image-prompt": true
           }
         ]
