@@ -67,8 +67,8 @@ jobs:
             "test-image-prompt": true
           },
           {
-            "job-queue": "202604-38596",
-            "provision-data": "distro: desktop-26-04-uefi",
+            "job-queue": "inference-snaps-amd-testing",
+            "provision-data": "distro: noble",
             "select-engine": "amd-gpu",
             "test-chat-tps": true,
             "test-image-prompt": true
