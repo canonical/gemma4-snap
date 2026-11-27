@@ -9,7 +9,6 @@ description: |
   - gfx1012
   - gfx1030
   - gfx1031
-  - gfx1032
   - gfx1100
   - gfx1101
   - gfx1102
@@ -41,9 +40,6 @@ devices:
     - type: gpu
       vendor-id: 0x1002
       microarchitecture: gfx1031
-    - type: gpu
-      vendor-id: 0x1002
-      microarchitecture: gfx1032
     - type: gpu
       vendor-id: 0x1002
       microarchitecture: gfx1100
